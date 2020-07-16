@@ -1,7 +1,7 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="description.txt">
+  <MonoDevelop.Ide.Workbench ActiveDocument="build.txt">
     <Files>
-      <File FileName="build.txt" Line="4" Column="38" />
+      <File FileName="build.txt" Line="3" Column="16" />
       <File FileName="description.txt" Line="1" Column="1" />
     </Files>
     <Pads>
@@ -17,7 +17,6 @@
               </Node>
               <Node name="Prefixes" expanded="True" />
               <Node name="Projectiles" expanded="True" />
-              <Node name="description.txt" selected="True" />
             </Node>
           </Node>
         </State>
