@@ -1,0 +1,114 @@
+using System;
+using System.Collections.Generic;
+using ChemistryClass.UI;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ModLoader;
+using Terraria.UI;
+
+namespace ChemistryClass
+{
+	public class ChemistryClass : Mod
+	{
+
+        private static ulong? _unpausedUpdateCount;
+        public static ulong UnpausedUpdateCount
+            => _unpausedUpdateCount.Value;
+
+		internal RefinementMenu refinementMenu;
+		private UserInterface _refinementMenu;
+
+        //Beaker id
+        public static int BeakerTileID
+            => ModContent.TileType<Tiles.BeakerTile>();
+
+        //Load information
+        public override void Load() {
+
+            if (!Main.dedServ) {
+
+                refinementMenu = new RefinementMenu {
+                    HAlign = 0.5f,
+                    Top = 24f.styleDimen(),
+                    Width = (Main.screenWidth / 7f).styleDimen(),
+                    Height = 100f.styleDimen()
+                };
+                refinementMenu.Activate();
+
+                _refinementMenu = new UserInterface();
+                _refinementMenu.SetState(refinementMenu);
+
+            }
+
+            _unpausedUpdateCount = 0;
+
+        }
+
+        //Unload information
+        public override void Unload() {
+
+            _refinementMenu.SetState(null);
+
+            refinementMenu = null;
+            _refinementMenu = null;
+
+            _unpausedUpdateCount = null;
+
+        }
+
+        //Add UI Layer
+        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) {
+
+            int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
+
+            if (mouseTextIndex != -1) {
+
+                layers.Insert(
+
+                    mouseTextIndex,
+
+                    new LegacyGameInterfaceLayer(
+                        "ChemistryClass: Refinement Menu",
+                            delegate {
+                                _refinementMenu.Draw(Main.spriteBatch, new GameTime());
+                                return true;
+                            },
+                        InterfaceScaleType.UI
+                    )
+
+                );
+            }
+
+        }
+
+        //Update UI layers
+        public override void UpdateUI(GameTime gameTime) {
+
+            if( Main.playerInventory && _refinementMenu.CurrentState == null ) {
+
+                _refinementMenu.SetState(refinementMenu);
+
+            } else if ( !Main.playerInventory && _refinementMenu.CurrentState is RefinementMenu ) {
+
+                _refinementMenu.SetState(null);
+
+            }
+
+            _refinementMenu?.Update(gameTime);
+
+        }
+
+        //Update unpaused count
+        public override void PostUpdateEverything() {
+
+            if (!Main.gamePaused) _unpausedUpdateCount++;
+
+            if (_unpausedUpdateCount == ulong.MaxValue)
+                _unpausedUpdateCount = 0;
+
+            base.PostUpdateEverything();
+
+        }
+
+    }
+}
