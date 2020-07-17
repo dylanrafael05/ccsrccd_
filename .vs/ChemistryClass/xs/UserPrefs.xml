@@ -1,8 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="build.txt">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Projectiles/FrozenHurlerProjectile.cs">
     <Files>
-      <File FileName="build.txt" Line="3" Column="16" />
-      <File FileName="description.txt" Line="1" Column="1" />
+      <File FileName="build.txt" Line="4" Column="38" />
+      <File FileName="description.txt" />
+      <File FileName="Projectiles/SapinatorProjectile.cs" Line="31" Column="35" />
+      <File FileName="Items/Weaponry/Earlygame/Sapinator.cs" Line="12" Column="62" />
+      <File FileName="Items/Weaponry/Earlygame/OvergrowthLauncher.cs" Line="19" Column="26" />
+      <File FileName="Projectiles/OvergrownLauncherProjectile.cs" Line="1" Column="1" />
+      <File FileName="Items/Weaponry/Earlygame/RustyKnife.cs" Line="1" Column="1" />
+      <File FileName="Items/Weaponry/Earlygame/FrozenHurler.cs" Line="41" Column="1" />
+      <File FileName="Projectiles/FrozenHurlerProjectile.cs" Line="17" Column="2" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -16,7 +23,9 @@
                 </Node>
               </Node>
               <Node name="Prefixes" expanded="True" />
-              <Node name="Projectiles" expanded="True" />
+              <Node name="Projectiles" expanded="True">
+                <Node name="FrozenHurlerProjectile.cs" selected="True" />
+              </Node>
             </Node>
           </Node>
         </State>

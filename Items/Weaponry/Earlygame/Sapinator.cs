@@ -9,7 +9,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
         public override void SetStaticDefaults() {
             
-            Tooltip.SetDefault("Chucks sappy acorns at enemies.");
+            Tooltip.SetDefault("Tosses chunks of wood at foes");
 
         }
 

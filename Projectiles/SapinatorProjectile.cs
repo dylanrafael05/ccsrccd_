@@ -21,6 +21,8 @@ namespace ChemistryClass.Projectiles {
 
         }
 
+        public virtual int DustType => DustID.Dirt;
+
         public override void SetDefaults() {
 
             projectile.hostile = false;
@@ -52,7 +54,7 @@ namespace ChemistryClass.Projectiles {
             if (DustTimer >= DustWaitTime) {
 
                 newDust();
-                DustWaitTime = Main.rand.Next(15, 31);
+                DustWaitTime = Main.rand.Next(20, 51);
                 DustTimer = 0;
 
             }
@@ -73,7 +75,7 @@ namespace ChemistryClass.Projectiles {
         private void newDust() {
 
             Dust.NewDust(projectile.Center,
-                             0, 0, DustID.Dirt,
+                             0, 0, DustType,
                              Main.rand.NextFloat(-1, 1),
                              Main.rand.NextFloat(-1, 1));
 

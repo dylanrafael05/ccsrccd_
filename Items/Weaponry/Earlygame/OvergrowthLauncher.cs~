@@ -1,0 +1,14 @@
+﻿using System;
+namespace ChemistryClass.Items.Weaponry.Earlygame {
+    public class OvergrowthLauncher : Sapinator {
+
+        public override void SafeSetDefaults() {
+
+            base.SafeSetDefaults();
+
+            item.damage = 11;
+
+        }
+
+    }
+}
