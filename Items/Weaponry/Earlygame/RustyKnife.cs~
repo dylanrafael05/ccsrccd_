@@ -8,19 +8,13 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
         public override void SetStaticDefaults() {
 
-            Tooltip.SetDefault(
-
-                "Infused with rust, a blade like this makes enemies' defenses drop\n" +
-                "Inflicts \"Rusted\", which drains enemy life slowly\n" +
-                $"and decreases their defense by {ChemistryClassGlobalNPC.rustedDef}"
-
-                );
+            Tooltip.SetDefault("A dull blade made useful by its rusted state.");
 
         }
 
         public override void SafeSetDefaults() {
 
-            item.damage = 13;
+            item.damage = 8;
             item.crit = 4;
             item.knockBack = 2;
 
@@ -31,7 +25,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
             item.useAnimation = 15;
             item.UseSound = SoundID.Item1;
             item.useStyle = ItemUseStyleID.SwingThrow;
-            item.autoReuse = false;
+            item.autoReuse = true;
 
             item.rare = 1;
             item.value = Item.buyPrice(0, 0, 10, 0);
@@ -40,7 +34,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
             SetRefinementData(
 
-                (ModContent.ItemType<Materials.RustedPowder>(), 1 / 15f)
+                (ModContent.ItemType<Items.Materials.RustedPowder>(), 0.05f)
 
                 );
 
@@ -52,8 +46,8 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
                             ChemistryClass.BeakerTileID,
                             1,
-                            (ModContent.ItemType<Materials.RustedPowder>(), 10),
-                            (ItemID.SilverBar, 6)
+                            (ItemID.IronBar, 10),
+                            (ItemID.IronOre, 6)
 
             );
 
@@ -61,16 +55,10 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
                             ChemistryClass.BeakerTileID,
                             1,
-                            (ModContent.ItemType<Materials.RustedPowder>(), 10),
-                            (ItemID.TungstenBar, 6)
+                            (ItemID.LeadBar, 10),
+                            (ItemID.LeadOre, 6)
 
             );
-
-        }
-
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit) {
-
-            target.AddBuff(ModContent.BuffType<Buffs.Debuffs.Rusted>(), 120);
 
         }
 

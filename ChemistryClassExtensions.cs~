@@ -71,21 +71,16 @@ namespace ChemistryClass {
 
         }
 
-        public static Color MixRGB(this Color one, Color two, float f1 = 1f, float f2 = 1f) {
+        public static Color MixRGB(this Color one, Color two) {
 
-            double r = Math.Sqrt((one.R * one.R * f1 + two.R * two.R * f2) / (f1 + f2));
-            double g = Math.Sqrt((one.G * one.G * f1 + two.G * two.G * f2) / (f1 + f2));
-            double b = Math.Sqrt((one.B * one.B * f1 + two.B * two.B * f2) / (f1 + f2));
+            double r = Math.Sqrt((one.R ^ 2 + two.R ^ 2) / 2);
+            double g = Math.Sqrt((one.G ^ 2 + two.G ^ 2) / 2);
+            double b = Math.Sqrt((one.B ^ 2 + two.B ^ 2) / 2);
 
-            return new Color((int)r, (int)g, (int)b, 0);
+            return new Color((byte)r, (byte)g, (byte)b);
 
         }
 
-        public static Color MatchAlpha(this Color one, Color two)
-            => new Color(one.R, one.G, one.B, two.A);
-
-        public static Color WithAlpha(this Color one, float a)
-            => new Color(one.R, one.G, one.B, a);
 
     }
 }

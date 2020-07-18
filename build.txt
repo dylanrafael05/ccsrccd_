@@ -1,4 +1,4 @@
-displayName = The Chemistry Mod (github hotfix)
+displayName = The Chemistry Mod (minor upgrade to weapons)
 author = FlooferPlusPlus
-version = 0.2.1
+version = 0.2.2
 homepage = https://discord.gg/vY2gKRf

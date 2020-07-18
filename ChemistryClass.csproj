@@ -22,5 +22,8 @@
     <Folder Include="Projectiles\" />
     <Folder Include="Tiles\" />
     <Folder Include="UI\" />
+    <Folder Include="Items\Materials\" />
+    <Folder Include="Buffs\" />
+    <Folder Include="Buffs\Debuffs\" />
   </ItemGroup>
 </Project>

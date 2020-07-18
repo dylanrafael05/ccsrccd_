@@ -1,22 +1,38 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="build.txt">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ChemistryClassExtensions.cs">
     <Files>
-      <File FileName="build.txt" Line="4" Column="24" />
+      <File FileName="build.txt" Line="3" Column="16" />
       <File FileName="description.txt" />
-      <File FileName="Projectiles/SapinatorProjectile.cs" Line="78" Column="37" />
-      <File FileName="Items/Weaponry/Earlygame/Sapinator.cs" Line="12" Column="62" />
-      <File FileName="Items/Weaponry/Earlygame/OvergrowthLauncher.cs" Line="27" Column="1" />
-      <File FileName="Projectiles/OvergrownLauncherProjectile.cs" Line="12" Column="49" />
-      <File FileName="Items/Weaponry/Earlygame/RustyKnife.cs" Line="1" Column="1" />
-      <File FileName="Items/Weaponry/Earlygame/FrozenHurler.cs" Line="22" Column="13" />
-      <File FileName="Projectiles/FrozenHurlerProjectile.cs" Line="12" Column="49" />
+      <File FileName="Projectiles/SapinatorProjectile.cs" />
+      <File FileName="Items/Weaponry/Earlygame/Sapinator.cs" Line="1" Column="1" />
+      <File FileName="Items/Weaponry/Earlygame/OvergrowthLauncher.cs" Line="22" Column="34" />
+      <File FileName="Items/Weaponry/Earlygame/RustyKnife.cs" Line="67" Column="78" />
+      <File FileName="Items/Weaponry/Earlygame/FrozenHurler.cs" Line="20" Column="34" />
+      <File FileName="Projectiles/FrozenHurlerProjectile.cs" />
+      <File FileName="Items/Placeable/MetallurgyStand.cs" />
+      <File FileName="Items/Placeable/Beaker.cs" />
+      <File FileName="Items/Placeable/Beaker.png" />
+      <File FileName="Tiles/MetallurgyStandTile.cs" Line="79" Column="1" />
+      <File FileName="Tiles/BeakerTile.cs" />
+      <File FileName="Tiles/MetallurgyStandTile.png" />
+      <File FileName="ChemistryClass.cs" />
+      <File FileName="Items/Materials/RustedPowder.cs" Line="40" Column="1" />
+      <File FileName="Buffs/Debuffs/Rusted.cs" Line="23" Column="1" />
+      <File FileName="ChemistryClassGlobalNPC.cs" Line="54" Column="1" />
+      <File FileName="Items/Weaponry/Earlygame/RustyKnife.cs~" Line="1" Column="1" />
+      <File FileName="ChemistryClassExtensions.cs" Line="87" Column="6" />
+      <File FileName="ChemistryClassExtensions.cs~" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ChemistryClass" expanded="True">
             <Node name="ChemistryClass" expanded="True">
+              <Node name="Buffs" expanded="True">
+                <Node name="Debuffs" expanded="True" />
+              </Node>
               <Node name="Items" expanded="True">
+                <Node name="Materials" expanded="True" />
                 <Node name="Placeable" expanded="True" />
                 <Node name="Weaponry" expanded="True">
                   <Node name="Earlygame" expanded="True" />
@@ -24,7 +40,8 @@
               </Node>
               <Node name="Prefixes" expanded="True" />
               <Node name="Projectiles" expanded="True" />
-              <Node name="build.txt" selected="True" />
+              <Node name="Tiles" expanded="True" />
+              <Node name="ChemistryClassExtensions.cs" selected="True" />
             </Node>
           </Node>
         </State>

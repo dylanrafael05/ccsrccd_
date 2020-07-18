@@ -18,8 +18,6 @@ namespace ChemistryClass
 		internal RefinementMenu refinementMenu;
 		private UserInterface _refinementMenu;
 
-        public static bool TimeIsMultOf(int m) => UnpausedUpdateCount % (ulong)m == 0;
-
         //Beaker id
         public static int BeakerTileID
             => ModContent.TileType<Tiles.BeakerTile>();

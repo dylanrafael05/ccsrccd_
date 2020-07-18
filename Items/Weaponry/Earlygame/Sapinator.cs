@@ -15,7 +15,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
         public override void SafeSetDefaults() {
 
-            item.damage = 7;
+            item.damage = 11;
             item.crit = 4;
             item.knockBack = 1;
             item.useTime = 30;

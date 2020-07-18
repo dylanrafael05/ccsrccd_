@@ -19,7 +19,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
             item.shoot = ModContent.ProjectileType<Projectiles.FrozenHurlerProjectile>();
             item.shootSpeed += 2;
 
-            minutesToDecay *= 1.5f;
+            minutesToDecay *= 1.1f;
 
         }
 
