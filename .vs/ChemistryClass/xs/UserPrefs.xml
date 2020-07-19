@@ -1,27 +1,45 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="ChemistryClassExtensions.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ChemistryClassGlobalItem.cs">
     <Files>
-      <File FileName="build.txt" Line="3" Column="16" />
+      <File FileName="build.txt" Line="1" Column="58" />
       <File FileName="description.txt" />
       <File FileName="Projectiles/SapinatorProjectile.cs" />
-      <File FileName="Items/Weaponry/Earlygame/Sapinator.cs" Line="1" Column="1" />
-      <File FileName="Items/Weaponry/Earlygame/OvergrowthLauncher.cs" Line="22" Column="34" />
-      <File FileName="Items/Weaponry/Earlygame/RustyKnife.cs" Line="67" Column="78" />
-      <File FileName="Items/Weaponry/Earlygame/FrozenHurler.cs" Line="20" Column="34" />
+      <File FileName="Items/Weaponry/Earlygame/Sapinator.cs" />
+      <File FileName="Items/Weaponry/Earlygame/OvergrowthLauncher.cs" />
+      <File FileName="Items/Weaponry/Earlygame/RustyKnife.cs" />
+      <File FileName="Items/Weaponry/Earlygame/FrozenHurler.cs" />
       <File FileName="Projectiles/FrozenHurlerProjectile.cs" />
       <File FileName="Items/Placeable/MetallurgyStand.cs" />
       <File FileName="Items/Placeable/Beaker.cs" />
       <File FileName="Items/Placeable/Beaker.png" />
-      <File FileName="Tiles/MetallurgyStandTile.cs" Line="79" Column="1" />
+      <File FileName="Tiles/MetallurgyStandTile.cs" />
       <File FileName="Tiles/BeakerTile.cs" />
       <File FileName="Tiles/MetallurgyStandTile.png" />
       <File FileName="ChemistryClass.cs" />
-      <File FileName="Items/Materials/RustedPowder.cs" Line="40" Column="1" />
-      <File FileName="Buffs/Debuffs/Rusted.cs" Line="23" Column="1" />
-      <File FileName="ChemistryClassGlobalNPC.cs" Line="54" Column="1" />
-      <File FileName="Items/Weaponry/Earlygame/RustyKnife.cs~" Line="1" Column="1" />
-      <File FileName="ChemistryClassExtensions.cs" Line="87" Column="6" />
-      <File FileName="ChemistryClassExtensions.cs~" Line="1" Column="1" />
+      <File FileName="Items/Materials/RustedPowder.cs" Line="44" Column="2" />
+      <File FileName="Buffs/Debuffs/Rusted.cs" />
+      <File FileName="ChemistryClassGlobalNPC.cs" Line="85" Column="8" />
+      <File FileName="Items/Weaponry/Earlygame/RustyKnife.cs~" />
+      <File FileName="ChemistryClassExtensions.cs" />
+      <File FileName="ChemistryClassExtensions.cs~" />
+      <File FileName="Items/Weaponry/Earlygame/PristinePrism.cs" />
+      <File FileName="Projectiles/PristinePrismBeam.cs" />
+      <File FileName="Projectiles/PristinePrismHoldout.cs" />
+      <File FileName="Projectiles/PristinePrismBeam.cs~" />
+      <File FileName="ChemistryClassPlayer.cs" />
+      <File FileName="ChemistryClassItem.cs" />
+      <File FileName="Projectiles/PristinePrismBeam.png" />
+      <File FileName="Projectiles/PristinePrismHoldout.cs~" />
+      <File FileName="Items/Weaponry/Earlygame/OvergrowthLauncher.png" />
+      <File FileName="UI/UIItemSlot.cs" />
+      <File FileName="ChemistryClassItem.cs~" />
+      <File FileName="ModUtils/ModProjectilePlus.cs~" />
+      <File FileName="../../../../../../Desktop/Terraria Source Code (1.3.5.3)/Terraria 1.3.5.3 source code/Terraria/Item.cs" />
+      <File FileName="ModUtils/ModProjectilePlus.cs" />
+      <File FileName="ModUtils/UtilsGlobalItem.cs~" />
+      <File FileName="Dusts/PristineDust.cs" Line="7" Column="1" />
+      <File FileName="Items/Materials/PrismaticLens.cs" Line="11" Column="80" />
+      <File FileName="ChemistryClassGlobalItem.cs" Line="3" Column="55" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -31,6 +49,7 @@
               <Node name="Buffs" expanded="True">
                 <Node name="Debuffs" expanded="True" />
               </Node>
+              <Node name="Dusts" expanded="True" />
               <Node name="Items" expanded="True">
                 <Node name="Materials" expanded="True" />
                 <Node name="Placeable" expanded="True" />
@@ -41,7 +60,8 @@
               <Node name="Prefixes" expanded="True" />
               <Node name="Projectiles" expanded="True" />
               <Node name="Tiles" expanded="True" />
-              <Node name="ChemistryClassExtensions.cs" selected="True" />
+              <Node name="UI" expanded="True" />
+              <Node name="ChemistryClassGlobalItem.cs" selected="True" />
             </Node>
           </Node>
         </State>

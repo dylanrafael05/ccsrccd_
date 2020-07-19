@@ -5,7 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ChemistryClass.Projectiles {
-    public class SapinatorProjectile : ModProjectile {
+    public class SapinatorProjectile : ModUtils.ModProjectilePlus {
 
         public int DustTimer {
 
@@ -23,7 +23,7 @@ namespace ChemistryClass.Projectiles {
 
         public virtual int DustType => DustID.Dirt;
 
-        public override void SetDefaults() {
+        public override void SafeSetDefaults() {
 
             projectile.hostile = false;
             projectile.friendly = true;

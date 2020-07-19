@@ -17,6 +17,13 @@ namespace ChemistryClass {
 
         //public Color colorOnRusted;
 
+        public override void SetDefaults(NPC npc) {
+
+            npc.buffImmune[ModContent.BuffType<Buffs.Debuffs.Rusted>()] =
+                npc.buffImmune[BuffID.Poisoned] || npc.buffImmune[BuffID.Ichor];
+
+        }
+
         public override void ResetEffects(NPC npc) {
 
             if (rusted) {
@@ -72,6 +79,17 @@ namespace ChemistryClass {
 
                 if (damage < 1) damage = 1;
                 else damage += 1;
+
+            }
+
+        }
+
+        //EOC PRISMATIC DROP
+        public override void NPCLoot(NPC npc) {
+
+            if(npc.type == NPCID.EyeofCthulhu) {
+
+                Item.NewItem(npc.Hitbox, ModContent.ItemType<Items.Materials.PrismaticLens>(), Main.rand.Next(5, 10));
 
             }
 

@@ -324,6 +324,13 @@ namespace ChemistryClass {
         //Decay statistics
         private void ClampPurity() => purity = MathHelper.Clamp(purity, 0, 1);
 
+        public void RefreshStats() {
+
+            GetDecayStats(Main.LocalPlayer);
+            GetPrefixValues();
+
+        }
+
         private void GetDecayStats(Player player) {
 
             //get bases
@@ -368,22 +375,21 @@ namespace ChemistryClass {
 
         private float MappedPurity => MapPurity(minPurityMult, maxPurityMult);
 
-        public float PurityDamageMult => !Impure ? MappedPurity : impureMult;
-        public float PurityKnockbackMult => !Impure ? MappedPurity : impureMult;
-        public float PurityCritMult => !Impure ? MappedPurity : impureMult;
+        public virtual float PurityDamageMult => !Impure ? MappedPurity : impureMult;
+        public virtual float PurityKnockbackMult => !Impure ? MappedPurity : impureMult;
+        public virtual float PurityCritMult => !Impure ? MappedPurity : impureMult;
 
         //Damage modifiction and purity stat retreiving
         public virtual void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) { }
         public sealed override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
 
             add += player.chemistry().ChemicalDamageAdd;
-            mult = player.chemistry().ChemicalDamageMult * PurityDamageMult;
+            mult *= player.chemistry().ChemicalDamageMult * PurityDamageMult;
 
             SafeModifyWeaponDamage(player, ref add, ref mult, ref flat);
 
             //RESFRESH STATS
-            GetPrefixValues();
-            GetDecayStats(Main.LocalPlayer);
+            RefreshStats();
 
         }
 
@@ -391,10 +397,13 @@ namespace ChemistryClass {
         public virtual void SafeGetWeaponKnockback(Player player, ref float knockback) { }
         public sealed override void GetWeaponKnockback(Player player, ref float knockback) {
 
-            float add = player.chemistry().ChemicalKnockbackAdd;
-            float mult = player.chemistry().ChemicalKnockbackMult * PurityKnockbackMult;
+            float add = 1;
+            float mult = 1;
 
-            knockback += add;
+            add += player.chemistry().ChemicalKnockbackAdd;
+            mult *= player.chemistry().ChemicalKnockbackMult * PurityKnockbackMult;
+
+            knockback *= add;
             knockback *= mult;
 
             SafeGetWeaponKnockback(player, ref knockback);
@@ -404,15 +413,18 @@ namespace ChemistryClass {
         public virtual void SafeGetWeaponCrit(Player player, ref int crit) { }
         public sealed override void GetWeaponCrit(Player player, ref int crit) {
 
-            float add = player.chemistry().ChemicalCritAdd;
-            float mult = player.chemistry().ChemicalCritMult * PurityCritMult;
+            float add = 1;
+            float mult = 1;
+
+            add += player.chemistry().ChemicalCritAdd;
+            mult *= player.chemistry().ChemicalCritMult * PurityCritMult;
 
             float tempCrit = crit;
 
-            tempCrit += add;
+            tempCrit *= add;
             tempCrit *= mult;
 
-            crit = (int)tempCrit;
+            crit = (int)Math.Ceiling(tempCrit);
 
             SafeGetWeaponCrit(player, ref crit);
 
@@ -454,21 +466,13 @@ namespace ChemistryClass {
 
         }*/
 
-        //Get values and reduce purity when item is used
-        public virtual bool PrePurityUseItem(Player player) => true;
-        public virtual void PostPurityUseItem(Player player) { }
-
+        //Get values, reduce purity, and fix damage issues when item is used
+        public virtual void SafeUseStyle(Player player) { }
         public sealed override void UseStyle(Player player) {
-
 
             if (player.itemAnimation == player.itemAnimationMax - 1) {
 
-                if (Main.rand.NextFloat(0, 1) < curDecayChance)
-                    purity -= curDecayRate;
-
-                ClampPurity();
-
-                TryCallout(player);
+                UsePurity(player);
 
                 //DEBUGGING
                 //Main.NewText("item purity use");
@@ -476,6 +480,18 @@ namespace ChemistryClass {
                 //Main.NewText(usesToDecay);
 
             }
+
+        }
+
+        //Use up purity
+        public void UsePurity(Player player) {
+
+            if (Main.rand.NextFloat(0, 1) < curDecayChance)
+                purity -= curDecayRate;
+
+            ClampPurity();
+
+            TryCallout(player);
 
         }
 

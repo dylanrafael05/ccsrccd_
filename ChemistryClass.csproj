@@ -25,5 +25,10 @@
     <Folder Include="Items\Materials\" />
     <Folder Include="Buffs\" />
     <Folder Include="Buffs\Debuffs\" />
+    <Folder Include="ModUtils\" />
+    <Folder Include="Dusts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Projectiles\ProjHelper.cs" />
   </ItemGroup>
 </Project>

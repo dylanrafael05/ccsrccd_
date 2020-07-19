@@ -1,0 +1,17 @@
+﻿using System;
+using Terraria;
+using Terraria.ModLoader;
+
+namespace ChemistryClass.Dusts {
+    public class PristineDust : ModDust {
+
+        public override bool Update(Dust dust) {
+
+            dust.alpha += 1;
+            dust.rotation += (float)Math.PI / 64;
+            dust.scale += 0.1f;
+
+        }
+
+    }
+}
