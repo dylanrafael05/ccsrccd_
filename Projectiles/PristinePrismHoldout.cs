@@ -77,10 +77,6 @@ namespace ChemistryClass.Projectiles {
             owner.itemTime = FrameCounter % 20;
             owner.itemAnimation = owner.itemTime;
 
-            //USE PURITY EVERY OTHER FRAME
-            if(ChemistryClass.TimeIsMultOf(20))
-                (owner.HeldItem.modItem as ChemistryClassItem).UsePurity(owner);
-
             //UPDATE VELOCITY
             projectile.velocity =
 

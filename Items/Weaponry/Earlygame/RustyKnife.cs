@@ -20,7 +20,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
         public override void SafeSetDefaults() {
 
-            item.damage = 13;
+            item.damage = 15;
             item.crit = 4;
             item.knockBack = 2;
 
@@ -33,7 +33,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
             item.useStyle = ItemUseStyleID.SwingThrow;
             item.autoReuse = false;
 
-            item.rare = 1;
+            item.rare = 2;
             item.value = Item.buyPrice(0, 0, 10, 0);
 
             minutesToDecay = 5;

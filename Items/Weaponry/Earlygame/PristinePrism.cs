@@ -12,7 +12,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
         public override void SetStaticDefaults() {
 
-            Tooltip.SetDefault("Throws ice-cold balls of boreal wood\nInflicts \"Frostburn\"");
+            Tooltip.SetDefault("A prism which bends light into blinding beams of peircing light.");
 
         }
 
@@ -21,8 +21,8 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
             //item.CloneDefaults(ItemID.LastPrism);
             item.channel = true;
 
-            item.damage = 1;
-            item.crit = 10;
+            item.damage = 2;
+            item.crit = 50;
             item.knockBack = 0;
 
             item.noMelee = true;
@@ -48,12 +48,11 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
             item.rare = 1;
             item.value = Item.buyPrice(0, 0, 10, 0);
 
-            minutesToDecay = 2f;
+            minutesToDecay = 2.5f;
 
             SetRefinementData(
 
-                (ItemID.Lens, 0.2f),
-                (ItemID.Glass, 0.1f)
+                (ModContent.ItemType<Materials.PrismaticLens>(), 1f)
 
                 );
 
@@ -121,13 +120,11 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
                 TileID.GlassKiln,
                 1,
-                (ModContent.ItemType<Materials.PrismaticLens>(), 9)
+                (ModContent.ItemType<Materials.PrismaticLens>(), 5)
 
                 );
 
         }
-
-
 
     }
 }

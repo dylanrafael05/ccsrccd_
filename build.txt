@@ -1,4 +1,4 @@
-displayName = The Chemistry Mod (New weapon, structurefixes!)
+displayName = The Chemistry Mod (stupid hotfix sry)
 author = FlooferPlusPlus
-version = 0.2.3
+version = 0.2.3.6
 homepage = https://discord.gg/vY2gKRf
