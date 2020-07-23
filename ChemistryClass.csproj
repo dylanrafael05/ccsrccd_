@@ -27,6 +27,8 @@
     <Folder Include="Buffs\Debuffs\" />
     <Folder Include="ModUtils\" />
     <Folder Include="Dusts\" />
+    <Folder Include="Items\Weaponry\Posteater\" />
+    <Folder Include="Items\Accessories\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Projectiles\ProjHelper.cs" />

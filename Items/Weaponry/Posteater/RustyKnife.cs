@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ChemistryClass.Items.Weaponry.Earlygame {
+namespace ChemistryClass.Items.Weaponry.Posteater {
     public class RustyKnife : ChemistryClassItem {
 
         public override void SetStaticDefaults() {
@@ -33,8 +33,8 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
             item.useStyle = ItemUseStyleID.SwingThrow;
             item.autoReuse = false;
 
-            item.rare = 2;
-            item.value = Item.buyPrice(0, 0, 10, 0);
+            item.rare = 3;
+            item.value = Item.buyPrice(0, 0, 15, 0);
 
             minutesToDecay = 5;
 

@@ -15,7 +15,7 @@ namespace ChemistryClass.Items.Materials {
         public override void SetDefaults() {
 
             item.rare = 1;
-            item.value = Item.buyPrice(0, 0, 1, 0);
+            item.value = Item.buyPrice(0, 0, 0, 75);
             item.maxStack = 999;
 
         }

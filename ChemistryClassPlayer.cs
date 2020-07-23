@@ -16,9 +16,23 @@ namespace ChemistryClass {
         public float ChemicalCritMult = 1f;
 
         public float DecayRateMult = 1f;
-        public float DecayRateAdd = 0f;
         public float DecayChanceMult = 1f;
-        public float DecayChanceAdd = 0f;
+
+        public override void ResetEffects() {
+
+            ChemicalDamageAdd = 0f;
+            ChemicalDamageMult = 1f;
+
+            ChemicalKnockbackAdd = 0f;
+            ChemicalKnockbackMult = 1f;
+
+            ChemicalCritAdd = 0f;
+            ChemicalCritMult = 1f;
+
+            DecayRateMult = 1f;
+            DecayChanceMult = 1f;
+
+        }
 
     }
 }

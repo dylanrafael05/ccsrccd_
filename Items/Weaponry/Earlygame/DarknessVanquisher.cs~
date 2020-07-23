@@ -1,40 +1,44 @@
 ﻿using System;
-using Terraria.ID;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ChemistryClass.Items.Weaponry.Earlygame {
-    public class RustyKnife : ChemistryClassItem {
+    public class DarknessVanquisher : ChemistryClassItem {
 
         public override void SetStaticDefaults() {
 
-            Tooltip.SetDefault("A dull blade made useful by its rusted state.");
+            Tooltip.SetDefault(
+
+                "A sword made of the clearest of glasses."
+
+                );
 
         }
 
         public override void SafeSetDefaults() {
 
-            item.damage = 8;
-            item.crit = 4;
+            item.damage = 10;
+            item.crit = 6;
             item.knockBack = 2;
 
-            item.width = 32;
-            item.height = 32;
+            item.width = 48;
+            item.height = 48;
 
             item.useTime = 15;
             item.useAnimation = 15;
             item.UseSound = SoundID.Item1;
             item.useStyle = ItemUseStyleID.SwingThrow;
-            item.autoReuse = true;
+            item.autoReuse = false;
 
-            item.rare = 1;
+            item.rare = 2;
             item.value = Item.buyPrice(0, 0, 10, 0);
 
-            minutesToDecay = 5;
+            minutesToDecay = 3;
 
             SetRefinementData(
 
-                (ModContent.ItemType<Items.Materials.RustedPowder>(), 0.05f)
+                (ModContent.ItemType<Materials.PrismaticLens>(), 1f)
 
                 );
 
@@ -46,8 +50,8 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
                             ChemistryClass.BeakerTileID,
                             1,
-                            (ItemID.IronBar, 10),
-                            (ItemID.IronOre, 6)
+                            (ModContent.ItemType<Materials.RustedPowder>(), 10),
+                            (ItemID.SilverBar, 6)
 
             );
 
@@ -55,8 +59,8 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
                             ChemistryClass.BeakerTileID,
                             1,
-                            (ItemID.LeadBar, 10),
-                            (ItemID.LeadOre, 6)
+                            (ModContent.ItemType<Materials.RustedPowder>(), 10),
+                            (ItemID.TungstenBar, 6)
 
             );
 

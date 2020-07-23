@@ -338,10 +338,7 @@ namespace ChemistryClass {
             curDecayChance = DecayChanceReal;
 
             //get player & factor in prefix
-            curDecayRate += player.chemistry().DecayRateAdd;
             curDecayRate *= player.chemistry().DecayRateMult * decayRateMult;
-
-            curDecayChance += player.chemistry().DecayChanceAdd;
             curDecayChance *= player.chemistry().DecayChanceMult * decayChanceMult;
 
             ModifyDecayStats(ref curDecayRate, ref curDecayChance, player);
