@@ -1,0 +1,27 @@
+﻿using System;
+using Terraria.UI;
+
+namespace ChemistryClass.UI {
+    public class RefinementMenuState : UIState {
+
+        public RefinementMenuPanel menu;
+
+        public override void OnInitialize() {
+
+            menu = new RefinementMenuPanel() {
+
+                Left = 0f.ToStyleDimension(),
+                Top = 0f.ToStyleDimension(),
+                Width = StyleDimension.Fill,
+                Height = StyleDimension.Fill
+
+            };
+
+            menu.Activate();
+
+            Append(menu);
+
+        }
+
+    }
+}

@@ -36,7 +36,7 @@ namespace ChemistryClass.Items.Accessories {
 
         public override void UpdateAccessory(Player player, bool hideVisual) {
 
-            player.chemistry().DecayRateMult -= 0.06f;
+            player.Chemistry().DecayRateMult -= 0.06f;
 
         }
 

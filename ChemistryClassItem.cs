@@ -27,11 +27,11 @@ namespace ChemistryClass {
         public float minutesToDecay = 3;
         public float decayChance = 100f;
 
-        private float DecayRateReal   => item.useTime / (3600f * minutesToDecay * DecayChanceReal);
+        private float DecayRateReal => item.useTime / (3600f * minutesToDecay * DecayChanceReal);
         private float DecayChanceReal => decayChance / 100f;
 
         //Prefix value trackers
-        private float decayRateMult   = 1f;
+        private float decayRateMult = 1f;
         private float decayChanceMult = 1f;
 
         //Purity loss instance values
@@ -95,10 +95,10 @@ namespace ChemistryClass {
             foreach (ModPrefix pre in ModPrefix.GetPrefixesInCategory(ChemistryClassPrefix.prefixCategory)) {
 
                 //skip if not a chemical prefix
-                if ( !pre.GetType().IsSubclassOf( typeof(ChemistryClassPrefix) ) ) continue;
+                if ( !pre.GetType().IsSubclassOf(typeof(ChemistryClassPrefix)) ) continue;
 
                 //skip basic chemical prefix
-                if ( pre.Name == new ChemistryClassPrefix().Name ) continue;
+                if (pre.Name == new ChemistryClassPrefix().Name) continue;
 
                 _validPrefixes.Add(pre.Type);
                 _chemistryPrefixes.Add(pre.Type);
@@ -149,14 +149,14 @@ namespace ChemistryClass {
 
                 //DEBUGGING
                 //if(ChemistryClass.UnpausedUpdateCount % 60 == 0)
-                    //Main.NewText(curDecayRate);
+                //Main.NewText(curDecayRate);
 
-                if (curMinsToDecay > 10)  return "Extremely low";
-                if (curMinsToDecay > 5)   return "Very low";
-                if (curMinsToDecay > 3)   return "Low";
-                if (curMinsToDecay > 2)   return "Average";
+                if (curMinsToDecay > 10) return "Extremely low";
+                if (curMinsToDecay > 5) return "Very low";
+                if (curMinsToDecay > 3) return "Low";
+                if (curMinsToDecay > 2) return "Average";
                 if (curMinsToDecay > 1.5) return "High";
-                if (curMinsToDecay > 1)   return "Very high";
+                if (curMinsToDecay > 1) return "Very high";
 
                 return "Extremely high";
 
@@ -171,9 +171,9 @@ namespace ChemistryClass {
 
             SafeSetDefaults();
 
-            item.melee  = false;
+            item.melee = false;
             item.ranged = false;
-            item.magic  = false;
+            item.magic = false;
             item.summon = false;
             item.thrown = false;
 
@@ -185,9 +185,9 @@ namespace ChemistryClass {
 
             refinementData = new List<RefinementItem>();
 
-            foreach( (int, float) value in idValuePairs ) {
+            foreach((int, float) value in idValuePairs) {
 
-                refinementData.Add( (RefinementItem)value );
+                refinementData.Add((RefinementItem)value);
 
             }
 
@@ -214,7 +214,7 @@ namespace ChemistryClass {
 
             string[] splitTooltip = tooltips[dmgIndex].text.Split(' ');
             string localDamageValue = splitTooltip.First();
-            string localDamageWord =  splitTooltip.Last();
+            string localDamageWord = splitTooltip.Last();
 
             tooltips[dmgIndex].text = localDamageValue + " chemical " + localDamageWord;
 
@@ -258,7 +258,7 @@ namespace ChemistryClass {
 
             string text = "Can be refined with:";
 
-            foreach( var entry in refinementData ) {
+            foreach(var entry in refinementData) {
 
                 Item item = new Item();
                 item.SetDefaults(entry.itemID);
@@ -338,8 +338,8 @@ namespace ChemistryClass {
             curDecayChance = DecayChanceReal;
 
             //get player & factor in prefix
-            curDecayRate *= player.chemistry().DecayRateMult * decayRateMult;
-            curDecayChance *= player.chemistry().DecayChanceMult * decayChanceMult;
+            curDecayRate *= player.Chemistry().DecayRateMult * decayRateMult;
+            curDecayChance *= player.Chemistry().DecayChanceMult * decayChanceMult;
 
             ModifyDecayStats(ref curDecayRate, ref curDecayChance, player);
 
@@ -380,8 +380,8 @@ namespace ChemistryClass {
         public virtual void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) { }
         public sealed override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
 
-            add += player.chemistry().ChemicalDamageAdd;
-            mult *= player.chemistry().ChemicalDamageMult * PurityDamageMult;
+            add += player.Chemistry().ChemicalDamageAdd;
+            mult *= player.Chemistry().ChemicalDamageMult * PurityDamageMult;
 
             SafeModifyWeaponDamage(player, ref add, ref mult, ref flat);
 
@@ -397,8 +397,8 @@ namespace ChemistryClass {
             float add = 1;
             float mult = 1;
 
-            add += player.chemistry().ChemicalKnockbackAdd;
-            mult *= player.chemistry().ChemicalKnockbackMult * PurityKnockbackMult;
+            add += player.Chemistry().ChemicalKnockbackAdd;
+            mult *= player.Chemistry().ChemicalKnockbackMult * PurityKnockbackMult;
 
             knockback *= add;
             knockback *= mult;
@@ -413,8 +413,8 @@ namespace ChemistryClass {
             float add = 1;
             float mult = 1;
 
-            add += player.chemistry().ChemicalCritAdd;
-            mult *= player.chemistry().ChemicalCritMult * PurityCritMult;
+            add += player.Chemistry().ChemicalCritAdd;
+            mult *= player.Chemistry().ChemicalCritMult * PurityCritMult;
 
             float tempCrit = crit;
 
@@ -437,9 +437,9 @@ namespace ChemistryClass {
 
         private void TryCallout(Player player) {
 
-            if( PurityCloseToLandmark && purity != previousCallout ) {
+            if(PurityCloseToLandmark && purity != previousCallout) {
 
-                Rectangle spawn = new Rectangle(0,0,20,20);
+                Rectangle spawn = new Rectangle(0, 0, 20, 20);
                 Vector2 position = player.position;
                 spawn.X = (int)position.X;
                 spawn.Y = (int)position.Y;
@@ -495,7 +495,7 @@ namespace ChemistryClass {
         //Refinement
         public static bool Refine(ref Item chemItemBase, ref Item item) {
 
-            ChemistryClassItem chemItem = chemItemBase.chemistry();
+            ChemistryClassItem chemItem = chemItemBase.Chemistry();
 
             int itemType = item.type;
             int indexOfItem = chemItem.refinementData.FindIndex(i => i.itemID == itemType);
@@ -505,7 +505,7 @@ namespace ChemistryClass {
             //Main.NewText(item.ToString());
             //Main.NewText(indexOfItem);
 
-            if( indexOfItem < 0 ) return false;
+            if(indexOfItem < 0) return false;
 
             float refinement = chemItem.refinementData[indexOfItem].value;
             float refinementNeeded = 1f - chemItem.purity;

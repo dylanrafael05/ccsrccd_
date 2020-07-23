@@ -11,12 +11,17 @@ namespace ChemistryClass
 	public class ChemistryClass : Mod
 	{
 
+        //VARIABLES
+        public static ModHotKey InteractRefinementMenu;
+
+        internal RefinementMenuState refinementMenu;
+        private UserInterface _refinementMenu;
+        private bool allowRefinementMenu;
+
+        //MEMBERS
         private static ulong? _unpausedUpdateCount;
         public static ulong UnpausedUpdateCount
             => _unpausedUpdateCount.Value;
-
-		internal RefinementMenu refinementMenu;
-		private UserInterface _refinementMenu;
 
         public static bool TimeIsMultOf(int m) => UnpausedUpdateCount % (ulong)m == 0;
 
@@ -27,13 +32,16 @@ namespace ChemistryClass
         //Load information
         public override void Load() {
 
+            InteractRefinementMenu = RegisterHotKey("Open/Close Chemical Refinement Menu", "L");
+            allowRefinementMenu = true;
+
             if (!Main.dedServ) {
 
-                refinementMenu = new RefinementMenu {
-                    HAlign = 0.5f,
-                    Top = 24f.styleDimen(),
-                    Width = (Main.screenWidth / 7f).styleDimen(),
-                    Height = 100f.styleDimen()
+                refinementMenu = new RefinementMenuState {
+                    Left = 0f.ToStyleDimension(),
+                    Top = 0f.ToStyleDimension(),
+                    Width = StyleDimension.Fill,
+                    Height = StyleDimension.Fill
                 };
                 refinementMenu.Activate();
 
@@ -83,14 +91,23 @@ namespace ChemistryClass
 
         }
 
+        //Update General
+        public override void PostUpdateInput() {
+
+            if (InteractRefinementMenu.JustPressed) allowRefinementMenu.Invert();
+
+        }
+
         //Update UI layers
         public override void UpdateUI(GameTime gameTime) {
 
-            if( Main.playerInventory && _refinementMenu.CurrentState == null ) {
+            bool menuActive = Main.playerInventory && allowRefinementMenu;
+
+            if ( menuActive && _refinementMenu.CurrentState == null ) {
 
                 _refinementMenu.SetState(refinementMenu);
 
-            } else if ( !Main.playerInventory && _refinementMenu.CurrentState is RefinementMenu ) {
+            } else if ( !menuActive && _refinementMenu.CurrentState != null ) {
 
                 _refinementMenu.SetState(null);
 

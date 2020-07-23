@@ -12,7 +12,7 @@ namespace ChemistryClass.Projectiles {
         public const string innerTextureStr = "ChemistryClass/Projectiles/PristinePrismBeamInside";
         public override string Texture => "ChemistryClass/Projectiles/PristinePrismBeam";
 
-        public const double beamSpread = Math.PI / 10;
+        public const double beamSpread = CCUtils.PI / 10;
         private double waveSpread
             => beamSpread * (1 + Math.Cos(ChemistryClass.UnpausedUpdateCount / 20f) / 6f);
         private double curSpread;
@@ -96,7 +96,7 @@ namespace ChemistryClass.Projectiles {
             projectile.velocity = HostProjectile.velocity.RotatedBy(
 
                     curSpread *
-                    Math.Sin(ChemistryClass.UnpausedUpdateCount * rotSpeed + Math.PI * 2 * MotionOffset / 7 )
+                    Math.Sin(ChemistryClass.UnpausedUpdateCount * rotSpeed + CCUtils.TWO_PI * MotionOffset / 7 )
 
                     );
 
@@ -104,7 +104,7 @@ namespace ChemistryClass.Projectiles {
             projectile.Center = HostProjectile.Center;
 
             //Rotate toward velocity
-            projectile.rotation = projectile.velocity.ToRotation() - (float)Math.PI / 2;
+            projectile.rotation = projectile.velocity.ToRotation() - CCUtils.HALF_PI;
 
             //reset time left timer
             projectile.timeLeft = 2;

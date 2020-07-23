@@ -67,7 +67,7 @@ namespace ChemistryClass.Projectiles {
 
             //UPDATE DRAW VARIABLES
             projectile.Center = owner.RotatedRelativePoint(owner.MountedCenter, true);
-            projectile.rotation = projectile.velocity.ToRotation() + (float)Math.PI / 2;
+            projectile.rotation = projectile.velocity.ToRotation() + CCUtils.HALF_PI;
             projectile.spriteDirection = projectile.direction;
             owner.ChangeDir(projectile.direction);
             owner.itemRotation = (projectile.velocity * projectile.direction).ToRotation();

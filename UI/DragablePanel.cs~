@@ -1,0 +1,43 @@
+﻿using System;
+using Microsoft.Xna.Framework;
+using Terraria.GameContent.UI.Elements;
+using Terraria.UI;
+
+namespace ChemistryClass.UI {
+    public class DragablePanel : UIPanel {
+
+        private Vector2 offset;
+        public bool dragging;
+
+        public override void MouseDown(UIMouseEvent evt) {
+
+            base.MouseDown(evt);
+            dragging = true;
+
+        }
+
+        public override void MouseUp(UIMouseEvent evt) {
+
+            base.MouseUp(evt);
+            dragging = false;
+
+            Left.Set(offset.X, 0);
+            Top.Set(offset.Y, 0);
+
+
+
+        }
+
+        private void CampAndRecalculate() {
+
+            Rectangle parentSpace = Parent.GetDimensions().ToRectangle();
+            if( !GetDimensions().ToRectangle().Intersects(parentSpace) ) {
+
+                Left.Pixels = MathHelper.Clamp(Left.Pixels, 0, parentSpace.Width - Width);
+
+            }
+
+        }
+
+    }
+}

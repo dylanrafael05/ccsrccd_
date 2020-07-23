@@ -1,25 +1,29 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="build.txt">
+  <MonoDevelop.Ide.Workbench ActiveDocument="UI/RefinementMenuState.cs">
     <Files>
-      <File FileName="UI/RefinementMenu.cs" Line="126" Column="1" />
+      <File FileName="UI/RefinementMenu.cs" Line="36" Column="15" />
       <File FileName="Items/Weaponry/Posteater/RustyKnife.cs" />
-      <File FileName="Items/Weaponry/Earlygame/DarknessVanquisher.cs" Line="37" Column="1" />
+      <File FileName="Items/Weaponry/Earlygame/DarknessVanquisher.cs" />
       <File FileName="Items/Weaponry/Earlygame/PristinePrism.cs" />
       <File FileName="Items/Materials/PrismaticLens.cs" />
       <File FileName="Items/Materials/RustedPowder.cs" />
-      <File FileName="Projectiles/GlassShard.cs" Line="20" Column="40" />
+      <File FileName="Projectiles/GlassShard.cs" />
       <File FileName="Dusts/PristineDust.cs" />
-      <File FileName="Dusts/GlassDust.cs" Line="14" Column="50" />
-      <File FileName="Tiles/BeakerTile.cs" Line="47" Column="2" />
-      <File FileName="Tiles/StabilityMushroomTile.cs" Line="48" Column="2" />
-      <File FileName="Items/Placeable/StabilityMushroom.cs" Line="29" Column="15" />
-      <File FileName="Items/Placeable/MetallurgyStand.cs" Line="1" Column="1" />
-      <File FileName="Items/Placeable/Beaker.cs" Line="1" Column="1" />
-      <File FileName="ChemistryClassItem.cs" Line="367" Column="44" />
-      <File FileName="ChemistryClassPlayer.cs" Line="19" Column="43" />
-      <File FileName="ChemistryClassGlobalTile.cs" Line="24" Column="1" />
-      <File FileName="Projectiles/PristinePrismBeam.cs" Line="174" Column="48" />
+      <File FileName="Dusts/GlassDust.cs" />
+      <File FileName="Tiles/BeakerTile.cs" />
+      <File FileName="Tiles/StabilityMushroomTile.cs" />
+      <File FileName="Items/Placeable/MetallurgyStand.cs" />
+      <File FileName="Items/Placeable/Beaker.cs" />
+      <File FileName="ChemistryClassItem.cs" />
+      <File FileName="ChemistryClassPlayer.cs" />
+      <File FileName="ChemistryClassGlobalTile.cs" />
+      <File FileName="Projectiles/PristinePrismBeam.cs" Line="30" Column="42" />
       <File FileName="build.txt" Line="1" Column="50" />
+      <File FileName="UI/DragablePanel.cs" Line="29" Column="35" />
+      <File FileName="ChemistryClassUtils.cs" Line="79" Column="42" />
+      <File FileName="UI/RefinementMenuState.cs" Line="26" Column="6" />
+      <File FileName="ChemistryClass.cs" Line="31" Column="1" />
+      <File FileName="Projectiles/PristinePrismHoldout.cs" Line="77" Column="48" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -42,8 +46,9 @@
               <Node name="Prefixes" expanded="True" />
               <Node name="Projectiles" expanded="True" />
               <Node name="Tiles" expanded="True" />
-              <Node name="UI" expanded="True" />
-              <Node name="build.txt" selected="True" />
+              <Node name="UI" expanded="True">
+                <Node name="RefinementMenuState.cs" selected="True" />
+              </Node>
             </Node>
           </Node>
         </State>

@@ -7,7 +7,7 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 
 namespace ChemistryClass.UI {
-    public class RefinementMenu : UIState {
+    public class RefinementMenuPanel : DragablePanel {
 
         public UIPanel backPanel;
         public UIText title;
@@ -17,28 +17,12 @@ namespace ChemistryClass.UI {
 
         public UIRefineButton button;
 
-        public bool Visible = true;
-
-        private void SetVisible(bool v) {
-
-            Visible = v;
-            chemHolder.Visible = v;
-            matrHolder.Visible = v;
-
-        }
-
-        public void GoVisible()
-            => SetVisible(true);
-
-        public void GoInvisible()
-            => SetVisible(false);
-
         public override void OnInitialize() {
 
             backPanel = new UIPanel() {
 
-                Top = 0f.styleDimen(),
-                Left = 0f.styleDimen(),
+                Top = 0f.ToStyleDimension(),
+                Left = 0f.ToStyleDimension(),
                 Width = StyleDimension.Fill,
                 Height = StyleDimension.Fill
 
@@ -72,8 +56,8 @@ namespace ChemistryClass.UI {
 
                 VAlign = 0.65f,
                 HAlign = 0.8f,
-                Height = 30f.styleDimen(),
-                Width = 30f.styleDimen()
+                Height = 30f.ToStyleDimension(),
+                Width = 30f.ToStyleDimension()
 
             };
 
@@ -88,36 +72,13 @@ namespace ChemistryClass.UI {
 
         }
 
-        public override void OnActivate() {
-
-            GoVisible();
-            base.OnActivate();
-
-        }
-
-        public override void OnDeactivate() {
-
-            GoInvisible();
-
-        }
-
         private void Refine(UIMouseEvent evt, UIElement listener) {
-
-            
 
             if (chemHolder.item.IsAir || matrHolder.item.IsAir) return;
 
             bool refined = ChemistryClassItem.Refine(ref chemHolder.item, ref matrHolder.item);
 
             if (refined) Main.PlaySound(SoundID.Item37);
-
-        }
-
-        public override void Draw(SpriteBatch spriteBatch) {
-
-            if (!Visible) return;
-
-            base.Draw(spriteBatch);
 
         }
 
