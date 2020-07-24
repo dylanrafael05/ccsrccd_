@@ -12,7 +12,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
         public override void SetStaticDefaults() {
 
-            Tooltip.SetDefault("A prism which bends light into blinding beams of peircing light.");
+            Tooltip.SetDefault("A prism which bends light into blinding beams of color");
 
         }
 
@@ -21,8 +21,8 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
             //item.CloneDefaults(ItemID.LastPrism);
             item.channel = true;
 
-            item.damage = 2;
-            item.crit = 50;
+            item.damage = 8;
+            item.crit = 10;
             item.knockBack = 0;
 
             item.noMelee = true;
@@ -48,7 +48,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
             item.rare = 1;
             item.value = Item.buyPrice(0, 0, 10, 0);
 
-            minutesToDecay = 2.5f;
+            minutesToDecay = 3f;
 
             SetRefinementData(
 
@@ -59,8 +59,6 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
             this.impureMult = 0.2f;
 
         }
-
-        public override float PurityDamageMult => 1;
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack) {
 

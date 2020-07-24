@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ChemistryClass.Dusts {
@@ -8,30 +9,28 @@ namespace ChemistryClass.Dusts {
 
         public override void OnSpawn(Dust dust) {
 
-            dust.scale = 3f;
-            dust.noLight = true;
-
+            dust.scale = 2f;
             dust.noGravity = true;
-
-            dust.frame = new Rectangle(0, 0, 6, 6);
+            dust.fadeIn = 1f;
+            dust.alpha = 100;
 
         }
 
-        public override bool Update(Dust dust) {
+        public override bool MidUpdate(Dust dust) {
 
-            dust.alpha += 5;
-            dust.scale -= 0.003f;
-            dust.rotation += 0.01f;
+            dust.frame = new Rectangle(0, 0, 6, 6);
+
+            dust.scale -= 0.03f;
+            dust.rotation += 0.2f;
 
             if (dust.scale <= 0.1f) dust.active = false;
 
-            if (dust.scale >= 0.5f)
-                Lighting.AddLight(
+            Lighting.AddLight(
 
-                    dust.position,
-                    dust.color.ToVector3()
+                dust.position,
+                dust.color.ToVector3() / 2f * dust.scale
 
-                );
+            );
 
             return true;
 

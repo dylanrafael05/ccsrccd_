@@ -13,7 +13,7 @@ namespace ChemistryClass {
             Tile tile = Framing.GetTileSafely(i, j - 1);
 
             if (tile.active()) return;
-            if (Main.rand.Next(200) != 0) return;
+            if (Main.rand.Next(400) != 0) return;
 
             WorldGen.Place1x1(i, j - 1, ModContent.TileType<Tiles.StabilityMushroomTile>());
 

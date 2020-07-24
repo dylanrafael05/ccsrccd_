@@ -35,11 +35,11 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
             item.rare = 0;
             item.value = Item.buyPrice(0, 0, 0, 99);
 
-            minutesToDecay = 2;
+            minutesToDecay = 1f;
 
             SetRefinementData(
 
-                (ItemID.Acorn, 0.15f)
+                (ItemID.Acorn, 1 / 9f)
 
                 );
 

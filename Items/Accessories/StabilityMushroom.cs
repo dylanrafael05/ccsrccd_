@@ -8,7 +8,7 @@ namespace ChemistryClass.Items.Accessories {
 
         public override void SetStaticDefaults() {
 
-            Tooltip.SetDefault("A strange-looking, yet chemically stable mushroom\nReduces decay rates by 6%");
+            Tooltip.SetDefault("A strange-looking, yet chemically stable mushroom\nReduces all decay by 6%");
 
         }
 

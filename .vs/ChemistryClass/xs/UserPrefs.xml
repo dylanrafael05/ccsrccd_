@@ -1,29 +1,34 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="UI/RefinementMenuState.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ChemistryClassUtils.cs">
     <Files>
-      <File FileName="UI/RefinementMenu.cs" Line="36" Column="15" />
+      <File FileName="UI/RefinementMenu.cs" Line="65" Column="32" />
       <File FileName="Items/Weaponry/Posteater/RustyKnife.cs" />
-      <File FileName="Items/Weaponry/Earlygame/DarknessVanquisher.cs" />
-      <File FileName="Items/Weaponry/Earlygame/PristinePrism.cs" />
+      <File FileName="Items/Weaponry/Earlygame/DarknessVanquisher.cs" Line="23" Column="29" />
+      <File FileName="Items/Weaponry/Earlygame/PristinePrism.cs" Line="63" Column="51" />
       <File FileName="Items/Materials/PrismaticLens.cs" />
       <File FileName="Items/Materials/RustedPowder.cs" />
-      <File FileName="Projectiles/GlassShard.cs" />
-      <File FileName="Dusts/PristineDust.cs" />
-      <File FileName="Dusts/GlassDust.cs" />
+      <File FileName="Projectiles/GlassShard.cs" Line="33" Column="65" />
+      <File FileName="Dusts/PristineDust.cs" Line="31" Column="57" />
+      <File FileName="Dusts/GlassDust.cs" Line="27" Column="10" />
       <File FileName="Tiles/BeakerTile.cs" />
       <File FileName="Tiles/StabilityMushroomTile.cs" />
       <File FileName="Items/Placeable/MetallurgyStand.cs" />
       <File FileName="Items/Placeable/Beaker.cs" />
-      <File FileName="ChemistryClassItem.cs" />
-      <File FileName="ChemistryClassPlayer.cs" />
-      <File FileName="ChemistryClassGlobalTile.cs" />
-      <File FileName="Projectiles/PristinePrismBeam.cs" Line="30" Column="42" />
+      <File FileName="ChemistryClassItem.cs" Line="350" Column="1" />
+      <File FileName="ChemistryClassPlayer.cs" Line="30" Column="35" />
+      <File FileName="ChemistryClassGlobalTile.cs" Line="16" Column="33" />
+      <File FileName="Projectiles/PristinePrismBeam.cs" Line="20" Column="42" />
       <File FileName="build.txt" Line="1" Column="50" />
-      <File FileName="UI/DragablePanel.cs" Line="29" Column="35" />
-      <File FileName="ChemistryClassUtils.cs" Line="79" Column="42" />
-      <File FileName="UI/RefinementMenuState.cs" Line="26" Column="6" />
-      <File FileName="ChemistryClass.cs" Line="31" Column="1" />
-      <File FileName="Projectiles/PristinePrismHoldout.cs" Line="77" Column="48" />
+      <File FileName="UI/DragablePanel.cs" Line="56" Column="14" />
+      <File FileName="ChemistryClass.cs" Line="33" Column="54" />
+      <File FileName="Projectiles/PristinePrismHoldout.cs" Line="87" Column="29" />
+      <File FileName="Items/Armor/RustyHeadgear.cs" Line="30" Column="1" />
+      <File FileName="Items/Armor/RustyChestpeice.cs" Line="20" Column="29" />
+      <File FileName="Items/Armor/RustyBoots.cs" Line="20" Column="29" />
+      <File FileName="ChemistryClassGlobalNPC.cs" Line="55" Column="15" />
+      <File FileName="Items/Weaponry/Earlygame/Sapinator.cs" Line="39" Column="1" />
+      <File FileName="Items/Accessories/StabilityMushroom.cs" Line="11" Column="101" />
+      <File FileName="ChemistryClassUtils.cs" Line="37" Column="9" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -36,6 +41,7 @@
               <Node name="Dusts" expanded="True" />
               <Node name="Items" expanded="True">
                 <Node name="Accessories" expanded="True" />
+                <Node name="Armor" expanded="True" />
                 <Node name="Materials" expanded="True" />
                 <Node name="Placeable" expanded="True" />
                 <Node name="Weaponry" expanded="True">
@@ -46,9 +52,8 @@
               <Node name="Prefixes" expanded="True" />
               <Node name="Projectiles" expanded="True" />
               <Node name="Tiles" expanded="True" />
-              <Node name="UI" expanded="True">
-                <Node name="RefinementMenuState.cs" selected="True" />
-              </Node>
+              <Node name="UI" expanded="True" />
+              <Node name="ChemistryClassUtils.cs" selected="True" />
             </Node>
           </Node>
         </State>

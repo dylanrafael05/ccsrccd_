@@ -84,7 +84,7 @@ namespace ChemistryClass.Projectiles {
                     Vector2.Lerp(
                         Vector2.Normalize(Main.MouseScreen + Main.screenPosition - projectile.Center),
                         projectile.velocity,
-                        0.15f
+                        0.17f
                     )
                 ) * 32f;
 

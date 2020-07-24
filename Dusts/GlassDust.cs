@@ -15,14 +15,14 @@ namespace ChemistryClass.Dusts {
 
         }
 
-        public override bool Update(Dust dust) {
+        public override bool MidUpdate(Dust dust) {
 
-            dust.scale -= 0.01f;
-            dust.rotation += dust.velocity.X / 12800f;
+            dust.scale -= 0.05f;
+            dust.rotation += dust.velocity.X / 120f;
 
             if (dust.scale <= 0.1f) dust.active = false;
 
-            return true;
+            return false;
 
         }
 

@@ -11,8 +11,8 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
             Tooltip.SetDefault(
 
-                "A sword made of the clearest of glasses\n" +
-                "Shoots peircing shards of glass"
+                "A sword made of the clearest of lenses\n" +
+                "Shoots pressure-cracked shards of glass"
 
                 );
 
@@ -22,7 +22,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
             item.damage = 19;
             item.crit = 6;
-            item.knockBack = 10;
+            item.knockBack = 7f;
 
             item.width = 48;
             item.height = 48;
@@ -31,14 +31,15 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
             item.useAnimation = 30;
             item.UseSound = SoundID.Item1;
             item.useStyle = ItemUseStyleID.SwingThrow;
+            item.autoReuse = true;
 
             item.rare = 1;
             item.value = Item.buyPrice(0, 0, 10, 0);
 
             item.shoot = ModContent.ProjectileType<GlassShard>();
-            item.shootSpeed = 20f;
+            item.shootSpeed = 15f;
 
-            minutesToDecay = 4f;
+            minutesToDecay = 3f;
 
             SetRefinementData(
 
@@ -52,7 +53,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
             this.SetRecipe(
 
-                            ChemistryClass.BeakerTileID,
+                            TileID.GlassKiln,
                             1,
                             (ModContent.ItemType<Materials.PrismaticLens>(), 4)
 

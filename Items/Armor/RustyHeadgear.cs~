@@ -1,0 +1,36 @@
+﻿using System;
+using Terraria;
+using Terraria.ModLoader;
+
+namespace ChemistryClass.Items.Armor {
+
+    [AutoloadEquip(EquipType.Head)]
+    public class RustyHeadgear : ModItem {
+
+        public override void SetStaticDefaults() {
+
+            Tooltip.SetDefault("A ferric face covering lined with rust\nIncreases chemical damage by 7%");
+
+        }
+
+        public override void SetDefaults() {
+
+            item.width = 22;
+            item.height = 20;
+
+            item.rare = 3;
+            item.value = Item.buyPrice(0, 0, 20, 0);
+
+            item.defense = 5;
+
+        }
+
+        public override void UpdateEquip(Player player) {
+
+            player.Chemistry().ChemicalDamageAdd += 0.07f;
+
+        }
+
+    }
+
+}

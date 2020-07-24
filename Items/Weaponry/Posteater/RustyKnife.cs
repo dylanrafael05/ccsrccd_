@@ -20,7 +20,7 @@ namespace ChemistryClass.Items.Weaponry.Posteater {
 
         public override void SafeSetDefaults() {
 
-            item.damage = 15;
+            item.damage = 17;
             item.crit = 4;
             item.knockBack = 2;
 
@@ -36,11 +36,11 @@ namespace ChemistryClass.Items.Weaponry.Posteater {
             item.rare = 3;
             item.value = Item.buyPrice(0, 0, 15, 0);
 
-            minutesToDecay = 5;
+            minutesToDecay = 5f;
 
             SetRefinementData(
 
-                (ModContent.ItemType<Materials.RustedPowder>(), 1 / 15f)
+                (ModContent.ItemType<Materials.RustedPowder>(), 1 / 18f)
 
                 );
 
@@ -70,7 +70,7 @@ namespace ChemistryClass.Items.Weaponry.Posteater {
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit) {
 
-            target.AddBuff(ModContent.BuffType<Buffs.Debuffs.Rusted>(), 120);
+            target.AddBuff(ModContent.BuffType<Buffs.Debuffs.Rusted>(), 600);
 
         }
 

@@ -24,6 +24,9 @@ namespace ChemistryClass
             => _unpausedUpdateCount.Value;
 
         public static bool TimeIsMultOf(int m) => UnpausedUpdateCount % (ulong)m == 0;
+        public static void SparseDebug(object o) {
+            if (TimeIsMultOf(60)) Main.NewText(o);
+        }
 
         //Beaker id
         public static int BeakerTileID

@@ -13,7 +13,7 @@ namespace ChemistryClass {
         public bool rusted;
         public static int rustedDef => 10;
         public static int rustedLD => 8;
-        public static Color rustedColor => new Color(212, 187, 169);
+        public static Color RustedColor => new Color(210, 140, 85);
 
         //public Color colorOnRusted;
 
@@ -50,7 +50,11 @@ namespace ChemistryClass {
 
         public override void DrawEffects(NPC npc, ref Color drawColor) {
 
-            if( rusted ) drawColor = rustedColor;
+            //DEBUGGING
+            //ChemistryClass.SparseDebug(drawColor);
+            //ChemistryClass.SparseDebug(Color.Lerp(drawColor, RustedColor, 0.5f));
+
+            if (rusted) drawColor = Color.Lerp(drawColor, RustedColor, 0.5f);
 
             if ( rusted && ChemistryClass.TimeIsMultOf(20) ) {
 
@@ -61,7 +65,7 @@ namespace ChemistryClass {
                     DustID.Iron,
                     Main.rand.NextFloat(-1, 1),
                     Main.rand.NextFloat(-4, 0),
-                    0, rustedColor
+                    0, RustedColor
 
                     );
 
@@ -84,10 +88,12 @@ namespace ChemistryClass {
 
         }
 
-        //EOC PRISMATIC DROP
+        //EoC PRISMATIC LENS DROP
         public override void NPCLoot(NPC npc) {
 
-            if(npc.type == NPCID.EyeofCthulhu) {
+            if (Main.expertMode) return;
+
+            if( npc.type == NPCID.EyeofCthulhu) {
 
                 Item.NewItem(npc.Hitbox, ModContent.ItemType<Items.Materials.PrismaticLens>(), Main.rand.Next(5, 10));
 

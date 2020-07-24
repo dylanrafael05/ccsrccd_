@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,12 +13,12 @@ namespace ChemistryClass.Projectiles {
         public const string innerTextureStr = "ChemistryClass/Projectiles/PristinePrismBeamInside";
         public override string Texture => "ChemistryClass/Projectiles/PristinePrismBeam";
 
-        public const double beamSpread = CCUtils.PI / 10;
+        public static readonly double beamSpread = CCUtils.TENTH_PI;
         private double waveSpread
-            => beamSpread * (1 + Math.Cos(ChemistryClass.UnpausedUpdateCount / 20f) / 6f);
+            => beamSpread * (1 + CCUtils.Sinusoid(cycleTime: 6f) / 6f);
         private double curSpread;
-        public const double rotSpeed = 1f / 20;
-        public const float maxLength = 200;
+        public const double rotTime = 2.2f;
+        public const float maxLength = 100;
 
         public static readonly Color[] colors = new Color[] //Basically a const
         {
@@ -96,7 +97,7 @@ namespace ChemistryClass.Projectiles {
             projectile.velocity = HostProjectile.velocity.RotatedBy(
 
                     curSpread *
-                    Math.Sin(ChemistryClass.UnpausedUpdateCount * rotSpeed + CCUtils.TWO_PI * MotionOffset / 7 )
+                    CCUtils.Sinusoid(cycleTime: rotTime, phaseModulation: CCUtils.TWO_PI * MotionOffset / 7)
 
                     );
 
@@ -171,7 +172,7 @@ namespace ChemistryClass.Projectiles {
         //IMMUNITY
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
 
-            target.immune[projectile.owner] = 4;
+            target.immune[projectile.owner] = 9;
 
         }
 
@@ -188,7 +189,7 @@ namespace ChemistryClass.Projectiles {
             Vector2 beamStart = projectile.Center - Main.screenPosition;
             Vector2 beamEnd = EndPointPos - Main.screenPosition;
 
-            Vector2 origin = new Vector2(8, 0);
+            Vector2 origin = new Vector2(8,0);
 
             Vector2 scaleInner = new Vector2(1f, 1f);
             Vector2 scaleOuter = new Vector2(1f, 1f);
@@ -288,23 +289,29 @@ namespace ChemistryClass.Projectiles {
             //PARTICLES
             if( EndPointParticles ) {
 
-                int dust = Dust.NewDust(
+                for (int _ = 0; _ < Main.rand.Next(1, 3); _++) {
 
-                    EndPointPos + projectile.velocity,
-                    10, 10,
-                    ModContent.DustType<Dusts.PristineDust>(),
-                    Main.rand.NextFloat(-1, 1),
-                    Main.rand.NextFloat(-1, 1),
-                    0, BeamColor,
-                    Main.rand.NextFloat(0.5f, 1.25f)
+                    Dust.NewDustDirect(
 
-                    );
+                        EndPointPos + projectile.velocity - origin,
+                        10, 10,
+                        ModContent.DustType<Dusts.PristineDust>(),
+                        Main.rand.NextFloat(-1, 1),
+                        Main.rand.NextFloat(-1, 1),
+                        0, BeamColor,
+                        1f
+
+                        );
+
+                }
 
             }
 
             //LIGHT UP SURROUNDING AREA
-            DelegateMethods.v3_1 = BeamColor.ToVector3();
-            Utils.PlotTileLine(projectile.Center, EndPointPos, 1f, new Utils.PerLinePoint(DelegateMethods.CastLight));
+            DelegateMethods.v3_1 = BeamColor.ToVector3() / 2f;
+            DelegateMethods.tilecut_0 = TileCuttingContext.AttackProjectile;
+            Utils.PlotTileLine(projectile.Center, EndPointPos, 16f, new Utils.PerLinePoint(DelegateMethods.CastLight));
+            Utils.PlotTileLine(projectile.Center, EndPointPos, 16f, new Utils.PerLinePoint(DelegateMethods.CutTiles));
 
             return false;
 

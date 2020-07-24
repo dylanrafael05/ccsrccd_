@@ -1,4 +1,4 @@
-displayName = The Chemistry Mod (finally! an update!)
+displayName = The Chemistry Mod (rebalances + new armor)
 author = FlooferPlusPlus
-version = 0.2.5
+version = 0.2.6
 homepage = https://discord.gg/vY2gKRf

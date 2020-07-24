@@ -11,13 +11,10 @@ namespace ChemistryClass.Projectiles {
         public override void SafeSetDefaults() {
 
             projectile.damage = 5;
-            projectile.knockBack = 3;
+            projectile.knockBack = 2;
 
             projectile.friendly = true;
             projectile.hostile = false;
-
-            projectile.penetrate = 2;
-            projectile.maxPenetrate = 2;
 
             projectile.width = 6;
             projectile.height = 6;
@@ -26,12 +23,17 @@ namespace ChemistryClass.Projectiles {
 
         public override void AI() {
 
-            projectile.rotation = projectile.velocity.ToRotation() + (float)Math.PI / 2;
+            projectile.rotation = projectile.velocity.ToRotation() + CCUtils.HALF_PI;
 
         }
 
         public override void Kill(int timeLeft) => SpawnDusts();
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) => SpawnDusts();
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
+
+            target.immune[projectile.owner] = 7;
+
+        }
+
         public override void OnHitPvp(Player target, int damage, bool crit) => SpawnDusts();
 
         public void SpawnDusts() {

@@ -322,7 +322,7 @@ namespace ChemistryClass {
         }
 
         //Decay statistics
-        private void ClampPurity() => purity = MathHelper.Clamp(purity, 0, 1);
+        private void ClampPurity() => purity.Clamp(0,1);
 
         public void RefreshStats() {
 
@@ -342,6 +342,11 @@ namespace ChemistryClass {
             curDecayChance *= player.Chemistry().DecayChanceMult * decayChanceMult;
 
             ModifyDecayStats(ref curDecayRate, ref curDecayChance, player);
+
+            //limit stats
+            float minValue = (float)Math.Pow(10, -5);
+            curDecayRate.EnforceMin(minValue);
+            curDecayChance.Clamp(minValue, 1);
 
         }
 
@@ -367,14 +372,13 @@ namespace ChemistryClass {
         public virtual void ModifyDecayStats(ref float decay, ref float decayChance, Player player) { }
 
         //Purity to multiplier mapping
-        public float MapPurity(float min, float max)
-            => purity * (max - min) + min;
+        protected float MapPurity(float min, float max)
+            => purity.Map(0, 1, min, max);
+        protected float DefaultMapPurity => MapPurity(minPurityMult, maxPurityMult);
 
-        private float MappedPurity => MapPurity(minPurityMult, maxPurityMult);
-
-        public virtual float PurityDamageMult => !Impure ? MappedPurity : impureMult;
-        public virtual float PurityKnockbackMult => !Impure ? MappedPurity : impureMult;
-        public virtual float PurityCritMult => !Impure ? MappedPurity : impureMult;
+        public virtual float PurityDamageMult => !Impure ? DefaultMapPurity : impureMult;
+        public virtual float PurityKnockbackMult => !Impure ? DefaultMapPurity : impureMult;
+        public virtual float PurityCritMult => !Impure ? DefaultMapPurity : impureMult;
 
         //Damage modifiction and purity stat retreiving
         public virtual void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) { }
@@ -418,7 +422,7 @@ namespace ChemistryClass {
 
             float tempCrit = crit;
 
-            tempCrit *= add;
+            tempCrit += add;
             tempCrit *= mult;
 
             crit = (int)Math.Ceiling(tempCrit);
