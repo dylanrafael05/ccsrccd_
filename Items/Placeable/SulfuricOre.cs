@@ -21,6 +21,9 @@ namespace ChemistryClass.Items.Placeable {
             item.useTime = 20;
             item.useAnimation = 20;
 
+            item.width = 16;
+            item.height = 16;
+
             item.autoReuse = true;
             item.consumable = true;
 
