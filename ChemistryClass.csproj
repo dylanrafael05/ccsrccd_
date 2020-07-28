@@ -30,6 +30,7 @@
     <Folder Include="Items\Weaponry\Posteater\" />
     <Folder Include="Items\Accessories\" />
     <Folder Include="Items\Armor\" />
+    <Folder Include="Tiles\Blocks\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Projectiles\ProjHelper.cs" />

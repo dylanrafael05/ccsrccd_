@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using ChemistryClass.ModUtils;
 using ChemistryClass.UI;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -60,7 +62,8 @@ namespace ChemistryClass
         //Unload information
         public override void Unload() {
 
-            _refinementMenu.SetState(null);
+            if(_refinementMenu != null)
+                _refinementMenu.SetState(null);
 
             refinementMenu = null;
             _refinementMenu = null;
@@ -94,7 +97,7 @@ namespace ChemistryClass
 
         }
 
-        //Update General
+        //Update Input
         public override void PostUpdateInput() {
 
             if (InteractRefinementMenu.JustPressed) allowRefinementMenu.Invert();
@@ -127,6 +130,21 @@ namespace ChemistryClass
 
             if (_unpausedUpdateCount == ulong.MaxValue)
                 _unpausedUpdateCount = 0;
+
+        }
+
+        //BIOME MUSIC
+        public override void UpdateMusic(ref int music, ref MusicPriority priority) {
+
+            if (Main.gameMenu || Main.menuMultiplayer ||
+                Main.menuServer) return;
+
+            if(!Main.dedServ && Main.LocalPlayer.GetModPlayer<ChemistryClassPlayer>().ZoneSulfur) {
+
+                music = MusicID.Eerie;
+                priority = MusicPriority.BiomeHigh;
+
+            }
 
         }
 

@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ChemistryClass.ModUtils;
 
 namespace ChemistryClass.Items.Materials {
     public class RustedPowder : ModItem {

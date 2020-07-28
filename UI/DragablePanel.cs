@@ -5,6 +5,7 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 using ChemistryClass;
 using Terraria;
+using ChemistryClass.ModUtils;
 
 namespace ChemistryClass.UI {
     public class DragablePanel : UIPanel {

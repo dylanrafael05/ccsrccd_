@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 
 
-namespace ChemistryClass {
+namespace ChemistryClass.ModUtils {
 
     public static class CCUtils {
 
@@ -75,9 +75,12 @@ namespace ChemistryClass {
 
         public static bool Invert(this ref bool val) => val = !val;
 
+        //RANDOM FUNCTIONS
+        public static int RandomSign => Main.rand.Next(new int[] {-1, 1});
+
         //SINUSOID FUNCTIONS / CONSTANT FUNCTIONS
         public static double Sinusoid(double amplitude = 1f, double cycleTime = 1f, double phaseModulation = 0f)
-            => amplitude * Math.Sin(ChemistryClass.UnpausedUpdateCount * PI_OVER_THIRTY / cycleTime + phaseModulation);
+            => amplitude * Math.Sin(ChemistryClass.UnpausedUpdateCount * PI_OVER_THIRTY / cycleTime - phaseModulation);
         public static double SinusoidFrame(double amplitude = 1f, double cycleTime = 1f, double phaseModulation = 0f)
             => Sinusoid(amplitude, cycleTime / 60, phaseModulation);
         public static double SinusoidMinute(double amplitude = 1f, double cycleTime = 1f, double phaseModulation = 0f)
@@ -124,6 +127,9 @@ namespace ChemistryClass {
 
         public static StyleDimension ToStyleDimension(this float i)
             => new StyleDimension(i, 0);
+
+        public static Color ToColor(this Vector3 vector) =>
+            new Color(vector.X * 255, vector.Y * 255, vector.Z * 255);
 
         //RECTANGLE / UI EXTENSIONS
         public static float MinDimension(this Rectangle i)

@@ -1,0 +1,29 @@
+﻿using System;
+using Terraria;
+
+namespace ChemistryClass.ModUtils {
+
+    public class RandChance {
+
+        private float _value;
+        public float Value {
+            get => _value;
+            set => _value = value.Clamp(0, 1);
+        }
+
+        public static implicit operator float(RandChance _this) => _this.Value;
+        public static explicit operator RandChance(float _this) => new RandChance() { Value = _this };
+
+        public static RandChance operator +(RandChance a) => a;
+        public static RandChance operator -(RandChance a) => (RandChance)(-(float)a);
+
+        public static RandChance operator +(RandChance a, RandChance b) => (RandChance)(a + b);
+
+    }
+
+    public class GenerationMap : Single[,] {
+        public GenerationMap() {
+        }
+    }
+
+}

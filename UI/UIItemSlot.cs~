@@ -55,12 +55,6 @@ namespace ChemistryClass.UI {
 
         }
 
-        public override void OnDeactivate() {
-
-            if (tossContentsOnClose) TossContents();
-
-        }
-
         public bool SetItem(Item item) {
 
             if (validItem(item)) {

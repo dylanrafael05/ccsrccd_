@@ -5,6 +5,7 @@ using Terraria.UI;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
+using ChemistryClass.ModUtils;
 
 namespace ChemistryClass.UI {
     public class RefinementMenuPanel : DragablePanel {

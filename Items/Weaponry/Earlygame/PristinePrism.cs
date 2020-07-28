@@ -2,10 +2,10 @@
 using System.Linq;
 using ChemistryClass.Projectiles;
 using Microsoft.Xna.Framework;
-using Steamworks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ChemistryClass.ModUtils;
 
 namespace ChemistryClass.Items.Weaponry.Earlygame {
     public class PristinePrism : ChemistryClassItem {

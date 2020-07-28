@@ -3,6 +3,7 @@ using ChemistryClass.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ChemistryClass.ModUtils;
 
 namespace ChemistryClass.Items.Weaponry.Earlygame {
     public class DarknessVanquisher : ChemistryClassItem {

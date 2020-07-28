@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
+using ChemistryClass.ModUtils;
 
 namespace ChemistryClass.Items.Weaponry.Posteater {
     public class RustyKnife : ChemistryClassItem {

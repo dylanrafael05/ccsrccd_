@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 using ChemistryClass.ModUtils;
 
 namespace ChemistryClass.Items.Accessories {
-    public class StabilityMushroom : ModItem {
+    public class SulfurHeart : ModItem {
 
         public override void SetStaticDefaults() {
 
@@ -18,16 +18,16 @@ namespace ChemistryClass.Items.Accessories {
             item.rare = 3;
             item.value = Item.buyPrice(0, 0, 3, 0);
 
-            item.width = 28;
-            item.height = 28;
+            item.width = 26;
+            item.height = 30;
 
             //DEBUGGING
-            //item.useStyle = ItemUseStyleID.SwingThrow;
-            //item.useTime = 20;
-            //item.useAnimation = 20;
-            //item.autoReuse = true;
-            //item.consumable = true;
-            //item.createTile = ModContent.TileType<Tiles.StabilityMushroomTile>();
+            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useTime = 20;
+            item.useAnimation = 20;
+            item.autoReuse = true;
+            item.consumable = true;
+            item.createTile = ModContent.TileType<Tiles.SulfurHeartTile>();
 
             item.maxStack = 1;
 
@@ -37,7 +37,7 @@ namespace ChemistryClass.Items.Accessories {
 
         public override void UpdateAccessory(Player player, bool hideVisual) {
 
-            player.Chemistry().DecayRateMult -= 0.06f;
+            player.Chemistry().SulfurHeart = true;
 
         }
 
