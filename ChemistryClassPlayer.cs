@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Security.Policy;
-using ChemistryClass.ModUtils;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TUtils;
 
 namespace ChemistryClass {
     public class ChemistryClassPlayer : ModPlayer {
@@ -42,6 +42,12 @@ namespace ChemistryClass {
 
             SulfurHeart = false;
 
+            //DEBUGGING
+            int _ = 0;
+            int _2 = 20;
+            ChemistryClass.SparseDebug(Mathematics.Clamp(ref _, 5, 15));
+            ChemistryClass.SparseDebug(Mathematics.Clamp(ref _2, 5, 15));
+
         }
 
         public override void UpdateEquips(ref bool wallSpeedBuff, ref bool tileSpeedBuff, ref bool tileRangeBuff) {
@@ -50,7 +56,7 @@ namespace ChemistryClass {
 
                 if(player.HeldItem.IsChemistry()) {
 
-                    player.statLifeMax2 += 25;
+                    player.statLifeMax2 += 50;
 
                 }
 
@@ -85,6 +91,12 @@ namespace ChemistryClass {
             ZoneSulfur = reader.ReadBoolean();
 
         }
+
+    }
+
+    public static class PlayerExtensions {
+
+        public static ChemistryClassPlayer Chemistry(this Player pl) => pl.GetModPlayer<ChemistryClassPlayer>();
 
     }
 }

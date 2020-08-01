@@ -1,50 +1,51 @@
 using System;
 using System.Collections.Generic;
-using ChemistryClass.ModUtils;
+using TUtils;
+using TUtils.Timers;
 using ChemistryClass.UI;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
+using log4net;
 
 namespace ChemistryClass
 {
-	public class ChemistryClass : Mod
-	{
+    public class ChemistryClass : Mod {
 
         //VARIABLES
         public static ModHotKey InteractRefinementMenu;
+        public static ILog ModLogger { get; protected set; }
 
         internal RefinementMenuState refinementMenu;
         private UserInterface _refinementMenu;
-        private bool allowRefinementMenu;
+        private bool allowRefinementMenu = true;
 
-        //MEMBERS
-        private static ulong? _unpausedUpdateCount;
-        public static ulong UnpausedUpdateCount
-            => _unpausedUpdateCount.Value;
+        private bool hasLoaded = false;
 
-        public static bool TimeIsMultOf(int m) => UnpausedUpdateCount % (ulong)m == 0;
+        public static bool TimeIsMultOf(int m) => TimerUtils.activeUpdateTimer % m == 0;
         public static void SparseDebug(object o) {
             if (TimeIsMultOf(60)) Main.NewText(o);
         }
 
         //Beaker id
         public static int BeakerTileID
-            => ModContent.TileType<Tiles.BeakerTile>();
+            => ModContent.TileType<Tiles.Multitiles.BeakerTile>();
 
         //Load information
         public override void Load() {
 
+            Logger.InfoFormat($"{Name} LOGGING:");
+            ModLogger = Logger;
+
             InteractRefinementMenu = RegisterHotKey("Open/Close Chemical Refinement Menu", "L");
-            allowRefinementMenu = true;
 
             if (!Main.dedServ) {
 
                 refinementMenu = new RefinementMenuState {
-                    Left = 0f.ToStyleDimension(),
-                    Top = 0f.ToStyleDimension(),
+                    Left = new StyleDimension(0f, 0f),
+                    Top = new StyleDimension(0f, 0f),
                     Width = StyleDimension.Fill,
                     Height = StyleDimension.Fill
                 };
@@ -55,7 +56,7 @@ namespace ChemistryClass
 
             }
 
-            _unpausedUpdateCount = 0;
+            hasLoaded = true;
 
         }
 
@@ -67,8 +68,6 @@ namespace ChemistryClass
 
             refinementMenu = null;
             _refinementMenu = null;
-
-            _unpausedUpdateCount = null;
 
         }
 
@@ -100,7 +99,7 @@ namespace ChemistryClass
         //Update Input
         public override void PostUpdateInput() {
 
-            if (InteractRefinementMenu.JustPressed) allowRefinementMenu.Invert();
+            if (InteractRefinementMenu.JustPressed && hasLoaded) Logic.Invert(ref allowRefinementMenu);
 
         }
 
@@ -126,10 +125,7 @@ namespace ChemistryClass
         //Update unpaused count
         public override void PostUpdateEverything() {
 
-            if (!Main.gamePaused) _unpausedUpdateCount++;
-
-            if (_unpausedUpdateCount == ulong.MaxValue)
-                _unpausedUpdateCount = 0;
+            TimerUtils.UpdateActiveTimer();
 
         }
 

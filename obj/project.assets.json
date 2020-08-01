@@ -37,7 +37,7 @@
     "version": "1.0.0",
     "restore": {
       "projectUniqueName": "/Users/dylanrafael/Library/Application Support/Terraria/ModLoader/Mod Sources/ChemistryClass/ChemistryClass.csproj",
-      "projectName": "TheChemistryMod",
+      "projectName": "ChemistryClass",
       "projectPath": "/Users/dylanrafael/Library/Application Support/Terraria/ModLoader/Mod Sources/ChemistryClass/ChemistryClass.csproj",
       "packagesPath": "/Users/dylanrafael/.nuget/packages/",
       "outputPath": "/Users/dylanrafael/Library/Application Support/Terraria/ModLoader/Mod Sources/ChemistryClass/obj/",

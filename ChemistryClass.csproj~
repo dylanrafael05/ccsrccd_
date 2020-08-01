@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\references\tModLoader.targets" />
+    <PropertyGroup>
+        <AssemblyName>ChemistryClass</AssemblyName>
+        <TargetFramework>net45</TargetFramework>
+        <PlatformTarget>x86</PlatformTarget>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+    <Target Name="BuildMod" AfterTargets="Build">
+        <Exec Command="&quot;$(tMLBuildServerPath)&quot; -build $(ProjectDir) -eac $(TargetPath)" />
+    </Target>
+    <PropertyGroup Condition=" '$(RunConfiguration)' == 'Terraria' ">
+        <StartAction>Program</StartAction>
+        <StartProgram>$(tMLPath)</StartProgram>
+        <StartWorkingDirectory>$(TerrariaSteamPath)</StartWorkingDirectory>
+        <EnvironmentVariables>
+            <Variable name="DYLD_LIBRARY_PATH" value="$(TerrariaSteamPath)/osx" xmlns="" />
+        </EnvironmentVariables>
+    </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Items\" />
+    <Folder Include="Items\Placeable\" />
+    <Folder Include="Items\Weaponry\" />
+    <Folder Include="Items\Weaponry\Earlygame\" />
+    <Folder Include="Prefixes\" />
+    <Folder Include="Projectiles\" />
+    <Folder Include="Tiles\" />
+    <Folder Include="UI\" />
+    <Folder Include="Items\Materials\" />
+    <Folder Include="Buffs\" />
+    <Folder Include="Buffs\Debuffs\" />
+    <Folder Include="TUtils\" />
+    <Folder Include="Dusts\" />
+    <Folder Include="Items\Weaponry\LatePHm\" />
+    <Folder Include="Items\Accessories\" />
+    <Folder Include="Items\Armor\" />
+    <Folder Include="Tiles\Blocks\" />
+    <Folder Include="Items\Accessories\Earlygame\" />
+    <Folder Include="Items\Armor\Rusty\" />
+    <Folder Include="Items\Materials\Earlygame\" />
+    <Folder Include="Items\Placeable\Blocks\" />
+    <Folder Include="Items\Placeable\Crafting\" />
+    <Folder Include="Projectiles\EarlygameFL\" />
+    <Folder Include="Projectiles\LatePreHMFL\" />
+    <Folder Include="Tiles\Multitiles\" />
+    <Folder Include="ModContents\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Projectiles\ProjHelper.cs" />
+  </ItemGroup>
+</Project>

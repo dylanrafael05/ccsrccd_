@@ -1,0 +1,15 @@
+﻿using System;
+using Terraria;
+using Terraria.Utilities;
+
+namespace TUtils {
+    public static class Logical {
+
+        public static bool Invert(bool val) => !val;
+        public static bool Invert(ref bool val) => val = !val;
+
+        public static bool EvaluateChance(float chance) => chance < Main.rand.NextFloat();
+        public static bool EvaluateChanceWorldGen(float chance) => chance < WorldGen.genRand.NextFloat();
+
+    }
+}

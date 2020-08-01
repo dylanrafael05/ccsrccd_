@@ -1,0 +1,131 @@
+﻿using System;
+using Terraria;
+using ReLogic.Utilities;
+using Terraria.ModLoader;
+using static TUtils.Timers;
+using System.IO;
+
+namespace TUtils {
+    public static class ModContents {
+
+        public class ModProjectileWithTimer : ModProjectile {
+
+            public ActiveTimer activeTimer = null;
+
+            public virtual void SafeSetDefaults() { }
+            public override void SetDefaults() {
+                SafeSetDefaults();
+                activeTimer = new ActiveTimer();
+            }
+
+            public virtual bool SafePreAI() => true;
+            public override bool PreAI() {
+
+                if (!SafePreAI()) return false;
+
+                activeTimer.Update();
+
+                return true;
+
+            }
+
+            public virtual void SafeSendExtraAI(BinaryWriter writer) { }
+            public override void SendExtraAI(BinaryWriter writer) {
+
+                writer.Write(activeTimer.Value);
+
+                SafeSendExtraAI(writer);
+
+            }
+
+            public virtual void SafeReceiveExtraAI(BinaryReader reader) { }
+            public override void ReceiveExtraAI(BinaryReader reader) {
+
+                activeTimer.Set(reader.ReadUInt32());
+
+                SafeReceiveExtraAI(reader);
+
+            }
+
+        }
+
+        public class ModProjectileWithCrit : ModProjectileWithTimer {
+
+            public int critChance = 0;
+
+            public override void SetDefaults() {
+                SafeSetDefaults();
+                base.SetDefaults();
+                critChance = Main.player[projectile.owner].HeldItem.crit;
+            }
+
+            public virtual void SafeModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) { }
+            public sealed override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
+
+                crit = critChance > Main.rand.Next(101);
+
+                SafeModifyHitNPC(target, ref damage, ref knockback, ref crit, ref hitDirection);
+
+            }
+
+            public override void SendExtraAI(BinaryWriter writer) {
+
+                writer.Write(critChance);
+                base.SendExtraAI(writer);
+                SafeSendExtraAI(writer);
+
+            }
+
+            public override void ReceiveExtraAI(BinaryReader reader) {
+
+                base.ReceiveExtraAI(reader);
+                critChance = reader.Read();
+                SafeReceiveExtraAI(reader);
+
+            }
+
+        }
+        
+        public class ModNPCWithTimer : ModNPC {
+
+            public ActiveTimer activeTimer = null;
+
+            public virtual void SafeSetDefaults() { }
+            public override void SetDefaults() {
+                SafeSetDefaults();
+                activeTimer = new ActiveTimer();
+            }
+
+            public virtual bool SafePreAI() => true;
+            public override bool PreAI() {
+
+                if (!SafePreAI()) return false;
+
+                activeTimer.Update();
+
+                return true;
+
+            }
+
+            public virtual void SafeSendExtraAI(BinaryWriter writer) { }
+            public sealed override void SendExtraAI(BinaryWriter writer) {
+
+                writer.Write(activeTimer.Value);
+
+                SafeSendExtraAI(writer);
+
+            }
+
+            public virtual void SafeReceiveExtraAI(BinaryReader reader) { }
+            public sealed override void ReceiveExtraAI(BinaryReader reader) {
+
+                activeTimer.Set(reader.ReadUInt32());
+
+                SafeReceiveExtraAI(reader);
+
+            }
+
+        }
+
+    }
+}

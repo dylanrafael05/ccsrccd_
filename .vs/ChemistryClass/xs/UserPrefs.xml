@@ -1,36 +1,38 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="build.txt">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TUtils/Arrays.cs">
     <Files>
-      <File FileName="ChemistryClassWorld.cs" Line="129" Column="1" />
-      <File FileName="Projectiles/SulfuricCloud.cs" Line="105" Column="29" />
-      <File FileName="Tiles/Blocks/SulfuricOreTile.cs" Line="40" Column="56" />
-      <File FileName="Dusts/SulfurDust.cs" Line="31" Column="1" />
-      <File FileName="Tiles/SulfurHeart.cs" Line="28" Column="40" />
-      <File FileName="ModUtils/GenerationMap.cs" Line="86" Column="61" />
-      <File FileName="ChemistryClass.cs" Line="93" Column="22" />
-      <File FileName="ChemistryClassPlayer.cs" Line="76" Column="1" />
-      <File FileName="Items/Accessories/SulfurHeart.cs" Line="33" Column="35" />
-      <File FileName="Items/Accessories/StabilityMushroom.cs" Line="1" Column="1" />
-      <File FileName="Tiles/BeakerTile.cs" Line="38" Column="74" />
-      <File FileName="build.txt" Line="1" Column="36" />
+      <File FileName="TUtils/WorldGeneration.cs" Line="354" Column="1" />
+      <File FileName="TUtils/Mathematics.cs" Line="90" Column="38" />
+      <File FileName="ChemistryClassWorld.cs" Line="67" Column="20" />
+      <File FileName="ChemistryClass.cs" Line="1" Column="1" />
+      <File FileName="TUtils/Delegates.cs" Line="1" Column="1" />
+      <File FileName="TUtils/Logic.cs" Line="21" Column="1" />
+      <File FileName="TUtils/Constants.cs" Line="16" Column="13" />
+      <File FileName="Projectiles/EarlygameFL/PristinePrismBeam.cs" Line="92" Column="1" />
+      <File FileName="ModContents/ModContents.cs" Line="35" Column="10" />
+      <File FileName="TUtils/Timers.cs" Line="82" Column="1" />
+      <File FileName="Items/Weaponry/Earlygame/PristinePrism.cs" Line="111" Column="40" />
+      <File FileName="ChemistryClassItem.cs" Line="381" Column="23" />
+      <File FileName="ChemistryClassPlayer.cs" Line="96" Column="1" />
+      <File FileName="TUtils/Arrays.cs" Line="29" Column="16" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ChemistryClass" expanded="True">
             <Node name="ChemistryClass" expanded="True">
-              <Node name="Dusts" expanded="True" />
               <Node name="Items" expanded="True">
-                <Node name="Accessories" expanded="True" />
-                <Node name="Placeable" expanded="True" />
+                <Node name="Weaponry" expanded="True">
+                  <Node name="Earlygame" expanded="True" />
+                </Node>
               </Node>
-              <Node name="ModUtils" expanded="True" />
-              <Node name="Projectiles" expanded="True" />
-              <Node name="Tiles" expanded="True">
-                <Node name="Blocks" expanded="True" />
+              <Node name="ModContents" expanded="True" />
+              <Node name="Projectiles" expanded="True">
+                <Node name="EarlygameFL" expanded="True" />
               </Node>
-              <Node name="UI" expanded="True" />
-              <Node name="build.txt" selected="True" />
+              <Node name="TUtils" expanded="True">
+                <Node name="Arrays.cs" selected="True" />
+              </Node>
             </Node>
           </Node>
         </State>
@@ -39,6 +41,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.ChemistryClass PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

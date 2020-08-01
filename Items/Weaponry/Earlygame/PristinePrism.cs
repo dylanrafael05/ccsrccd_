@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq;
-using ChemistryClass.Projectiles;
+using ChemistryClass.Projectiles.EarlygameFL;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ChemistryClass.ModUtils;
+using TUtils;
+using TUtils.Timers;
 
 namespace ChemistryClass.Items.Weaponry.Earlygame {
     public class PristinePrism : ChemistryClassItem {
@@ -35,7 +36,6 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
             item.useStyle = 5;
             item.noUseGraphic = true;
 
-            item.reuseDelay = 5;
             item.autoReuse = true;
 
             item.UseSound = SoundID.Item15;
@@ -52,7 +52,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
             SetRefinementData(
 
-                (ModContent.ItemType<Materials.PrismaticLens>(), 1f)
+                (ModContent.ItemType<Materials.Earlygame.PrismaticLens>(), 1f)
 
                 );
 
@@ -83,23 +83,29 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
                 PristinePrismHoldout holdout = Main.projectile.
                                                 ToList().
-                                                Find(proj => proj.modProjectile is PristinePrismHoldout h
+                                                Find(proj => proj.modProjectile is PristinePrismHoldout
                                                 && proj.owner == player.whoAmI)
                                                 .modProjectile as PristinePrismHoldout;
 
                 if (holdout == null) return true;
 
-                Projectile.NewProjectile(
+                int iProj = Projectile.NewProjectile(
 
                     holdout.projectile.position,
                     holdout.projectile.velocity,
                     holdout.projectile.type,
                     damage,
                     knockBack,
-                    player.whoAmI,
-                    holdout.FrameCounter
+                    player.whoAmI
 
                     );
+
+                PristinePrismHoldout pProj = Main.projectile[iProj].modProjectile as PristinePrismHoldout;
+
+                pProj.SetDefaults();
+
+                pProj.timer = new Timer();
+                pProj.timer.Set(holdout.timer);
 
                 holdout.projectile.Kill();
 
@@ -118,7 +124,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
                 TileID.GlassKiln,
                 1,
-                (ModContent.ItemType<Materials.PrismaticLens>(), 5)
+                (ModContent.ItemType<Materials.Earlygame.PrismaticLens>(), 5)
 
                 );
 

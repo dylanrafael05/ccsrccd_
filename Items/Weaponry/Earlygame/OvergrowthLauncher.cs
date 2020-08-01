@@ -1,7 +1,7 @@
 ﻿using System;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ChemistryClass.ModUtils;
+using TUtils;
 
 namespace ChemistryClass.Items.Weaponry.Earlygame {
     public class OvergrowthLauncher : Sapinator {
@@ -16,8 +16,8 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
             base.SafeSetDefaults();
 
-            item.damage = 18;
-            item.shoot = ModContent.ProjectileType<Projectiles.OvergrowthLauncherProjectile>();
+            item.damage = 16;
+            item.shoot = ModContent.ProjectileType<Projectiles.EarlygameFL.OvergrowthLauncherProjectile>();
             item.shootSpeed += 2;
 
             minutesToDecay *= 1.1f;

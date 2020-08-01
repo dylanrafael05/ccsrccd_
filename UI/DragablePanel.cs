@@ -5,7 +5,7 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 using ChemistryClass;
 using Terraria;
-using ChemistryClass.ModUtils;
+using TUtils;
 
 namespace ChemistryClass.UI {
     public class DragablePanel : UIPanel {
@@ -15,7 +15,7 @@ namespace ChemistryClass.UI {
 
         public override void MouseDown(UIMouseEvent evt) {
 
-            if (Elements.Any(el => el.ContainsMouse())) return;
+            if (Elements.Any(el => el.ContainsPoint(Main.MouseScreen))) return;
 
             base.MouseDown(evt);
             dragging = true;
@@ -36,8 +36,8 @@ namespace ChemistryClass.UI {
             Rectangle parentSpace = Parent.GetDimensions().ToRectangle();
             if( !GetDimensions().ToRectangle().Intersects(parentSpace) ) {
 
-                Left.Pixels.Clamp(0, parentSpace.Left - Width.Pixels);
-                Top.Pixels.Clamp(0, parentSpace.Bottom - Height.Pixels);
+                Mathematics.Clamp(ref Left.Pixels, 0, parentSpace.Left - Width.Pixels);
+                Mathematics.Clamp(ref Top.Pixels, 0, parentSpace.Bottom - Height.Pixels);
 
             }
 
@@ -47,7 +47,7 @@ namespace ChemistryClass.UI {
 
         public override void Update(GameTime gameTime) {
 
-            if( this.ContainsMouse() ) {
+            if( ContainsPoint(Main.MouseScreen) ) {
                 Main.LocalPlayer.mouseInterface = true;
             }
 

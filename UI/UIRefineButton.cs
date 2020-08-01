@@ -6,7 +6,6 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Terraria.ID;
-using ChemistryClass.ModUtils;
 
 namespace ChemistryClass.UI {
     public class UIRefineButton : UIElement {

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ChemistryClass.ModUtils;
+using TUtils;
 
 namespace ChemistryClass.Items.Weaponry.Earlygame {
     public class Sapinator : ChemistryClassItem {
@@ -30,7 +30,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
             item.UseSound = SoundID.Item1;
             item.useStyle = ItemUseStyleID.SwingThrow;
 
-            item.shoot = ModContent.ProjectileType<Projectiles.SapinatorProjectile>();
+            item.shoot = ModContent.ProjectileType<Projectiles.EarlygameFL.SapinatorProjectile>();
             item.shootSpeed = 9;
 
             item.rare = 0;

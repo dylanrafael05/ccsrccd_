@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using ChemistryClass.ModUtils;
+using TUtils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -96,7 +96,7 @@ namespace ChemistryClass {
             foreach (ModPrefix pre in ModPrefix.GetPrefixesInCategory(ChemistryClassPrefix.prefixCategory)) {
 
                 //skip if not a chemical prefix
-                if ( !pre.GetType().IsSubclassOf(typeof(ChemistryClassPrefix)) ) continue;
+                if (!pre.GetType().IsSubclassOf(typeof(ChemistryClassPrefix))) continue;
 
                 //skip basic chemical prefix
                 if (pre.Name == new ChemistryClassPrefix().Name) continue;
@@ -186,7 +186,7 @@ namespace ChemistryClass {
 
             refinementData = new List<RefinementItem>();
 
-            foreach((int, float) value in idValuePairs) {
+            foreach ((int, float) value in idValuePairs) {
 
                 refinementData.Add((RefinementItem)value);
 
@@ -199,10 +199,10 @@ namespace ChemistryClass {
             => Math.Round(i * 10000) / 10000;
 
         public string DisplayPurity
-            => purity == 0f ? "Impure" : roundOut(Math.Round(purity * 100 / calloutDivisor) * calloutDivisor) + "%";
+            => purity < curDecayRate ? "Impure" : roundOut(Math.Round(purity * 100 / calloutDivisor) * calloutDivisor) + "%";
 
         public string TooltipPurity
-            => purity == 0f ? "Impure" : Math.Ceiling(purity * 1000) / 10 + "% pure";
+            => purity < curDecayRate ? "Impure" : Math.Ceiling(purity * 1000) / 10 + "% pure";
 
         //Modifying tooltip
         public virtual void SafeModifyTooltips(List<TooltipLine> tooltips) { }
@@ -259,7 +259,7 @@ namespace ChemistryClass {
 
             string text = "Can be refined with:";
 
-            foreach(var entry in refinementData) {
+            foreach (var entry in refinementData) {
 
                 Item item = new Item();
                 item.SetDefaults(entry.itemID);
@@ -323,12 +323,12 @@ namespace ChemistryClass {
         }
 
         //Decay statistics
-        private void ClampPurity() => purity.Clamp(0,1);
+        private void ClampPurity() => Mathematics.Clamp(ref purity, 0, 1);
 
         public void RefreshStats() {
 
-            GetDecayStats(Main.LocalPlayer);
             GetPrefixValues();
+            GetDecayStats(Main.LocalPlayer);
 
         }
 
@@ -345,9 +345,8 @@ namespace ChemistryClass {
             ModifyDecayStats(ref curDecayRate, ref curDecayChance, player);
 
             //limit stats
-            float minValue = (float)Math.Pow(10, -5);
-            curDecayRate.EnforceMin(minValue);
-            curDecayChance.Clamp(minValue, 1);
+            Mathematics.LimitMin(ref curDecayRate, 0.00000001f);
+            Mathematics.Clamp(ref curDecayChance, 0.01f, 1);
 
         }
 
@@ -374,7 +373,7 @@ namespace ChemistryClass {
 
         //Purity to multiplier mapping
         protected float MapPurity(float min, float max)
-            => purity.Map(0, 1, min, max);
+            => Mathematics.Map(ref purity, 0, 1, min, max);
         protected float DefaultMapPurity => MapPurity(minPurityMult, maxPurityMult);
 
         public virtual float PurityDamageMult => !Impure ? DefaultMapPurity : impureMult;
@@ -442,7 +441,7 @@ namespace ChemistryClass {
 
         private void TryCallout(Player player) {
 
-            if(PurityCloseToLandmark && purity != previousCallout) {
+            if (PurityCloseToLandmark && purity != previousCallout) {
 
                 Rectangle spawn = new Rectangle(0, 0, 20, 20);
                 Vector2 position = player.position;
@@ -477,7 +476,7 @@ namespace ChemistryClass {
                 UsePurity(player);
 
                 //DEBUGGING
-                //Main.NewText("item purity use");
+                Main.NewText("item purity use");
                 //Main.NewText(DecayRateReal);
                 //Main.NewText(usesToDecay);
 
@@ -488,7 +487,7 @@ namespace ChemistryClass {
         //Use up purity
         public void UsePurity(Player player) {
 
-            if (Main.rand.NextFloat(0, 1) < curDecayChance)
+            if (Logic.EvaluateChance(curDecayChance))
                 purity -= curDecayRate;
 
             ClampPurity();
@@ -510,7 +509,7 @@ namespace ChemistryClass {
             //Main.NewText(item.ToString());
             //Main.NewText(indexOfItem);
 
-            if(indexOfItem < 0) return false;
+            if (indexOfItem < 0) return false;
 
             float refinement = chemItem.refinementData[indexOfItem].value;
             float refinementNeeded = 1f - chemItem.purity;
@@ -575,6 +574,13 @@ namespace ChemistryClass {
 
         public override void NetRecieve(BinaryReader reader)
             => purity = reader.ReadSingle();
+
+    }
+
+    public static class ItemExtensions {
+
+        public static ChemistryClassItem Chemistry(this Item it) => it.modItem as ChemistryClassItem;
+        public static bool IsChemistry(this Item it) => it.modItem is ChemistryClassItem;
 
     }
 

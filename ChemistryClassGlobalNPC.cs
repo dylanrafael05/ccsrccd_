@@ -95,7 +95,7 @@ namespace ChemistryClass {
 
             if( npc.type == NPCID.EyeofCthulhu) {
 
-                Item.NewItem(npc.Hitbox, ModContent.ItemType<Items.Materials.PrismaticLens>(), Main.rand.Next(5, 10));
+                Item.NewItem(npc.Hitbox, ModContent.ItemType<Items.Materials.Earlygame.PrismaticLens>(), Main.rand.Next(5, 10));
 
             }
 

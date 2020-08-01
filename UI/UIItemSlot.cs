@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameInput;
 using Terraria.UI;
-using ChemistryClass.ModUtils;
 
 namespace ChemistryClass.UI {
     public class UIItemSlot : UIElement {
