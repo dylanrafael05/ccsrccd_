@@ -12,7 +12,7 @@ namespace ChemistryClass {
 
                 player.QuickSpawnItem(
 
-                    ModContent.ItemType<Items.Materials.PrismaticLens>(),
+                    ModContent.ItemType<Items.Materials.Earlygame.PrismaticLens>(),
                     Main.rand.Next(9,14)
 
                     );

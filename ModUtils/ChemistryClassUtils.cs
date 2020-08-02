@@ -79,41 +79,8 @@ namespace ChemistryClass.ModUtils {
         public static int RandomSign => Main.rand.Next(new int[] {-1, 1});
 
         //SINUSOID FUNCTIONS / CONSTANT FUNCTIONS
-        public static double Sinusoid(double amplitude = 1f, double cycleTime = 1f, double phaseModulation = 0f)
-            => amplitude * Math.Sin(ChemistryClass.UnpausedUpdateCount * PI_OVER_THIRTY / cycleTime - phaseModulation);
-        public static double SinusoidFrame(double amplitude = 1f, double cycleTime = 1f, double phaseModulation = 0f)
-            => Sinusoid(amplitude, cycleTime / 60, phaseModulation);
-        public static double SinusoidMinute(double amplitude = 1f, double cycleTime = 1f, double phaseModulation = 0f)
-            => Sinusoid(amplitude, cycleTime * 60, phaseModulation);
-
-        public static double OneFrameSinusoid
-            => SinusoidFrame();
-        public static double TwoFrameSinusoid
-            => SinusoidFrame(cycleTime: 2f);
-        public static double FourFrameSinusoid
-            => SinusoidFrame(cycleTime: 4f);
-        public static double TenFrameSinusoid
-            => SinusoidFrame(cycleTime: 10f);
-
-        public static double OneSecondSinusoid
-            => Sinusoid();
-        public static double TwoSecondSinusoid
-            => Sinusoid(cycleTime: 2f);
-        public static double FourSecondSinusoid
-            => Sinusoid(cycleTime: 4f);
-        public static double TenSecondSinusoid
-            => Sinusoid(cycleTime: 10f);
-
-        public static double OneMinuteSinusoid
-            => SinusoidMinute();
-        public static double TwoMinuteSinusoid
-            => SinusoidMinute(cycleTime: 2f);
-        public static double FourMinuteSinusoid
-            => SinusoidMinute(cycleTime: 4f);
-        public static double TenMinuteSinusoid
-            => SinusoidMinute(cycleTime: 10f);
-        public static double OneHourSinusoid
-            => SinusoidMinute(cycleTime: 60f);
+        public static double Sinusoid(double amplitude = 1f, double cycleTime = 1f, double phaseShift = 0f)
+            => amplitude * Math.Sin(ChemistryClass.UnpausedUpdateCount * ONE_RPS / cycleTime - TWO_PI_FLOAT * phaseShift);
 
         //CONVERSION EXTENSIONS
         public static ChemistryClassPlayer Chemistry(this Player player)
@@ -132,38 +99,6 @@ namespace ChemistryClass.ModUtils {
             new Color(vector.X * 255, vector.Y * 255, vector.Z * 255);
 
         //RECTANGLE / UI EXTENSIONS
-        public static float MinDimension(this Rectangle i)
-            => Math.Min(i.Width, i.Height);
-        public static float MinDimension(this Texture2D i)
-            => Math.Min(i.Width, i.Height);
-
-        public static float MaxDimension(this Rectangle i)
-            => Math.Max(i.Width, i.Height);
-        public static float MaxDimension(this Texture2D i)
-            => Math.Max(i.Width, i.Height);
-
-        public static void AddMargin(this Rectangle i, int margin) {
-
-            i.X += margin;
-            i.Y += margin;
-            i.Width  -= margin * 2;
-            i.Height -= margin * 2;
-
-        }
-
-        public static void AddMargin(this Rectangle i, float margin)
-            => i.AddMargin((int)margin);
-
-        public static void ShrinkBy(this Rectangle i, float margin)
-            => new Rectangle(
-
-                (int)(i.Center.X - (i.Width / 2)*(1 - margin)),
-                (int)(i.Center.Y - (i.Height / 2)*(1 - margin)),
-                (int)(i.Width * (1 - margin)),
-                (int)(i.Height * (1 - margin))
-
-                );
-
         public static bool ContainsMouse<T>(this T uiEl) where T : UIElement
             => uiEl.ContainsPoint(Main.MouseScreen);
 
@@ -185,58 +120,15 @@ namespace ChemistryClass.ModUtils {
 
         }
 
-        //COLOR MIXING
-        public static Color MixRGB(this Color one, Color two, float f1 = 1f, float f2 = 1f) {
-
-            double r = Math.Sqrt((one.R * one.R * f1 + two.R * two.R * f2) / (f1 + f2));
-            double g = Math.Sqrt((one.G * one.G * f1 + two.G * two.G * f2) / (f1 + f2));
-            double b = Math.Sqrt((one.B * one.B * f1 + two.B * two.B * f2) / (f1 + f2));
-
-            return new Color((int)r, (int)g, (int)b, 0);
-
-        }
-
-        public static Color MatchAlpha(this Color one, Color two)
-            => new Color(one.R, one.G, one.B, two.A);
-
-        public static Color WithAlpha(this Color one, float a)
-            => new Color(one.R, one.G, one.B, a);
-
         //CONSTS (BASICALLY)
-        public const float PI = (float)Math.PI;
+        public const float PI_FLOAT = (float)Math.PI;
 
-        public const float HALF_PI = PI / 2;
-        public const float THIRD_PI = PI / 3;
-        public const float QUARTER_PI = PI / 4;
-        public const float SIXTH_PI = PI / 6;
-        public const float EIGHTH_PI = PI / 8;
-        public const float TENTH_PI = PI / 10;
-        public const float PI_OVER_THIRTY = PI / 30;
+        public const float HALF_PI_FLOAT = PI_FLOAT / 2;
+        public const float THIRD_PI_FLOAT = PI_FLOAT / 3;
+        public const float QUARTER_PI_FLOAT = PI_FLOAT / 4;
+        public const float TWO_PI_FLOAT = PI_FLOAT * 2;
 
-        public const float THREE_HALVES_PI = HALF_PI * 3;
-
-        public const float TWO_THIRDS_PI = THIRD_PI * 2;
-        public const float FOUR_THIRDS_PI = THIRD_PI * 4;
-
-        public const float THREE_QUARTER_PI = QUARTER_PI * 3;
-        public const float FIVE_QUARTER_PI = QUARTER_PI * 5;
-        public const float SEVEN_QUARTER_PI = QUARTER_PI * 7;
-
-        public const float FIVE_SIXTHS_PI = SIXTH_PI * 5;
-        public const float SEVEN_SIXTHS_PI = SIXTH_PI * 7;
-        public const float ELEVEN_SIXTHS_PI = SIXTH_PI * 11;
-
-        public const float THREE_EIGHTHS_PI = EIGHTH_PI * 3;
-        public const float FIVE_EIGHTHS_PI = EIGHTH_PI * 5;
-        public const float SEVEN_EIGHTHS_PI = EIGHTH_PI * 7;
-        public const float NINE_EIGHTHS_PI = EIGHTH_PI * 9;
-        public const float ELEVEN_EIGHTHS_PI = EIGHTH_PI * 11;
-        public const float THIRTEEN_EIGHTHS_PI = EIGHTH_PI * 13;
-        public const float FIFTEEN_EIGHTHS_PI = EIGHTH_PI * 15;
-
-        public const float TWO_PI = PI * 2;
-
-        public static float PiOver(int denominator) => PI / denominator;
+        public const float ONE_RPS = PI_FLOAT / 60;
 
     }
 

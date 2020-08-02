@@ -1,7 +1,6 @@
 ﻿using System;
 using Terraria;
 using Terraria.UI;
-using ChemistryClass.ModUtils;
 
 namespace ChemistryClass.UI {
     public class RefinementMenuState : UIState {
@@ -13,9 +12,9 @@ namespace ChemistryClass.UI {
             menu = new RefinementMenuPanel() {
 
                 HAlign = 0.5f,
-                Top = 24f.ToStyleDimension(),
-                Width = (Main.screenWidth / 7f).ToStyleDimension(),
-                Height = 100f.ToStyleDimension()
+                Top = new StyleDimension(24, 0),
+                Width = new StyleDimension(Main.screenWidth / 7f, 0),
+                Height = new StyleDimension(100, 0)
 
             };
 

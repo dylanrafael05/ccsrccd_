@@ -15,7 +15,7 @@ namespace ChemistryClass {
             if (tile.active()) return;
             if (Main.rand.Next(400) != 0) return;
 
-            WorldGen.Place1x1(i, j - 1, ModContent.TileType<Tiles.StabilityMushroomTile>());
+            WorldGen.Place1x1(i, j - 1, ModContent.TileType<Tiles.Multitiles.StabilityMushroomTile>());
 
         }
 

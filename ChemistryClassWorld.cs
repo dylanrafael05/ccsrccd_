@@ -13,9 +13,9 @@ namespace ChemistryClass {
     public class ChemistryClassWorld : ModWorld {
 
         //BIOME SHIZ
-        public static ushort SulfurStoneType => (ushort)ModContent.TileType<Tiles.Blocks.SulfurStoneTile>();
+        public static ushort SulfurOreHeartType => (ushort)ModContent.TileType<Tiles.Blocks.SulfuricOreHeartTile>();
         public static ushort SulfurOreType => (ushort)ModContent.TileType<Tiles.Blocks.SulfuricOreTile>();
-        public static ushort SulfurHeartType => (ushort)ModContent.TileType<Tiles.SulfurHeartTile>();
+        public static ushort SulfurHeartType => (ushort)ModContent.TileType<Tiles.Multitiles.SulfurHeartTile>();
 
         public static int sulfurCount;
         public static int sulfurHeartCount;
@@ -30,7 +30,7 @@ namespace ChemistryClass {
 
         public override void TileCountsAvailable(int[] tileCounts) {
 
-            sulfurCount = tileCounts[SulfurStoneType] + tileCounts[SulfurOreType];
+            sulfurCount = tileCounts[SulfurOreHeartType] + tileCounts[SulfurOreType];
             sulfurHeartCount = tileCounts[SulfurHeartType];
             base.TileCountsAvailable(tileCounts);
 
@@ -83,7 +83,7 @@ namespace ChemistryClass {
 
                 //CHOOSE CENTER POINT
                 iCenter = WorldGen.genRand.Next(worldCenter - tileSpread, worldCenter + tileSpread);
-                jCenter = WorldGen.genRand.Next((int)WorldGen.rockLayer, (int)(Main.maxTilesY * 0.9f) - 100);
+                jCenter = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY - 200);
 
                 //ENSURE THAT ONLY GENERATES IN UNDERGROUND BIOME, AND WHERE THERE IS AN 10x10 FILLED SPACE
                 for(int iOff = -5; iOff < 5; iOff++) {
@@ -123,7 +123,7 @@ namespace ChemistryClass {
                         if ((iOff == -1 || iOff == 0) && (jOff == -1 || jOff == 0)) {
                             curTile.active(false);
                         } else {
-                            curTile.type = SulfurOreType;
+                            curTile.type = SulfurOreHeartType;
                             curTile.slope(0);
                         }
 

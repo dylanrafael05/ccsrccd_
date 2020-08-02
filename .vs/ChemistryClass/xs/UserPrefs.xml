@@ -1,36 +1,33 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="build.txt">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ModUtils/ChemistryClassUtils.cs">
     <Files>
-      <File FileName="ChemistryClassWorld.cs" Line="129" Column="1" />
-      <File FileName="Projectiles/SulfuricCloud.cs" Line="105" Column="29" />
-      <File FileName="Tiles/Blocks/SulfuricOreTile.cs" Line="40" Column="56" />
-      <File FileName="Dusts/SulfurDust.cs" Line="31" Column="1" />
-      <File FileName="Tiles/SulfurHeart.cs" Line="28" Column="40" />
-      <File FileName="ModUtils/GenerationMap.cs" Line="86" Column="61" />
-      <File FileName="ChemistryClass.cs" Line="93" Column="22" />
-      <File FileName="ChemistryClassPlayer.cs" Line="76" Column="1" />
-      <File FileName="Items/Accessories/SulfurHeart.cs" Line="33" Column="35" />
-      <File FileName="Items/Accessories/StabilityMushroom.cs" Line="1" Column="1" />
-      <File FileName="Tiles/BeakerTile.cs" Line="38" Column="74" />
-      <File FileName="build.txt" Line="1" Column="36" />
+      <File FileName="Projectiles/EarlygameFL/RustTippedArrow.cs" Line="73" Column="17" />
+      <File FileName="Projectiles/EarlygameFL/SapinatorProjectile.cs" Line="70" Column="9" />
+      <File FileName="Projectiles/EarlygameFL/SulfuricCloud.cs" Line="1" Column="1" />
+      <File FileName="Items/Weaponry/Earlygame/RustingBow.cs" Line="30" Column="30" />
+      <File FileName="Items/Placeable/Crafting/MetallurgyStand.cs" Line="79" Column="19" />
+      <File FileName="Projectiles/EarlygameFL/PristinePrismBeam.cs" Line="108" Column="37" />
+      <File FileName="ChemistryClassGlobalNPC.cs" Line="72" Column="14" />
+      <File FileName="Projectiles/EarlygameFL/PristinePrismHoldout.cs" Line="18" Column="62" />
+      <File FileName="Items/Weaponry/Earlygame/PristinePrism.cs" Line="91" Column="54" />
+      <File FileName="ModUtils/ChemistryClassUtils.cs" Line="101" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ChemistryClass" expanded="True">
             <Node name="ChemistryClass" expanded="True">
-              <Node name="Dusts" expanded="True" />
               <Node name="Items" expanded="True">
-                <Node name="Accessories" expanded="True" />
-                <Node name="Placeable" expanded="True" />
+                <Node name="Weaponry" expanded="True">
+                  <Node name="Earlygame" expanded="True" />
+                </Node>
               </Node>
-              <Node name="ModUtils" expanded="True" />
-              <Node name="Projectiles" expanded="True" />
-              <Node name="Tiles" expanded="True">
-                <Node name="Blocks" expanded="True" />
+              <Node name="ModUtils" expanded="True">
+                <Node name="ChemistryClassUtils.cs" selected="True" />
               </Node>
-              <Node name="UI" expanded="True" />
-              <Node name="build.txt" selected="True" />
+              <Node name="Projectiles" expanded="True">
+                <Node name="EarlygameFL" expanded="True" />
+              </Node>
             </Node>
           </Node>
         </State>

@@ -45,7 +45,7 @@ namespace ChemistryClass.UI {
 
         protected override void DrawSelf(SpriteBatch spriteBatch) {
 
-            bool mouseOver = ContainsPoint(Main.MouseScreen);
+            bool mouseOver = this.ContainsMouse();
 
             if( mouseOver && !previousMouseOver.Value ) {
 

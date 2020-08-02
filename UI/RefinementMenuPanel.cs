@@ -47,8 +47,8 @@ namespace ChemistryClass.UI {
 
                 VAlign = 0.75f,
                 HAlign = 0.9f,
-                Height = 30f.ToStyleDimension(),
-                Width = 30f.ToStyleDimension()
+                Height = new StyleDimension(30, 0),
+                Width = new StyleDimension(30, 0)
 
             };
 

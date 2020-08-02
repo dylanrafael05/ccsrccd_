@@ -37,14 +37,14 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
             item.rare = 1;
             item.value = Item.buyPrice(0, 0, 10, 0);
 
-            item.shoot = ModContent.ProjectileType<GlassShard>();
+            item.shoot = ModContent.ProjectileType<Projectiles.EarlygameFL.GlassShard>();
             item.shootSpeed = 15f;
 
             minutesToDecay = 3f;
 
             SetRefinementData(
 
-                (ModContent.ItemType<Materials.PrismaticLens>(), 1f)
+                (ModContent.ItemType<Materials.Earlygame.PrismaticLens>(), 1f)
 
                 );
 
@@ -56,7 +56,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
                             TileID.GlassKiln,
                             1,
-                            (ModContent.ItemType<Materials.PrismaticLens>(), 4)
+                            (ModContent.ItemType<Materials.Earlygame.PrismaticLens>(), 4)
 
             );
 

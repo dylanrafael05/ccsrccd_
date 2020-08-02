@@ -50,7 +50,7 @@ namespace ChemistryClass {
 
                 if(player.HeldItem.IsChemistry()) {
 
-                    player.statLifeMax2 += 25;
+                    player.statLifeMax2 += 50;
 
                 }
 

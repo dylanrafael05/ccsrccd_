@@ -11,8 +11,8 @@ namespace ChemistryClass {
         public override bool InstancePerEntity => true;
 
         public bool rusted;
-        public static int rustedDef => 10;
-        public static int rustedLD => 8;
+        public static int rustedDef => 5;
+        public static int rustedLD => 7;
         public static Color RustedColor => new Color(210, 140, 85);
 
         //public Color colorOnRusted;
@@ -65,7 +65,7 @@ namespace ChemistryClass {
                     DustID.Iron,
                     Main.rand.NextFloat(-1, 1),
                     Main.rand.NextFloat(-4, 0),
-                    0, RustedColor
+                    0
 
                     );
 
@@ -95,7 +95,7 @@ namespace ChemistryClass {
 
             if( npc.type == NPCID.EyeofCthulhu) {
 
-                Item.NewItem(npc.Hitbox, ModContent.ItemType<Items.Materials.PrismaticLens>(), Main.rand.Next(5, 10));
+                Item.NewItem(npc.Hitbox, ModContent.ItemType<Items.Materials.Earlygame.PrismaticLens>(), Main.rand.Next(5, 10));
 
             }
 

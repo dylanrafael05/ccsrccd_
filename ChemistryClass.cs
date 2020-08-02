@@ -32,7 +32,7 @@ namespace ChemistryClass
 
         //Beaker id
         public static int BeakerTileID
-            => ModContent.TileType<Tiles.BeakerTile>();
+            => ModContent.TileType<Tiles.Multitiles.BeakerTile>();
 
         //Load information
         public override void Load() {

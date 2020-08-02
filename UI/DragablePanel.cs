@@ -3,9 +3,8 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
-using ChemistryClass;
-using Terraria;
 using ChemistryClass.ModUtils;
+using Terraria;
 
 namespace ChemistryClass.UI {
     public class DragablePanel : UIPanel {
@@ -36,8 +35,8 @@ namespace ChemistryClass.UI {
             Rectangle parentSpace = Parent.GetDimensions().ToRectangle();
             if( !GetDimensions().ToRectangle().Intersects(parentSpace) ) {
 
-                Left.Pixels.Clamp(0, parentSpace.Left - Width.Pixels);
-                Top.Pixels.Clamp(0, parentSpace.Bottom - Height.Pixels);
+                CCUtils.Clamp(ref Left.Pixels, 0, parentSpace.Left - Width.Pixels);
+                CCUtils.Clamp(ref Top.Pixels, 0, parentSpace.Bottom - Height.Pixels);
 
             }
 
