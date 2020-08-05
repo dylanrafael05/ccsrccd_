@@ -7,54 +7,33 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Terraria.ID;
 using ChemistryClass.ModUtils;
+using Terraria.GameContent.UI.States;
 
 namespace ChemistryClass.UI {
     public class UIRefineButton : UIElement {
 
-        public static string inactive = null;
-        public static string active = null;
+        public const string inactive = "ChemistryClass/UI/RefineButtonInactive";
+        public const string active = "ChemistryClass/UI/RefineButtonActive";
 
         public static Texture2D inactiveTexture => ModContent.GetTexture(inactive);
         public static Texture2D activeTexture   => ModContent.GetTexture(active);
 
-        private bool? previousMouseOver = null;
-        private Texture2D curTexture = null;
-
-        public override void OnActivate() {
-
-            inactive = "ChemistryClass/UI/RefineButtonInactive";
-            active = "ChemistryClass/UI/RefineButtonActive";
-
-            curTexture = inactiveTexture;
-            previousMouseOver = false;
-            base.OnActivate();
-
-        }
-
-        public override void OnDeactivate() {
-
-            inactive = null;
-            active = null;
-
-            curTexture = null;
-            previousMouseOver = null;
-
-            base.OnDeactivate();
-
-        }
+        private bool previousMouseOver = false;
+        //private bool previousItemUse = false;
+        private Texture2D curTexture = inactiveTexture;
 
         protected override void DrawSelf(SpriteBatch spriteBatch) {
 
-            bool mouseOver = ContainsPoint(Main.MouseScreen);
+            bool mouseOver = this.ContainsMouse();
 
-            if( mouseOver && !previousMouseOver.Value ) {
+            if( mouseOver && !previousMouseOver ) {
 
                 Main.PlaySound(SoundID.MenuTick);
                 curTexture = activeTexture;
 
             }
 
-            if( !mouseOver && previousMouseOver.Value ) {
+            if( !mouseOver && previousMouseOver ) {
 
                 Main.PlaySound(SoundID.MenuTick);
                 curTexture = inactiveTexture;

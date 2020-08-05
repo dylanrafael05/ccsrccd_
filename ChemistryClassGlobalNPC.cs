@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -11,9 +12,11 @@ namespace ChemistryClass {
         public override bool InstancePerEntity => true;
 
         public bool rusted;
-        public static int rustedDef => 10;
-        public static int rustedLD => 8;
+        public static int rustedDef => 5;
+        public static int rustedLD => 7;
         public static Color RustedColor => new Color(210, 140, 85);
+
+        public bool sulfurFire;
 
         //public Color colorOnRusted;
 
@@ -32,6 +35,7 @@ namespace ChemistryClass {
             }
 
             rusted = false;
+            sulfurFire = false;
 
         }
 
@@ -58,14 +62,27 @@ namespace ChemistryClass {
 
             if ( rusted && ChemistryClass.TimeIsMultOf(20) ) {
 
-                int dust = Dust.NewDust(
+                Dust.NewDust(
 
                     npc.position,
                     npc.width, npc.height,
                     DustID.Iron,
                     Main.rand.NextFloat(-1, 1),
                     Main.rand.NextFloat(-4, 0),
-                    0, RustedColor
+                    0
+
+                    );
+
+            }
+
+            if(sulfurFire) {
+
+                Dust.NewDustDirect(
+
+                    npc.position,
+                    npc.width, npc.height,
+                    ModContent.DustType<Dusts.SulfurFlame>(),
+                    Scale: Main.rand.NextFloat(0.75f, 1.25f)
 
                     );
 
@@ -86,6 +103,17 @@ namespace ChemistryClass {
 
             }
 
+            if (sulfurFire) {
+
+                if (npc.lifeRegen > 0) npc.lifeRegen = 0;
+
+                npc.lifeRegen -= 14;
+
+                if (damage < 1) damage = 1;
+                else damage += 1;
+
+            }
+
         }
 
         //EoC PRISMATIC LENS DROP
@@ -95,7 +123,7 @@ namespace ChemistryClass {
 
             if( npc.type == NPCID.EyeofCthulhu) {
 
-                Item.NewItem(npc.Hitbox, ModContent.ItemType<Items.Materials.PrismaticLens>(), Main.rand.Next(5, 10));
+                Item.NewItem(npc.Hitbox, ModContent.ItemType<Items.Materials.Earlygame.PrismaticLens>(), Main.rand.Next(5, 10));
 
             }
 

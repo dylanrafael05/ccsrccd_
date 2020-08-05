@@ -1,5 +1,4 @@
 ﻿using System;
-using ChemistryClass.ModUtils;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -9,15 +8,13 @@ using Terraria.ModLoader;
 namespace ChemistryClass.Tiles.Blocks {
     public class SulfuricOreTile : ModTile {
 
-
-
         public override void SetDefaults() {
 
             this.dustType = ModContent.DustType<Dusts.SulfurDust>();
             this.minPick = 100;
             this.mineResist = 4f;
             this.soundType = SoundID.Tink;
-            this.drop = ModContent.ItemType<Items.Placeable.SulfuricOre>();
+            this.drop = ModContent.ItemType<Items.Placeable.Blocks.SulfurClump>();
 
             TileID.Sets.Ore[Type] = true;
             Main.tileSpelunker[Type] = true;
@@ -28,8 +25,6 @@ namespace ChemistryClass.Tiles.Blocks {
             //Main.tileBlendAll[Type] = true;
 
             Main.tileMergeDirt[Type] = true;
-            Main.tileMerge[Type][ModContent.TileType<SulfurHeartTile>()] = true;
-            Main.tileMerge[ModContent.TileType<SulfurHeartTile>()][Type] = true;
             //Main.tileMerge[Type][TileID.Stone] = true;
             //Main.tileMerge[TileID.Stone][Type] = true;
 

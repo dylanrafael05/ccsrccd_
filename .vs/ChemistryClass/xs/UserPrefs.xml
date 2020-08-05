@@ -1,33 +1,46 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workbench ActiveDocument="build.txt">
     <Files>
-      <File FileName="ChemistryClassWorld.cs" Line="129" Column="1" />
-      <File FileName="Projectiles/SulfuricCloud.cs" Line="105" Column="29" />
-      <File FileName="Tiles/Blocks/SulfuricOreTile.cs" Line="40" Column="56" />
-      <File FileName="Dusts/SulfurDust.cs" Line="31" Column="1" />
-      <File FileName="Tiles/SulfurHeart.cs" Line="28" Column="40" />
-      <File FileName="ModUtils/GenerationMap.cs" Line="86" Column="61" />
-      <File FileName="ChemistryClass.cs" Line="93" Column="22" />
-      <File FileName="ChemistryClassPlayer.cs" Line="76" Column="1" />
-      <File FileName="Items/Accessories/SulfurHeart.cs" Line="33" Column="35" />
-      <File FileName="Items/Accessories/StabilityMushroom.cs" Line="1" Column="1" />
-      <File FileName="Tiles/BeakerTile.cs" Line="38" Column="74" />
-      <File FileName="build.txt" Line="1" Column="36" />
+      <File FileName="ChemistryClass.cs" Line="134" Column="47" />
+      <File FileName="Items/Weaponry/LatePHM/SulfuricSpitter.cs" Line="32" Column="43" />
+      <File FileName="UI/RefinementMenuState.cs" Line="18" Column="1" />
+      <File FileName="UI/RefinementMenuPanel.cs" Line="104" Column="27" />
+      <File FileName="ChemistryClassPlayer.cs" Line="83" Column="1" />
+      <File FileName="ChemistryClassItem.cs" Line="528" Column="47" />
+      <File FileName="Items/Accessories/Earlygame/AutorefinementCompound.cs" Line="11" Column="130" />
+      <File FileName="Items/Accessories/Earlygame/StabilityMushroom.cs" />
+      <File FileName="Items/Accessories/Earlygame/SulfurHeart.cs" />
+      <File FileName="UI/UIItemSlot.cs" Line="72" Column="1" />
+      <File FileName="ModUtils/ChemistryClassUtils.cs" />
+      <File FileName="UI/UITogglable.cs" Line="1" Column="1" />
+      <File FileName="UI/UIRefineButton.cs" Line="39" Column="31" />
+      <File FileName="UI/UITitleTogglable.cs" Line="19" Column="1" />
+      <File FileName="Items/Consumeables/AntidecayPotion.cs" Line="11" Column="1" />
+      <File FileName="build.txt" Line="3" Column="14" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ChemistryClass" expanded="True">
             <Node name="ChemistryClass" expanded="True">
+              <Node name="Buffs" expanded="True">
+                <Node name="Debuffs" expanded="True" />
+                <Node name="Normal" expanded="True" />
+              </Node>
               <Node name="Dusts" expanded="True" />
               <Node name="Items" expanded="True">
-                <Node name="Accessories" expanded="True" />
-                <Node name="Placeable" expanded="True" />
+                <Node name="Accessories" expanded="True">
+                  <Node name="Earlygame" expanded="True" />
+                </Node>
+                <Node name="Consumeables" expanded="True" />
+                <Node name="Weaponry" expanded="True">
+                  <Node name="LatePHM" expanded="True" />
+                </Node>
               </Node>
               <Node name="ModUtils" expanded="True" />
-              <Node name="Projectiles" expanded="True" />
-              <Node name="Tiles" expanded="True">
-                <Node name="Blocks" expanded="True" />
+              <Node name="Projectiles" expanded="True">
+                <Node name="EarlygameFL" expanded="True" />
+                <Node name="LatePHMFL" expanded="True" />
               </Node>
               <Node name="UI" expanded="True" />
               <Node name="build.txt" selected="True" />

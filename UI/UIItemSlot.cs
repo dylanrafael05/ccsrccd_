@@ -4,12 +4,15 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameInput;
 using Terraria.UI;
-using ChemistryClass.ModUtils;
 
 namespace ChemistryClass.UI {
     public class UIItemSlot : UIElement {
 
-        internal Item item;
+        private Item _item;
+        public Item Item {
+            get => _item;
+            set => SetItem(value);
+        }
         internal Predicate<Item> validItem = i => true;
         internal bool allowAir = true;
 
@@ -39,19 +42,21 @@ namespace ChemistryClass.UI {
 
             this.tossContentsOnClose = tossContentsOnClose;
 
-            item = new Item();
-            item.SetDefaults();
+            Item = new Item();
+            Item.SetDefaults();
 
             Width.Set(Main.inventoryBack9Texture.Width * scale, 0f);
             Height.Set(Main.inventoryBack9Texture.Height * scale, 0f);
 
         }
 
-        protected void TossContents() {
+        public void TossContents() {
 
-            Main.LocalPlayer.QuickSpawnClonedItem(item, item.stack);
-            item = new Item();
-            item.SetDefaults();
+            if (Item.IsAir) return;
+
+            Main.LocalPlayer.QuickSpawnClonedItem(Item, Item.stack);
+            Item = new Item();
+            Item.SetDefaults();
 
         }
 
@@ -63,9 +68,9 @@ namespace ChemistryClass.UI {
 
         public bool SetItem(Item item) {
 
-            if (validItem(item)) {
+            if (validItem(item) || (item.IsAir && allowAir)) {
 
-                this.item = item;
+                this._item = item;
                 return true;
 
             } else return false;
@@ -83,11 +88,11 @@ namespace ChemistryClass.UI {
 
                 Main.LocalPlayer.mouseInterface = true;
                 if (validItem(Main.mouseItem) || (Main.mouseItem.IsAir && allowAir))
-                    ItemSlot.Handle(ref item, _context);
+                    ItemSlot.Handle(ref _item, _context);
 
             }
 
-            ItemSlot.Draw(spriteBatch, ref item, _context, GetDimensions().ToRectangle().TopLeft());
+            ItemSlot.Draw(spriteBatch, ref _item, _context, GetDimensions().ToRectangle().TopLeft());
 
             Main.inventoryScale = oldScale;
 
