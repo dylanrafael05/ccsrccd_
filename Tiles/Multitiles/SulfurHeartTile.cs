@@ -92,7 +92,7 @@ namespace ChemistryClass.Tiles.Multitiles {
         private const int sulfurYRange = 50;
         private const int sulfurSkip = 4;
         private const int sulfurCalc = 15;
-        private static readonly RandChance sulfurChance = new RandChance(0.15f);
+        private static readonly RandChance sulfurChance = new RandChance(0.02f);
         private int NearbyCalls = 0;
         //Passes per frame: 100 * 50 / (4*15) or 83. Decent?.
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -14,6 +15,8 @@ namespace ChemistryClass {
         public static int rustedDef => 5;
         public static int rustedLD => 7;
         public static Color RustedColor => new Color(210, 140, 85);
+
+        public bool sulfurFire;
 
         //public Color colorOnRusted;
 
@@ -32,6 +35,7 @@ namespace ChemistryClass {
             }
 
             rusted = false;
+            sulfurFire = false;
 
         }
 
@@ -58,7 +62,7 @@ namespace ChemistryClass {
 
             if ( rusted && ChemistryClass.TimeIsMultOf(20) ) {
 
-                int dust = Dust.NewDust(
+                Dust.NewDust(
 
                     npc.position,
                     npc.width, npc.height,
@@ -66,6 +70,19 @@ namespace ChemistryClass {
                     Main.rand.NextFloat(-1, 1),
                     Main.rand.NextFloat(-4, 0),
                     0
+
+                    );
+
+            }
+
+            if(sulfurFire) {
+
+                Dust.NewDustDirect(
+
+                    npc.position,
+                    npc.width, npc.height,
+                    ModContent.DustType<Dusts.SulfurFlame>(),
+                    Scale: Main.rand.NextFloat(0.75f, 1.25f)
 
                     );
 
@@ -80,6 +97,17 @@ namespace ChemistryClass {
                 if (npc.lifeRegen > 0) npc.lifeRegen = 0;
 
                 npc.lifeRegen -= rustedLD;
+
+                if (damage < 1) damage = 1;
+                else damage += 1;
+
+            }
+
+            if (sulfurFire) {
+
+                if (npc.lifeRegen > 0) npc.lifeRegen = 0;
+
+                npc.lifeRegen -= 14;
 
                 if (damage < 1) damage = 1;
                 else damage += 1;

@@ -36,7 +36,7 @@ namespace ChemistryClass.Items.Accessories.Earlygame {
 
         public override void UpdateAccessory(Player player, bool hideVisual) {
 
-            player.Chemistry().SulfurHeart = true;
+            player.Chemistry().sulfurHeart = !hideVisual;
 
         }
 

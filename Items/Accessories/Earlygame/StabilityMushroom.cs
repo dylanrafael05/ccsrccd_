@@ -37,7 +37,9 @@ namespace ChemistryClass.Items.Accessories.Earlygame {
 
         public override void UpdateAccessory(Player player, bool hideVisual) {
 
-            player.Chemistry().DecayRateMult -= 0.06f;
+            if (hideVisual) return;
+
+            player.Chemistry().decayRateMult -= 0.06f;
 
         }
 

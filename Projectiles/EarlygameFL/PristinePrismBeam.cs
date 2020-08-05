@@ -316,10 +316,10 @@ namespace ChemistryClass.Projectiles.EarlygameFL {
             }
 
             //LIGHT UP SURROUNDING AREA
-            //DelegateMethods.v3_1 = BeamColor.ToVector3() / 2f;
+            DelegateMethods.v3_1 = BeamColor.ToVector3() / 2f;
             DelegateMethods.tilecut_0 = TileCuttingContext.AttackProjectile;
-            //Utils.PlotTileLine(projectile.Center, endPoint.position, 16f, new Utils.PerLinePoint(DelegateMethods.CastLight));
-            Utils.PlotTileLine(projectile.Center, endPoint.position, 16f, new Utils.PerLinePoint(DelegateMethods.CutTiles));
+            Utils.PlotTileLine(projectile.Center, endPoint.position + projectile.velocity, 16f, new Utils.PerLinePoint(DelegateMethods.CastLight));
+            Utils.PlotTileLine(projectile.Center, endPoint.position + projectile.velocity, 16f, new Utils.PerLinePoint(DelegateMethods.CutTiles));
 
             return false;
 

@@ -34,7 +34,7 @@ namespace ChemistryClass.Items.Armor.Rusty {
 
         public override void UpdateArmorSet(Player player) {
 
-            player.Chemistry().DecayRateMult -= 0.08f;
+            player.Chemistry().decayRateMult -= 0.08f;
             player.setBonus = "Reduces all decay by 8%";
 
         }

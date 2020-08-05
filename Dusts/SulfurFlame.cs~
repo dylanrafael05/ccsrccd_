@@ -1,0 +1,34 @@
+﻿using System;
+using Terraria;
+using Terraria.ModLoader;
+
+namespace ChemistryClass.Dusts {
+    public class SulfurFlame : ModDust {
+
+        public override void OnSpawn(Dust dust) {
+
+            dust.alpha = 0;
+            dust.noGravity = true;
+
+            dust.color.R = 250;
+            dust.color.G = 250;
+            dust.color.B = 50;
+
+        }
+
+        public override bool MidUpdate(Dust dust) {
+
+            dust.alpha += 8;
+            dust.scale -= 0.05f;
+            dust.rotation += dust.velocity.X / 100;
+
+            if (dust.scale <= 0.1f) dust.active = false;
+
+            Lighting.AddLight(dust.position, dust.color.R / 500f, dust.color.G / 500f, dust.color.B / 500f);
+
+            return false;
+
+        }
+
+    }
+}

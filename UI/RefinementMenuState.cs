@@ -12,9 +12,7 @@ namespace ChemistryClass.UI {
             menu = new RefinementMenuPanel() {
 
                 HAlign = 0.5f,
-                Top = new StyleDimension(24, 0),
-                Width = new StyleDimension(Main.screenWidth / 7f, 0),
-                Height = new StyleDimension(100, 0)
+                Top = new StyleDimension(24, 0)
 
             };
 

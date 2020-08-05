@@ -5,6 +5,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using ChemistryClass.ModUtils;
+using ChemistryClass.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -96,7 +97,7 @@ namespace ChemistryClass {
             foreach (ModPrefix pre in ModPrefix.GetPrefixesInCategory(ChemistryClassPrefix.prefixCategory)) {
 
                 //skip if not a chemical prefix
-                if ( !pre.GetType().IsSubclassOf(typeof(ChemistryClassPrefix)) ) continue;
+                if (!pre.GetType().IsSubclassOf(typeof(ChemistryClassPrefix))) continue;
 
                 //skip basic chemical prefix
                 if (pre.Name == new ChemistryClassPrefix().Name) continue;
@@ -186,12 +187,26 @@ namespace ChemistryClass {
 
             refinementData = new List<RefinementItem>();
 
-            foreach((int, float) value in idValuePairs) {
+            foreach ((int, float) value in idValuePairs) {
 
                 refinementData.Add((RefinementItem)value);
 
             }
 
+        }
+
+        public bool CanBeRefinedWith(int itemID) {
+            foreach(RefinementItem item in refinementData) {
+                if (item.itemID == itemID) return true;
+            }
+            return false;
+        }
+
+        public float GetRefinementValue(int itemID) {
+            foreach (RefinementItem item in refinementData) {
+                if (item.itemID == itemID) return item.value;
+            }
+            return 0f;
         }
 
         //Purity textification
@@ -259,7 +274,7 @@ namespace ChemistryClass {
 
             string text = "Can be refined with:";
 
-            foreach(var entry in refinementData) {
+            foreach (var entry in refinementData) {
 
                 Item item = new Item();
                 item.SetDefaults(entry.itemID);
@@ -323,7 +338,7 @@ namespace ChemistryClass {
         }
 
         //Decay statistics
-        private void ClampPurity() => purity.Clamp(0,1);
+        private void ClampPurity() => purity.Clamp(0, 1);
 
         public void RefreshStats() {
 
@@ -339,8 +354,8 @@ namespace ChemistryClass {
             curDecayChance = DecayChanceReal;
 
             //get player & factor in prefix
-            curDecayRate *= player.Chemistry().DecayRateMult * decayRateMult;
-            curDecayChance *= player.Chemistry().DecayChanceMult * decayChanceMult;
+            curDecayRate *= player.Chemistry().decayRateMult * decayRateMult;
+            curDecayChance *= player.Chemistry().decayChanceMult * decayChanceMult;
 
             ModifyDecayStats(ref curDecayRate, ref curDecayChance, player);
 
@@ -385,8 +400,8 @@ namespace ChemistryClass {
         public virtual void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) { }
         public sealed override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
 
-            add += player.Chemistry().ChemicalDamageAdd;
-            mult *= player.Chemistry().ChemicalDamageMult * PurityDamageMult;
+            add += player.Chemistry().chemicalDamageAdd;
+            mult *= player.Chemistry().chemicalDamageMult * PurityDamageMult;
 
             SafeModifyWeaponDamage(player, ref add, ref mult, ref flat);
 
@@ -402,8 +417,8 @@ namespace ChemistryClass {
             float add = 1;
             float mult = 1;
 
-            add += player.Chemistry().ChemicalKnockbackAdd;
-            mult *= player.Chemistry().ChemicalKnockbackMult * PurityKnockbackMult;
+            add += player.Chemistry().chemicalKnockbackAdd;
+            mult *= player.Chemistry().chemicalKnockbackMult * PurityKnockbackMult;
 
             knockback *= add;
             knockback *= mult;
@@ -418,8 +433,8 @@ namespace ChemistryClass {
             float add = 1;
             float mult = 1;
 
-            add += player.Chemistry().ChemicalCritAdd;
-            mult *= player.Chemistry().ChemicalCritMult * PurityCritMult;
+            add += player.Chemistry().chemicalCritAdd;
+            mult *= player.Chemistry().chemicalCritMult * PurityCritMult;
 
             float tempCrit = crit;
 
@@ -442,7 +457,7 @@ namespace ChemistryClass {
 
         private void TryCallout(Player player) {
 
-            if(PurityCloseToLandmark && purity != previousCallout) {
+            if (PurityCloseToLandmark && purity != previousCallout) {
 
                 Rectangle spawn = new Rectangle(0, 0, 20, 20);
                 Vector2 position = player.position;
@@ -475,6 +490,7 @@ namespace ChemistryClass {
             if (player.itemAnimation == player.itemAnimationMax - 1) {
 
                 UsePurity(player);
+                TryAutoRefine(ref player);
 
                 //DEBUGGING
                 //Main.NewText("item purity use");
@@ -498,22 +514,43 @@ namespace ChemistryClass {
         }
 
         //Refinement
-        public static bool Refine(ref Item chemItemBase, ref Item item) {
+        internal void TryAutoRefine(ref Player player) {
 
-            ChemistryClassItem chemItem = chemItemBase.Chemistry();
+            ChemistryClassPlayer chemPlayer = player.Chemistry();
+            RefinementMenuState availableMenu = ChemistryClass.refinementMenu;
 
-            int itemType = item.type;
-            int indexOfItem = chemItem.refinementData.FindIndex(i => i.itemID == itemType);
+            if (!chemPlayer.autoRefine) return;
+            chemPlayer.autoRefineItem = availableMenu.menu.autoRefineSlot.Item;
+
+            if (!CanBeRefinedWith(chemPlayer.autoRefineItem.type)) return;
+            if (purity > 0.5f) return;
+
+            ChemistryClassItem newItem = this;
+            Item newAutoRefineItem = chemPlayer.autoRefineItem;
+
+            Refine(ref newItem, ref newAutoRefineItem, 0.5f);
+
+            purity = newItem.purity;
+            player.Chemistry().autoRefineItem = newAutoRefineItem;
+
+            Main.PlaySound(SoundID.Item37);
+
+            if (availableMenu == null) return;
+            availableMenu.menu.autoRefineSlot.Item = newAutoRefineItem;
+
+        }
+
+        public static bool Refine(ref ChemistryClassItem chemItem, ref Item item, float maxPurity = 1f) {
 
             //DEBUG
             //Main.NewText(chemItem.ToString());
             //Main.NewText(item.ToString());
             //Main.NewText(indexOfItem);
 
-            if(indexOfItem < 0) return false;
+            if (!chemItem.CanBeRefinedWith(item.type)) return false;
 
-            float refinement = chemItem.refinementData[indexOfItem].value;
-            float refinementNeeded = 1f - chemItem.purity;
+            float refinement = chemItem.GetRefinementValue(item.type);
+            float refinementNeeded = maxPurity - chemItem.purity;
 
             //DEBUG
             //Main.NewText(refinementNeeded);
@@ -524,13 +561,14 @@ namespace ChemistryClass {
             //Clamp down the stack size if the original size would over-purify.
             if (refinementNeeded < refinement * item.stack) {
 
-                item.stack -= (int)Math.Ceiling(refinementNeeded / refinement);
-                chemItem.purity = 1f;
+                int useAmt = (int)(Math.Ceiling(refinementNeeded / refinement) + 0.5f);
+
+                item.stack -= useAmt;
+                chemItem.purity += useAmt * refinement;
+                chemItem.purity.EnforceMax(1);
 
                 //DEBUG
                 //Main.NewText(item.stack);
-
-                chemItemBase = chemItem.item;
 
                 return true;
 
@@ -541,9 +579,18 @@ namespace ChemistryClass {
             chemItem.purity += refinement * item.stack;
             item.TurnToAir();
 
-            chemItemBase = chemItem.item;
-
             return true;
+
+        }
+
+        public static bool Refine(ref Item chemItem, ref Item item, float maxPurity = 1f) {
+
+            ChemistryClassItem ccI = chemItem.Chemistry();
+
+            bool ret = Refine(ref ccI, ref item, maxPurity);
+
+            chemItem = ccI.item;
+            return ret;
 
         }
 

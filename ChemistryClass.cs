@@ -8,17 +8,16 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 
-namespace ChemistryClass
-{
-	public class ChemistryClass : Mod
-	{
+namespace ChemistryClass {
+    public class ChemistryClass : Mod {
 
         //VARIABLES
         public static ModHotKey InteractRefinementMenu;
 
-        internal RefinementMenuState refinementMenu;
-        private UserInterface _refinementMenu;
-        private bool allowRefinementMenu;
+        static internal RefinementMenuState refinementMenu;
+        //static internal RefinementMenuStateWithAR refinementMenuWithAR;
+        static internal UserInterface _refinementMenu;
+        static internal bool allowRefinementMenu;
 
         //MEMBERS
         private static ulong? _unpausedUpdateCount;
@@ -51,7 +50,6 @@ namespace ChemistryClass
                 refinementMenu.Activate();
 
                 _refinementMenu = new UserInterface();
-                _refinementMenu.SetState(refinementMenu);
 
             }
 
@@ -62,7 +60,7 @@ namespace ChemistryClass
         //Unload information
         public override void Unload() {
 
-            if(_refinementMenu != null)
+            if (_refinementMenu != null)
                 _refinementMenu.SetState(null);
 
             refinementMenu = null;
@@ -100,21 +98,35 @@ namespace ChemistryClass
         //Update Input
         public override void PostUpdateInput() {
 
-            if (InteractRefinementMenu.JustPressed) allowRefinementMenu.Invert();
+            if (InteractRefinementMenu.JustPressed && Main.playerInventory) {
+
+                allowRefinementMenu.Invert();
+
+                if(allowRefinementMenu) {
+                    Main.PlaySound(SoundID.MenuOpen);
+                } else {
+                    Main.PlaySound(SoundID.MenuClose);
+                }
+
+            }
 
         }
 
         //Update UI layers
         public override void UpdateUI(GameTime gameTime) {
 
+            if (Main.dedServ) return;
+
             bool menuActive = Main.playerInventory && allowRefinementMenu;
 
-            if ( menuActive && _refinementMenu.CurrentState == null ) {
+            if (menuActive && _refinementMenu.CurrentState == null) {
 
+                refinementMenu.menu.autoRefineSlot.Item = Main.LocalPlayer.Chemistry().autoRefineItem;
                 _refinementMenu.SetState(refinementMenu);
 
-            } else if ( !menuActive && _refinementMenu.CurrentState != null ) {
+            } else if (!menuActive && _refinementMenu.CurrentState != null) {
 
+                Main.LocalPlayer.Chemistry().autoRefineItem = refinementMenu.menu.autoRefineSlot.Item;
                 _refinementMenu.SetState(null);
 
             }
@@ -137,9 +149,9 @@ namespace ChemistryClass
         public override void UpdateMusic(ref int music, ref MusicPriority priority) {
 
             if (Main.gameMenu || Main.menuMultiplayer ||
-                Main.menuServer) return;
+                Main.menuServer || Main.dedServ) return;
 
-            if(!Main.dedServ && Main.LocalPlayer.GetModPlayer<ChemistryClassPlayer>().ZoneSulfur) {
+            if (Main.LocalPlayer.GetModPlayer<ChemistryClassPlayer>().zoneSulfur) {
 
                 music = MusicID.Eerie;
                 priority = MusicPriority.BiomeHigh;

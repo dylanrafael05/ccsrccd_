@@ -58,7 +58,7 @@ namespace ChemistryClass.Projectiles.EarlygameFL {
 
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit) {
+        public override void OnHitPvp(Player target, int damage, bool crit) {
             for (int _ = 0; _ < 5; _++) { newDust(DustID.Dirt); }
         }
 
@@ -80,7 +80,7 @@ namespace ChemistryClass.Projectiles.EarlygameFL {
         }
 
         private void resetDustTime()
-            => DustTime = Main.rand.Next(15, 41);
+            => DustTime = Main.rand.Next(3, 15);
 
     }
 }

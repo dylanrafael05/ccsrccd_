@@ -3,8 +3,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ChemistryClass.Items.Placeable {
-    public class SulphurousOre : ModItem {
+namespace ChemistryClass.Items.Placeable.Blocks {
+    public class SulfurClump : ModItem {
 
         //public override void SetStaticDefaults() {
         //
@@ -20,6 +20,9 @@ namespace ChemistryClass.Items.Placeable {
             item.useStyle = ItemUseStyleID.SwingThrow;
             item.useTime = 20;
             item.useAnimation = 20;
+
+            item.width = 16;
+            item.height = 16;
 
             item.autoReuse = true;
             item.consumable = true;

@@ -19,6 +19,10 @@
     <Folder Include="Buffs\Debuffs\" />
     <Folder Include="ModUtils\" />
     <Folder Include="Dusts\" />
+    <Folder Include="Items\Weaponry\LatePHM\" />
+    <Folder Include="Projectiles\LatePHMFL\" />
+    <Folder Include="Items\Consumeables\" />
+    <Folder Include="Buffs\Normal\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Projectiles\ProjHelper.cs" />
