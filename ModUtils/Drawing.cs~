@@ -1,0 +1,45 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using Microsoft.SqlServer.Server;
+using Microsoft.Xna.Framework;
+
+namespace ChemistryClass.ModUtils {
+    public struct TextureFramer {
+
+        public int FrameWidth;
+        public int FrameHeight;
+        public int EdgeSize;
+        public bool Vertical;
+        public int MaxFrameX;
+        public int MaxFrameY;
+
+        public TextureFramer(int FrameWidth, int FrameHeight, int EdgeSize, bool Vertical, int MaxFrameX, int MaxFrameY) {
+            this.FrameWidth = FrameWidth;
+            this.FrameHeight = FrameHeight;
+            this.EdgeSize = EdgeSize;
+            this.Vertical = Vertical;
+            this.MaxFrameX = MaxFrameX;
+            this.MaxFrameY = MaxFrameY;
+        }
+
+        public TextureFramer(int FrameWidth, int FrameHeight, int EdgeSize, bool Vertical)
+            : this(FrameWidth, FrameHeight, EdgeSize, Vertical, -1, -1) { }
+
+        public TextureFramer(int FrameWidth, int FrameHeight, int EdgeSize)
+            : this(FrameWidth, FrameHeight, EdgeSize, false) { }
+
+        public TextureFramer(int FrameWidth, int FrameHeight)
+            : this(FrameWidth, FrameHeight, 2) { }
+
+        public TextureFramer(int FrameWidth, int FrameHeight, bool Vertical)
+            : this(FrameWidth, FrameHeight) { this.Vertical = Vertical; }
+
+    }
+
+    public static class DrawingExtensions {
+
+        
+
+    }
+}

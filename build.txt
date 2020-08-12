@@ -1,4 +1,4 @@
-displayName = The Chemistry Mod (An update! Finally!)
+displayName = The Chemistry Mod (Github hotfix sry)
 author = FlooferPlusPlus
-version = 0.3
+version = 0.3.6.1
 homepage = https://discord.gg/vY2gKRf

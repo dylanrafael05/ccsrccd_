@@ -23,6 +23,7 @@
     <Folder Include="Projectiles\LatePHMFL\" />
     <Folder Include="Items\Consumeables\" />
     <Folder Include="Buffs\Normal\" />
+    <Folder Include="Projectiles\PreHMHS\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Projectiles\ProjHelper.cs" />

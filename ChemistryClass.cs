@@ -15,8 +15,10 @@ namespace ChemistryClass {
         public static ModHotKey InteractRefinementMenu;
 
         static internal RefinementMenuState refinementMenu;
-        //static internal RefinementMenuStateWithAR refinementMenuWithAR;
+        static internal DecayMeterState decayMeter;
         static internal UserInterface _refinementMenu;
+        static internal UserInterface _decayMeter;
+
         static internal bool allowRefinementMenu;
 
         //MEMBERS
@@ -29,6 +31,8 @@ namespace ChemistryClass {
             if (TimeIsMultOf(60)) Main.NewText(o);
         }
 
+        public static ChemistryClassConfig Configuration { get; private set; }
+
         //Beaker id
         public static int BeakerTileID
             => ModContent.TileType<Tiles.Multitiles.BeakerTile>();
@@ -38,6 +42,8 @@ namespace ChemistryClass {
 
             InteractRefinementMenu = RegisterHotKey("Open/Close Chemical Refinement Menu", "L");
             allowRefinementMenu = true;
+
+            Configuration = ModContent.GetInstance<ChemistryClassConfig>();
 
             if (!Main.dedServ) {
 
@@ -51,6 +57,18 @@ namespace ChemistryClass {
 
                 _refinementMenu = new UserInterface();
 
+                decayMeter = new DecayMeterState {
+                    Left = 0f.ToStyleDimension(),
+                    Top = 0f.ToStyleDimension(),
+                    Width = StyleDimension.Fill,
+                    Height = StyleDimension.Fill
+                };
+                decayMeter.Activate();
+
+                decayMeter.decayMeter.length = Configuration.DecayMeterLength;
+
+                _decayMeter = new UserInterface();
+
             }
 
             _unpausedUpdateCount = 0;
@@ -63,8 +81,14 @@ namespace ChemistryClass {
             if (_refinementMenu != null)
                 _refinementMenu.SetState(null);
 
+            if (_decayMeter != null)
+                _decayMeter.SetState(null);
+
             refinementMenu = null;
             _refinementMenu = null;
+
+            decayMeter = null;
+            _decayMeter = null;
 
             _unpausedUpdateCount = null;
 
@@ -85,6 +109,21 @@ namespace ChemistryClass {
                         "ChemistryClass: Refinement Menu",
                             delegate {
                                 _refinementMenu.Draw(Main.spriteBatch, new GameTime());
+                                return true;
+                            },
+                        InterfaceScaleType.UI
+                    )
+
+                );
+
+                layers.Insert(
+
+                    mouseTextIndex + 1,
+
+                    new LegacyGameInterfaceLayer(
+                        "ChemistryClass: Decay Meter",
+                            delegate {
+                                _decayMeter.Draw(Main.spriteBatch, new GameTime());
                                 return true;
                             },
                         InterfaceScaleType.UI
@@ -131,7 +170,18 @@ namespace ChemistryClass {
 
             }
 
+            if (Configuration.DecayDisplay != DecayDisplayMode.Callout && _decayMeter.CurrentState == null) {
+
+                _decayMeter.SetState(decayMeter);
+
+            } else if (Configuration.DecayDisplay == DecayDisplayMode.Callout && _decayMeter.CurrentState != null) {
+
+                _decayMeter.SetState(null);
+
+            }
+
             _refinementMenu?.Update(gameTime);
+            _decayMeter?.Update(gameTime);
 
         }
 

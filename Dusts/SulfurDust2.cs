@@ -29,7 +29,7 @@ namespace ChemistryClass.Dusts {
         public override bool MidUpdate(Dust dust) {
 
             dust.alpha += 8;
-            dust.scale -= 0.05f;
+            dust.scale -= 0.09f;
 
             if (dust.scale <= 0.1f) dust.active = false;
 

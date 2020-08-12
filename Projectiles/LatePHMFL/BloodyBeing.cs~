@@ -1,0 +1,7 @@
+﻿using System;
+namespace ChemistryClass.Projectiles.LatePHMFL {
+    public class BloodyBeing : RottingBeing {
+        public BloodyBeing() {
+        }
+    }
+}

@@ -7,6 +7,7 @@ namespace ChemistryClass.UI {
     public class UITitleTogglable : UIText {
 
         public UITitleTogglable(string text) : base(text) { }
+        public UITitleTogglable(string text, float scale) : base(text, scale) { }
 
         public bool toggled = false;
 

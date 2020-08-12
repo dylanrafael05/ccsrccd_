@@ -53,7 +53,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
                             ChemistryClass.BeakerTileID,
                             1,
-                            (ModContent.ItemType<Materials.Earlygame.RustedPowder>(), 10),
+                            (ModContent.ItemType<Materials.Earlygame.RustedPowder>(), 20),
                             (ItemID.SilverBar, 6)
 
             );
@@ -62,7 +62,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
                             ChemistryClass.BeakerTileID,
                             1,
-                            (ModContent.ItemType<Materials.Earlygame.RustedPowder>(), 10),
+                            (ModContent.ItemType<Materials.Earlygame.RustedPowder>(), 20),
                             (ItemID.TungstenBar, 6)
 
             );

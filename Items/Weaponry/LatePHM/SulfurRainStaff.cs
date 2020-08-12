@@ -22,7 +22,7 @@ namespace ChemistryClass.Items.Weaponry.LatePHM {
 
         public override void SafeSetDefaults() {
 
-            item.damage = 15;
+            item.damage = 20;
             item.crit = 4;
             item.knockBack = 1;
 
@@ -83,12 +83,12 @@ namespace ChemistryClass.Items.Weaponry.LatePHM {
             for(int _ = 0; _ < Main.rand.Next(4, 7); _++) {
 
                 Vector2 tpe = Main.screenPosition + Main.MouseScreen;
-                Vector2 tp = tpe + new Vector2(Main.rand.NextFloat(-25, 25), Main.rand.NextFloat(-25, 25));
+                Vector2 tp = tpe + new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-10, 10));
 
                 Vector2 av = Vector2.UnitY.RotatedBy(Main.rand.NextFloat(-CCUtils.PI_FLOAT / 6, CCUtils.PI_FLOAT / 6));
 
                 Vector2 sp = tp - av * MathHelper.Clamp(Main.MouseScreen.Y, 200, float.MaxValue) * 1.1f;
-                Vector2 sv = av * Main.rand.NextFloat(17f, 24f);
+                Vector2 sv = av * Main.rand.NextFloat(35f, 45f);
 
                 int p = Projectile.NewProjectile(sp, sv, type, damage, knockBack, player.whoAmI);
 

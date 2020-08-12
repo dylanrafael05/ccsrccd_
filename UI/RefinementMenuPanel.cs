@@ -57,7 +57,7 @@ namespace ChemistryClass.UI {
 
             };
 
-            autoRefineTitle = new UITitleTogglable("Auto Refine") {
+            autoRefineTitle = new UITitleTogglable("Auto Refine", 0.8f) {
 
                 HAlign = 0.5f,
                 VAlign = 0.55f

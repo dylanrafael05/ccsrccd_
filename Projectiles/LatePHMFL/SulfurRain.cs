@@ -22,6 +22,8 @@ namespace ChemistryClass.Projectiles.LatePHMFL {
             projectile.width = 12;
             projectile.height = 12;
 
+            projectile.ignoreWater = true;
+
         }
 
         public override void AI() {
@@ -31,7 +33,16 @@ namespace ChemistryClass.Projectiles.LatePHMFL {
                     projectile.Center,
                     ModContent.DustType<SulfurDust2>(),
                     Vector2.UnitX.RotatedByRandom(CCUtils.TWO_PI_FLOAT) / 4f,
-                    Scale: 1.25f
+                    Scale: 1.25f + Main.rand.NextFloat(-0.1f, 0.1f)
+
+                    );
+
+            Dust.NewDustPerfect(
+
+                    projectile.Center + projectile.velocity / 4,
+                    ModContent.DustType<SulfurDust2>(),
+                    Vector2.UnitX.RotatedByRandom(CCUtils.TWO_PI_FLOAT) / 4f,
+                    Scale: 0.75f + Main.rand.NextFloat(-0.1f, 0.1f)
 
                     );
 
@@ -40,11 +51,20 @@ namespace ChemistryClass.Projectiles.LatePHMFL {
                     projectile.Center + projectile.velocity / 2,
                     ModContent.DustType<SulfurDust2>(),
                     Vector2.UnitX.RotatedByRandom(CCUtils.TWO_PI_FLOAT) / 4f,
-                    Scale: 0.75f
+                    Scale: 0.5f + Main.rand.NextFloat(-0.1f, 0.1f)
 
                     );
 
-             projectile.tileCollide = projectile.position.Y >= Main.screenPosition.Y + Main.MouseScreen.Y;
+            Dust.NewDustPerfect(
+
+                    projectile.Center + 3 * projectile.velocity / 4,
+                    ModContent.DustType<SulfurDust2>(),
+                    Vector2.UnitX.RotatedByRandom(CCUtils.TWO_PI_FLOAT) / 4f,
+                    Scale: 0.75f + Main.rand.NextFloat(-0.1f, 0.1f)
+
+                    );
+
+            projectile.tileCollide = projectile.position.Y >= Main.screenPosition.Y + Main.MouseScreen.Y;
 
         }
 

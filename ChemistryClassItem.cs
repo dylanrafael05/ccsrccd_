@@ -8,6 +8,7 @@ using ChemistryClass.ModUtils;
 using ChemistryClass.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Steamworks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -27,19 +28,21 @@ namespace ChemistryClass {
 
         //Decay basic stats
         public float minutesToDecay = 3;
-        public float decayChance = 100f;
 
-        private float DecayRateReal => item.useTime / (3600f * minutesToDecay * DecayChanceReal);
-        private float DecayChanceReal => decayChance / 100f;
+        private float DecayRateReal => item.useTime / (3600f * minutesToDecay);
 
         //Prefix value trackers
         private float decayRateMult = 1f;
-        private float decayChanceMult = 1f;
 
         //Purity loss instance values
         private float curDecayRate;
-        private float curDecayChance;
 
+        //Item value trackers
+        public int currentDamage { get; private set; }
+        public int currentCrit { get; private set; }
+        public float currentKB { get; private set; }
+
+        //DECAY STATS
         private float curMinsToDecay
             => item.useTime / (curDecayRate * 3600f);
 
@@ -51,13 +54,16 @@ namespace ChemistryClass {
         //Refinement data
         public List<RefinementItem> refinementData;
 
+        //Fan name
+        public string fanName = null;
+
         //Purity callout values
         private float previousCallout = 1f;
         public float calloutDivisor = 5f;
 
         //Static values
-        protected static readonly Color calloutColor =
-            new Color(120, 255, 255);
+        public static Color CalloutColor { get; } = new Color(120, 0xFF, 0xFF);
+        public static Color FanColor { get; } = new Color(0xFF, 0x50, 0xA0);
 
         //Valid prefixes (universal, common, and chemical)
         private List<byte> _validPrefixes = null;
@@ -241,15 +247,11 @@ namespace ChemistryClass {
             string dRText = DecayQualifier + " rate of decay";
             TooltipLine decayRateT = new TooltipLine(mod, "DecayRate", dRText);
 
-            string dCText = Math.Round(curDecayChance * 1000) / 10 + "% chance of decay per use";
-            TooltipLine decayChanceT = new TooltipLine(mod, "DecayChance", dCText);
-
             int targetIndex = tooltips.FindIndex(line => line.Name == "Knockback" && line.mod == "Terraria");
 
             if (targetIndex < 0) return;
 
             tooltips.Insert(targetIndex + 1, decayRateT);
-            tooltips.Insert(targetIndex + 2, decayChanceT);
 
         }
 
@@ -257,7 +259,7 @@ namespace ChemistryClass {
 
             TooltipLine tooltip = new TooltipLine(mod, "Purity", TooltipPurity) {
 
-                overrideColor = calloutColor
+                overrideColor = CalloutColor
 
             };
 
@@ -270,9 +272,14 @@ namespace ChemistryClass {
 
         private void AddRefinementTooltips(List<TooltipLine> tooltips) {
 
-            if (refinementData.Count == 0) return;
-
             string text = "Can be refined with:";
+
+            if (refinementData == null || refinementData.Count < 1) {
+
+                text = "Cannot be refined by normal means.";
+                goto RETURN;
+
+            }
 
             foreach (var entry in refinementData) {
 
@@ -285,9 +292,10 @@ namespace ChemistryClass {
 
             }
 
+            RETURN:
             TooltipLine tooltip = new TooltipLine(mod, "Refinement", text) {
 
-                overrideColor = calloutColor
+                overrideColor = CalloutColor
 
             };
 
@@ -313,14 +321,17 @@ namespace ChemistryClass {
 
             }
 
-            if (decayChanceMult != 1f) {
+        }
 
-                value = 100 * (decayChanceMult - 1f);
-                line = new TooltipLine(
-                    mod, "PrefixPurityLossChance",
-                    (value >= 0 ? "+" : "") + Math.Round(value) + "% purity loss chance"
-                ) { isModifierBad = value >= 0, isModifier = true };
-                tooltips.Add(line);
+        private void AddFanByTootlip(List<TooltipLine> tooltips) {
+
+            if (fanName != null) {
+
+                tooltips.Insert(
+                    1,
+                    new TooltipLine(mod, "FanBy", $"[Fan idea by {fanName}]")
+                    { overrideColor = FanColor }
+                    );
 
             }
 
@@ -334,6 +345,7 @@ namespace ChemistryClass {
             AddPurityTooltip(tooltips);
             AddRefinementTooltips(tooltips);
             AddPrefixTooltips(tooltips);
+            AddFanByTootlip(tooltips);
 
         }
 
@@ -351,25 +363,21 @@ namespace ChemistryClass {
 
             //get bases
             curDecayRate = DecayRateReal;
-            curDecayChance = DecayChanceReal;
 
             //get player & factor in prefix
             curDecayRate *= player.Chemistry().decayRateMult * decayRateMult;
-            curDecayChance *= player.Chemistry().decayChanceMult * decayChanceMult;
 
-            ModifyDecayStats(ref curDecayRate, ref curDecayChance, player);
+            ModifyDecayStats(ref curDecayRate, player);
 
             //limit stats
             float minValue = (float)Math.Pow(10, -5);
             curDecayRate.EnforceMin(minValue);
-            curDecayChance.Clamp(minValue, 1);
 
         }
 
         private void GetPrefixValues() {
 
             decayRateMult = 1f;
-            decayChanceMult = 1f;
 
             //DEBUGGING
             //Main.NewText(item.prefix);
@@ -379,13 +387,13 @@ namespace ChemistryClass {
 
             if (prefix != null) {
 
-                prefix.SetDecayStats(ref decayRateMult, ref decayChanceMult);
+                prefix.SetDecayStats(ref decayRateMult);
 
             }
 
         }
 
-        public virtual void ModifyDecayStats(ref float decay, ref float decayChance, Player player) { }
+        public virtual void ModifyDecayStats(ref float decay, Player player) { }
 
         //Purity to multiplier mapping
         protected float MapPurity(float min, float max)
@@ -400,13 +408,15 @@ namespace ChemistryClass {
         public virtual void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) { }
         public sealed override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
 
+            //RESFRESH STATS
+            RefreshStats();
+
             add += player.Chemistry().chemicalDamageAdd;
             mult *= player.Chemistry().chemicalDamageMult * PurityDamageMult;
 
             SafeModifyWeaponDamage(player, ref add, ref mult, ref flat);
 
-            //RESFRESH STATS
-            RefreshStats();
+            currentDamage = (int)(item.damage * add * mult + flat);
 
         }
 
@@ -424,6 +434,8 @@ namespace ChemistryClass {
             knockback *= mult;
 
             SafeGetWeaponKnockback(player, ref knockback);
+
+            currentKB = knockback;
 
         }
 
@@ -445,6 +457,8 @@ namespace ChemistryClass {
 
             SafeGetWeaponCrit(player, ref crit);
 
+            currentCrit = crit;
+
         }
 
         //Call out purity when it hits a landmark
@@ -457,14 +471,17 @@ namespace ChemistryClass {
 
         private void TryCallout(Player player) {
 
+            if (ChemistryClass.Configuration.DecayDisplay == DecayDisplayMode.Meter) return;
+
             if (PurityCloseToLandmark && purity != previousCallout) {
 
                 Rectangle spawn = new Rectangle(0, 0, 20, 20);
                 Vector2 position = player.position;
                 spawn.X = (int)position.X;
-                spawn.Y = (int)position.Y;
+                spawn.Y = (int)(position.Y - (ChemistryClass.Configuration.DecayDisplay == DecayDisplayMode.Both ? Main.screenHeight / 18f : 0));
+                spawn.Location = spawn.Location.OffsetBy( (int)ChemistryClass.Configuration.DecayMeterOffset.X, (int)ChemistryClass.Configuration.DecayMeterOffset.Y );
 
-                CombatText.NewText(spawn, calloutColor, DisplayPurity, true);
+                CombatText.NewText(spawn, CalloutColor, DisplayPurity, true);
 
                 previousCallout = purity;
 
@@ -485,29 +502,31 @@ namespace ChemistryClass {
 
         //Get values, reduce purity, and fix damage issues when item is used
         public virtual void SafeUseStyle(Player player) { }
+        public virtual bool PrePurityOnWeaponUse(Player player) => true;
+        public virtual void UseItemExact(Player player) { }
         public sealed override void UseStyle(Player player) {
+
+            SafeUseStyle(player);
 
             if (player.itemAnimation == player.itemAnimationMax - 1) {
 
-                UsePurity(player);
-                TryAutoRefine(ref player);
+                if (PrePurityOnWeaponUse(player))
+                    UsePurity(ref player);
 
-                //DEBUGGING
-                //Main.NewText("item purity use");
-                //Main.NewText(DecayRateReal);
-                //Main.NewText(usesToDecay);
+                UseItemExact(player);
 
             }
 
         }
 
         //Use up purity
-        public void UsePurity(Player player) {
+        public void UsePurity(ref Player player) {
 
-            if (Main.rand.NextFloat(0, 1) < curDecayChance)
-                purity -= curDecayRate;
+            purity -= curDecayRate;
 
             ClampPurity();
+
+            TryAutoRefine(ref player);
 
             TryCallout(player);
 

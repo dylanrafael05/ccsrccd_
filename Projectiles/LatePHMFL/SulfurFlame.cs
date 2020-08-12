@@ -28,6 +28,8 @@ namespace ChemistryClass.Projectiles.LatePHMFL {
             projectile.maxPenetrate = -1;
             projectile.penetrate = -1;
 
+            projectile.ignoreWater = true;
+
         }
 
         public override void AI() {

@@ -1,0 +1,14 @@
+﻿using System;
+using ChemistryClass.ModUtils;
+
+namespace ChemistryClass.Projectiles.LatePHMFL {
+    public class RottingBeing : ModProjectilePlus {
+
+        public override void SafeSetDefaults() {
+
+
+
+        }
+
+    }
+}

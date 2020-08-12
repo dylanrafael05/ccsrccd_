@@ -1,0 +1,15 @@
+﻿using System;
+namespace ChemistryClass.Items.Weaponry.LatePHM {
+    public class ToothballStaff : ChemistryClassItem {
+
+        public override void SafeSetDefaults() {
+
+            item.width = 32;
+            item.height = 32;
+
+
+
+        }
+
+    }
+}

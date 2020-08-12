@@ -1,0 +1,17 @@
+﻿using System;
+using ChemistryClass.ModUtils;
+
+namespace ChemistryClass.Projectiles.LatePHMFL {
+    public class SpearOfResolveProjectile : ModProjectilePlus {
+
+        public override string Texture => "ChemistryClass/Items/Weaponry/LatePHM/SpearOfResolve";
+
+        public override void SafeSetDefaults() {
+
+            projectile.width = 64;
+            projectile.height = 8;
+
+        }
+
+    }
+}

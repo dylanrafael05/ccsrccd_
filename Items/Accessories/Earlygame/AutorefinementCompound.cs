@@ -39,5 +39,18 @@ namespace ChemistryClass.Items.Accessories.Earlygame {
             player.Chemistry().autoRefine = !hideVisual;
 
         }
+
+        public override void AddRecipes() {
+
+            this.SetRecipe(
+
+                TileID.TinkerersWorkbench,
+                1,
+                (ModContent.ItemType<StabilityMushroom>(), 1),
+                (ModContent.ItemType<Consumeables.AntidecayPotion>(), 1)
+
+                );
+
+        }
     }
 }

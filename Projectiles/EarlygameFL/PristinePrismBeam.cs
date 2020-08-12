@@ -14,6 +14,8 @@ namespace ChemistryClass.Projectiles.EarlygameFL {
         public const string innerTextureStr = "ChemistryClass/Projectiles/EarlygameFL/PristinePrismBeamInside";
         public override string Texture => "ChemistryClass/Projectiles/EarlygameFL/PristinePrismBeam";
 
+        public static TextureFramer Framer { get; } = new TextureFramer(16, 32, 0, true);
+
         public static readonly double beamSpread = CCUtils.PI_FLOAT / 10f;
         private double waveSpread
             => beamSpread * (1 + CCUtils.Sinusoid(cycleTime: 6f) / 6f);
@@ -190,10 +192,6 @@ namespace ChemistryClass.Projectiles.EarlygameFL {
             Texture2D texture = Main.projectileTexture[projectile.type];
             Texture2D innerTexture = ModContent.GetTexture(innerTextureStr);
 
-            Rectangle headSrc = new Rectangle(0, 00, 16, 32);
-            Rectangle bodySrc = new Rectangle(0, 32, 16, 32);
-            Rectangle tailSrc = new Rectangle(0, 64, 16, 32);
-
             Vector2 beamStart = projectile.Center - Main.screenPosition;
             Vector2 beamEnd = endPoint.position - Main.screenPosition;
 
@@ -208,7 +206,8 @@ namespace ChemistryClass.Projectiles.EarlygameFL {
 
                 texture,
                 beamStart,
-                headSrc,
+                Framer,
+                0,
                 BeamColor,
                 projectile.rotation,
                 origin,
@@ -222,7 +221,8 @@ namespace ChemistryClass.Projectiles.EarlygameFL {
 
                 innerTexture,
                 beamStart,
-                headSrc,
+                Framer,
+                0,
                 colorInner,
                 projectile.rotation,
                 origin,
@@ -239,7 +239,8 @@ namespace ChemistryClass.Projectiles.EarlygameFL {
 
                     texture,
                     beamStart + mult * projectile.velocity,
-                    bodySrc,
+                    Framer,
+                    1,
                     BeamColor,
                     projectile.rotation,
                     origin,
@@ -253,7 +254,8 @@ namespace ChemistryClass.Projectiles.EarlygameFL {
 
                     innerTexture,
                     beamStart + mult * projectile.velocity,
-                    bodySrc,
+                    Framer,
+                    1,
                     colorInner,
                     projectile.rotation,
                     origin,
@@ -270,7 +272,8 @@ namespace ChemistryClass.Projectiles.EarlygameFL {
 
                 texture,
                 beamEnd,
-                tailSrc,
+                Framer,
+                2,
                 BeamColor,
                 projectile.rotation,
                 origin,
@@ -284,7 +287,8 @@ namespace ChemistryClass.Projectiles.EarlygameFL {
 
                 innerTexture,
                 beamEnd,
-                tailSrc,
+                Framer,
+                2,
                 colorInner,
                 projectile.rotation,
                 origin,

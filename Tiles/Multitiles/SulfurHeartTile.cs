@@ -117,7 +117,7 @@ namespace ChemistryClass.Tiles.Multitiles {
 
                     if ( sulfurChance.Evaluate() && curTile.type == ChemistryClassWorld.SulfurOreType) {
 
-                        NPC.NewNPC(curI * 16 + 8, curJ * 16 + 8, ModContent.NPCType<Projectiles.EarlygameFL.SulfuricCloud>());
+                        NPC.NewNPC(curI * 16 + 8, curJ * 16 + 8, ModContent.NPCType<Projectiles.PreHMHS.SulfuricCloud>());
 
                     }
 

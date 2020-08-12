@@ -34,6 +34,8 @@ namespace ChemistryClass.Projectiles.EarlygameFL {
 
             resetDustTime();
 
+            projectile.ignoreWater = true;
+
         }
 
         public override void AI() {

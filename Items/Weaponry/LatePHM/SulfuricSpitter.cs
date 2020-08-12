@@ -20,7 +20,7 @@ namespace ChemistryClass.Items.Weaponry.LatePHM {
 
         public override void SafeSetDefaults() {
 
-            item.damage = 14;
+            item.damage = 18;
             item.crit = 4;
             item.knockBack = 1;
 

@@ -43,12 +43,14 @@ namespace ChemistryClass.ModUtils {
 
         }
 
+        public virtual void FirstFrame() { }
         public virtual bool SafePreAI() => true;
         public override bool PreAI() {
 
             if (ActiveCounter == -1) {
 
                 CritChance = OwningPlayer.HeldItem.crit;
+                FirstFrame();
 
             }
 

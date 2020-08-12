@@ -22,7 +22,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
         public override void SafeSetDefaults() {
 
-            item.damage = 8;
+            item.damage = 13;
             item.crit = 4;
             item.knockBack = 1;
 
@@ -47,7 +47,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
             SetRefinementData(
 
-                (ModContent.ItemType<Materials.Earlygame.RustedPowder>(), 1 / 18f)
+                (ModContent.ItemType<Materials.Earlygame.RustedPowder>(), 1 / 14f)
 
                 );
 
@@ -59,7 +59,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
                             ChemistryClass.BeakerTileID,
                             1,
-                            (ModContent.ItemType<Materials.Earlygame.RustedPowder>(), 8),
+                            (ModContent.ItemType<Materials.Earlygame.RustedPowder>(), 16),
                             (ItemID.SilverBar, 5)
 
             );
@@ -68,7 +68,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
                             ChemistryClass.BeakerTileID,
                             1,
-                            (ModContent.ItemType<Materials.Earlygame.RustedPowder>(), 8),
+                            (ModContent.ItemType<Materials.Earlygame.RustedPowder>(), 16),
                             (ItemID.TungstenBar, 5)
 
             );

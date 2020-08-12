@@ -36,6 +36,8 @@ namespace ChemistryClass.Projectiles.EarlygameFL {
             drawOffsetX = -3;
             drawOriginOffsetY = -3;
 
+            projectile.ignoreWater = true;
+
         }
 
         public override void AI() {

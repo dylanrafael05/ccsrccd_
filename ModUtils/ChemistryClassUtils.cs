@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using IL.Terraria.World.Generation;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -14,14 +17,28 @@ namespace ChemistryClass.ModUtils {
         //MATHEMATICAL EXTENSIONS
         public static int Clamp(this ref int val, int min, int max)
             => val = val < min ? min : (val > max ? max : val);
+        public static int GetClamp(this int val, int min, int max)
+           => val < min ? min : (val > max ? max : val);
         public static long Clamp(this ref long val, long min, long max)
             => val = val < min ? min : (val > max ? max : val);
+        public static long GetClamp(this long val, long min, long max)
+            => val < min ? min : (val > max ? max : val);
         public static float Clamp(this ref float val, float min, float max)
             => val = val < min ? min : (val > max ? max : val);
+        public static float GetClamp(this float val, float min, float max)
+            => val < min ? min : (val > max ? max : val);
         public static double Clamp(this ref double val, double min, double max)
             => val = val < min ? min : (val > max ? max : val);
+        public static double GetClamp(this double val, double min, double max)
+            => val < min ? min : (val > max ? max : val);
         public static decimal Clamp(this ref decimal val, decimal min, decimal max)
             => val = val < min ? min : (val > max ? max : val);
+        public static decimal GetClamp(this decimal val, decimal min, decimal max)
+            => val < min ? min : (val > max ? max : val);
+        public static Vector2 ClampMagnitude(this ref Vector2 val, float min, float max)
+            => val = val.Length() < min ? val.WithMagnitude(min) : (val.Length() > max ? val.WithMagnitude(max) : val);
+        public static Vector2 GetClampMagnitude(this Vector2 val, float min, float max)
+            => val.Length() < min ? val.WithMagnitude(min) : (val.Length() > max ? val.WithMagnitude(max) : val);
 
         public static int EnforceMin(this ref int val, int min)
             => val = val < min ? min : val;
@@ -33,6 +50,8 @@ namespace ChemistryClass.ModUtils {
             => val = val < min ? min : val;
         public static decimal EnforceMin(this ref decimal val, decimal min)
             => val = val < min ? min : val;
+        public static Vector2 EnforceMinMagnitude(this ref Vector2 val, float min)
+            => val = val.Length() < min ? val.WithMagnitude(min) : val;
 
         public static int EnforceMax(this ref int val, int max)
             => val = val > max ? max : val;
@@ -44,6 +63,8 @@ namespace ChemistryClass.ModUtils {
             => val = val > max ? max : val;
         public static decimal EnforceMax(this ref decimal val, decimal max)
             => val = val > max ? max : val;
+        public static Vector2 EnforceMaxMagnitude(this ref Vector2 val, float max)
+            => val = val.Length() > max ? val.WithMagnitude(max) : val;
 
         public static void SetMap(this ref int val, int min, int max, int newMin, int newMax)
             => val = val.Map(min, max, newMin, newMax);
@@ -74,6 +95,81 @@ namespace ChemistryClass.ModUtils {
         public static bool IsMultipleOf(this decimal val, decimal m) => val % m == 0;
 
         public static bool Invert(this ref bool val) => val = !val;
+
+        public static T Min<T>(T a, T b, Evaluator<T> eval)
+            => eval(a) < eval(b) ? a : b;
+        public static T Max<T>(T a, T b, Evaluator<T> eval)
+            => eval(a) < eval(b) ? b : a;
+        public static T Min<T>(IEnumerable<T> ts, Evaluator<T> eval) {
+
+            T min;
+            T[] arr = ts.ToArray();
+
+            if (arr.Length <= 0) return default;
+            if (arr.Length == 1) return arr[0];
+
+            min = arr[0];
+
+            foreach(var t in arr) {
+                min = eval(min) < eval(t) ? min : t;
+            }
+
+            return min;
+
+        }
+        public static T Max<T>(IEnumerable<T> ts, Evaluator<T> eval) {
+
+            T max;
+            T[] arr = ts.ToArray();
+
+            if (arr.Length <= 0) return default;
+            if (arr.Length == 1) return arr[0];
+
+            max = arr[0];
+
+            foreach (var t in arr) {
+                max = eval(max) < eval(t) ? t : max;
+            }
+
+            return max;
+
+        }
+
+        public static float AvoidZero(this float val, float cuddle = 1)
+            => val + Math.Sign(val) * cuddle * (float)Math.Exp(-Math.Abs(val) / cuddle);
+        public static float AvoidZeroAndSet(this ref float val, float cuddle = 1)
+            => val = val.AvoidZero(cuddle);
+
+        public static int RoundToInt(this float val)
+            => (int)(val > 0 ? val - 0.5f : val + 0.5f);
+
+        //ANIMATION MATHS
+        public static int PingPong(int val, int max)
+            => val % (max * 2) >= max ? max - (val % max) : val % max;
+        public static int FlatPong(int val, int max, int flatTime)
+            => GetClamp(PingPong(val, max + flatTime*2) - flatTime, 0, max);
+        public static int BlinkPong(int val, int frameCount, int restTime, int flatTime)
+            => GetClamp(FlatPong(val, frameCount - 1 + restTime, flatTime) + frameCount - 1 - restTime, 0, frameCount - 1);
+
+        //Vector math
+        public static Vector2 ChargeTarget(this Vector2 velocity, Vector2 targetVelocity, float speed, float inertia)
+            => (velocity * (inertia - 1) + targetVelocity.WithMagnitude(speed)) / inertia;
+        public static Vector2 ChargeTarget(this Vector2 velocity, Vector2 currentPos, Vector2 targetPos, float speed, float inertia)
+            => velocity.ChargeTarget(targetPos - currentPos, speed, inertia);
+        public static Vector2 ChargeTargetAndSet(this ref Vector2 velocity, Vector2 targetVelocity, float speed, float inertia)
+            => velocity = velocity.ChargeTarget(targetVelocity, speed, inertia);
+        public static Vector2 ChargeTargetAndSet(this ref Vector2 velocity, Vector2 currentPos, Vector2 targetPos, float speed, float inertia)
+            => velocity = velocity.ChargeTarget(currentPos, targetPos, speed, inertia);
+
+        public static Vector2 WithMagnitude(this Vector2 vec, float magnitude)
+            => Vector2.Normalize(vec) * magnitude;
+        public static Vector2 SetMagnitude(this ref Vector2 vec, float magnitude)
+            => vec = vec.WithMagnitude(magnitude);
+
+        public static Vector2 AvoidZero(this Vector2 vec, float cuddle = 1)
+            => vec.WithMagnitude(vec.Length().AvoidZero(cuddle));
+        public static Vector2 AvoidZeroAndSet(this ref Vector2 vec, float cuddle = 1)
+            => vec = vec.AvoidZero(cuddle);
 
         //RANDOM FUNCTIONS
         public static int RandomSign => Main.rand.Next(new int[] {-1, 1});
@@ -129,6 +225,8 @@ namespace ChemistryClass.ModUtils {
         public const float TWO_PI_FLOAT = PI_FLOAT * 2;
 
         public const float ONE_RPS = PI_FLOAT / 60;
+
+        public static float SQRT_2 { get; } = (float)Math.Sqrt(2);
 
     }
 

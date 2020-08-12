@@ -10,7 +10,7 @@ using System.IO;
 using Terraria.ID;
 using ChemistryClass.ModUtils;
 
-namespace ChemistryClass.Projectiles.EarlygameFL {
+namespace ChemistryClass.Projectiles.PreHMHS {
     public class SulfuricCloud : ModNPCPlus {
 
         public int AlphaPhase {
