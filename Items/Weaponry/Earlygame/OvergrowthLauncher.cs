@@ -16,7 +16,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
             base.SafeSetDefaults();
 
-            item.damage = 16;
+            item.damage = 15;
             item.shoot = ModContent.ProjectileType<Projectiles.EarlygameFL.OvergrowthLauncherProjectile>();
             item.shootSpeed += 2;
 

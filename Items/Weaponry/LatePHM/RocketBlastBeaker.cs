@@ -79,7 +79,7 @@ namespace ChemistryClass.Items.Weaponry.LatePHM {
         public override void AddRecipes() {
 
             this.SetRecipe(
-                ModContent.TileType<Tiles.Multitiles.MetallurgyStandTile>(),
+                ModContent.TileType<Tiles.Multitiles.BunsonBurnerTile>(),
                 1,
                 (ModContent.ItemType<Placeable.Crafting.Beaker>(), 1),
                 (ItemID.Ale, 4),

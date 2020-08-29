@@ -60,7 +60,7 @@ namespace ChemistryClass.Items.Weaponry.LatePHM {
 
             this.SetRecipe(
 
-                            ModContent.TileType<Tiles.Multitiles.MetallurgyStandTile>(),
+                            ModContent.TileType<Tiles.Multitiles.BunsonBurnerTile>(),
                             1,
                             (ModContent.ItemType<Placeable.Blocks.SulfurClump>(), 15),
                             ("IronBar", 4)

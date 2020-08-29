@@ -16,7 +16,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
             base.SafeSetDefaults();
 
-            item.damage = 14;
+            item.damage = 12;
             item.shoot = ModContent.ProjectileType<Projectiles.EarlygameFL.FrozenHurlerProjectile>();
             item.shootSpeed += 2;
 

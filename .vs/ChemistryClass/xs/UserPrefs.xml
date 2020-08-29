@@ -1,9 +1,23 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="build.txt">
+  <MonoDevelop.Ide.Workbench ActiveDocument="gitign.gitignore">
     <Files>
-      <File FileName="Items/Weaponry/LatePHM/LightningBlaster.cs" Line="67" Column="56" />
-      <File FileName="Items/Materials/Earlygame/Quartz.cs" Line="33" Column="36" />
-      <File FileName="build.txt" Line="1" Column="1" />
+      <File FileName="Items/Weaponry/LatePHM/LightningBlaster.cs" Line="48" Column="31" />
+      <File FileName="Items/Materials/Earlygame/Quartz.cs" />
+      <File FileName="build.txt" />
+      <File FileName="Projectiles/LatePHMFL/CompressedEnergy.cs" />
+      <File FileName="Items/Weaponry/LatePHM/EnergyCompressorStaff.cs" Line="35" Column="43" />
+      <File FileName="Projectiles/LatePHMFL/SmallLightning.cs" Line="13" Column="1" />
+      <File FileName="Projectiles/LightningBase.cs" Line="1" Column="1" />
+      <File FileName="ModUtils/LineGraphics.cs" Line="304" Column="10" />
+      <File FileName="Items/Weaponry/Earlygame/RustingBow.cs" Line="72" Column="25" />
+      <File FileName="Sounds/HeavyEnergyBurst.cs" Line="21" Column="1" />
+      <File FileName="Tiles/Multitiles/MetallurgyStandTile.cs" Line="47" Column="1" />
+      <File FileName="Items/Placeable/Crafting/MetallurgyStand.cs" Line="20" Column="10" />
+      <File FileName="Projectiles/EarlygameFL/FrozenHurlerProjectile.cs" Line="12" Column="13" />
+      <File FileName="Projectiles/EarlygameFL/OvergrowthLauncherProjectile.cs" Line="18" Column="1" />
+      <File FileName="Items/Weaponry/Earlygame/FrozenHurler.cs" Line="19" Column="30" />
+      <File FileName="Items/Weaponry/Earlygame/OvergrowthLauncher.cs" Line="23" Column="36" />
+      <File FileName="gitign.txt" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -11,26 +25,11 @@
           <Node name="ChemistryClass" expanded="True">
             <Node name="ChemistryClass" expanded="True">
               <Node name="Items" expanded="True">
-                <Node name="Materials" expanded="True">
-                  <Node name="Earlygame" expanded="True" />
-                </Node>
-                <Node name="Tools" expanded="True" />
                 <Node name="Weaponry" expanded="True">
                   <Node name="Earlygame" expanded="True" />
-                  <Node name="LatePHM" expanded="True" />
                 </Node>
               </Node>
-              <Node name="ModUtils" expanded="True" />
-              <Node name="Projectiles" expanded="True">
-                <Node name="EarlygameFL" expanded="True" />
-                <Node name="LatePHMFL" expanded="True" />
-                <Node name="PreHMHS" expanded="True" />
-              </Node>
-              <Node name="Tiles" expanded="True">
-                <Node name="Blocks" expanded="True" />
-              </Node>
-              <Node name="UI" expanded="True" />
-              <Node name="build.txt" selected="True" />
+              <Node name="gitign.gitignore" selected="True" />
             </Node>
           </Node>
         </State>

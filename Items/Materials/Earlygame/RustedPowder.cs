@@ -25,7 +25,7 @@ namespace ChemistryClass.Items.Materials.Earlygame {
 
             this.SetRecipe(
 
-                ModContent.TileType<Tiles.Multitiles.MetallurgyStandTile>(),
+                ModContent.TileType<Tiles.Multitiles.BunsonBurnerTile>(),
                 2,
                 ("\0IronOre", 1)
 
@@ -33,7 +33,7 @@ namespace ChemistryClass.Items.Materials.Earlygame {
 
             this.SetRecipe(
 
-                ModContent.TileType<Tiles.Multitiles.MetallurgyStandTile>(),
+                ModContent.TileType<Tiles.Multitiles.BunsonBurnerTile>(),
                 6,
                 ("IronBar", 1)
 

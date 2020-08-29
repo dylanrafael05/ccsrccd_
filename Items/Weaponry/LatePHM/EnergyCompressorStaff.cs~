@@ -1,0 +1,7 @@
+﻿using System;
+namespace ChemistryClass.Items.Weaponry.LatePHM {
+    public class EnergyCompressorStaff : ChemistryClassItem {
+        public EnergyCompressorStaff() {
+        }
+    }
+}

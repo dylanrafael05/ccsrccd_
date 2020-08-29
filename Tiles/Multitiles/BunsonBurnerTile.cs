@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 using Terraria.ObjectData;
 
 namespace ChemistryClass.Tiles.Multitiles {
-    public class MetallurgyStandTile : ModTile {
+    public class BunsonBurnerTile : ModTile {
 
         internal const int frameCount = 19;
         internal const int frameWidth = 36;
@@ -36,7 +36,7 @@ namespace ChemistryClass.Tiles.Multitiles {
             TileObjectData.addTile(Type);
 
             ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Metallurgic Stand");
+            name.SetDefault("Bunson Burner");
             AddMapEntry(new Color(100,100,100), name);
 
             //individualFrame = Main.rand.Next(20);

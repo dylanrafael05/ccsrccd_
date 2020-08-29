@@ -26,6 +26,8 @@
     <Folder Include="Projectiles\PreHMHS\" />
     <Folder Include="Items\Tools\" />
     <Folder Include="Items\Ammunition\" />
+    <Folder Include="Sounds\" />
+    <Folder Include="Sounds\Item\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Projectiles\ProjHelper.cs" />

@@ -34,7 +34,7 @@ namespace ChemistryClass.Items.Placeable.Crafting {
 
             item.maxStack = 99;
 
-            item.createTile = ModContent.TileType<Tiles.Multitiles.MetallurgyStandTile>();
+            item.createTile = ModContent.TileType<Tiles.Multitiles.BunsonBurnerTile>();
 
         }
 
