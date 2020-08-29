@@ -1,7 +1,0 @@
-﻿using System;
-namespace ChemistryClass.UI {
-    public class RefinementMenuStateWithAR : RefinementMenuState {
-        public RefinementMenuStateWithAR() {
-        }
-    }
-}

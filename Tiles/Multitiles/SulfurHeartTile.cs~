@@ -1,7 +1,0 @@
-﻿using System;
-namespace ChemistryClass.Tiles {
-    public class SulfurHeartTile {
-        public SulfurHeart() {
-        }
-    }
-}
