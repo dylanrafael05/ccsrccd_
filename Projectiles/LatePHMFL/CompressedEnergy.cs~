@@ -1,6 +1,0 @@
-﻿using System;
-namespace ChemistryClass.Projectiles.LatePHMFL {
-    public class CompressedEnergy :  {
-        
-    }
-}

@@ -11,7 +11,7 @@ NEW FEATURES:
 - New resources (TBA)
 - New challenging enemies (TBA)
 
-DECAY and REFINEMENT:
+DECAY and REFINEMENT: 
 As you use a chemistry-classed weapon, its materials will slowly start to degrade.
 As the weapon decays, it becomes weaker and weaker until it is simply too hard to use.
 To counteract this decay, you can refine the weapons using certain materials, and as you find more chemicals to use in your travels, you can even unlock the ability to have weaponry refine itself! (TBA)
