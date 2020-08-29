@@ -361,8 +361,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-*.cs~
-*.txt~
-*.png~
-*.md~
-*.gitignore~
+*~
+.DS_Store

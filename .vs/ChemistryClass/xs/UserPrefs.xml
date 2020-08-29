@@ -1,5 +1,5 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="gitign.gitignore">
+  <MonoDevelop.Ide.Workbench ActiveDocument="description.txt">
     <Files>
       <File FileName="Items/Weaponry/LatePHM/LightningBlaster.cs" Line="48" Column="31" />
       <File FileName="Items/Materials/Earlygame/Quartz.cs" />
@@ -17,7 +17,8 @@
       <File FileName="Projectiles/EarlygameFL/OvergrowthLauncherProjectile.cs" Line="18" Column="1" />
       <File FileName="Items/Weaponry/Earlygame/FrozenHurler.cs" Line="19" Column="30" />
       <File FileName="Items/Weaponry/Earlygame/OvergrowthLauncher.cs" Line="23" Column="36" />
-      <File FileName="gitign.txt" Line="1" Column="1" />
+      <File FileName="gitign.txt" Line="368" Column="13" />
+      <File FileName="description.txt" Line="14" Column="23" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -29,7 +30,7 @@
                   <Node name="Earlygame" expanded="True" />
                 </Node>
               </Node>
-              <Node name="gitign.gitignore" selected="True" />
+              <Node name="description.txt" selected="True" />
             </Node>
           </Node>
         </State>
