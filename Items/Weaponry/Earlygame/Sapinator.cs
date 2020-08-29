@@ -46,20 +46,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
 
         }
 
-        public override void AddRecipes() {
-
-            ModRecipe recipe = new ModRecipe(mod);
-
-            recipe.AddRecipeGroup(RecipeGroupID.Wood, 12);
-            recipe.AddIngredient(ItemID.Acorn, 2);
-
-            recipe.AddTile(ChemistryClass.BeakerTileID);
-
-            recipe.SetResult(this);
-
-            recipe.AddRecipe();
-
-        }
+        public override void AddRecipes() => this.SetRecipe(18, 1, ("Wood", 12), (ItemID.Acorn, 2));
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack) {
 

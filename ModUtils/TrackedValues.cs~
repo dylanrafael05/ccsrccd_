@@ -1,0 +1,8 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace ChemistryClass.ModUtils {
+    public class TrackedValue<ValueT> : IEnumerable<ValueT>, IComparable<ValueT> {
+
+    }
+}

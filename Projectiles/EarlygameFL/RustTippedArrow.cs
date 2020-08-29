@@ -66,7 +66,7 @@ namespace ChemistryClass.Projectiles.EarlygameFL {
 
         public override bool OnTileCollide(Vector2 oldVelocity) {
             Main.PlaySound(SoundID.Dig, projectile.Center);
-            for (int _ = 0; _ < 5; _++) { newDust(DustID.Dirt); }
+            for (int _ = 0; _ < 5; _++) { Collision.TileCollision(projectile.Center, projectile.velocity, 16, 16); }
             return true;
         }
 

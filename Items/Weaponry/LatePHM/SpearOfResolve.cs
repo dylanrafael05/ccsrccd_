@@ -75,16 +75,7 @@ namespace ChemistryClass.Items.Weaponry.LatePHM {
                 ChemistryClass.BeakerTileID,
                 1,
                 (ItemID.Wood, 4),
-                (ItemID.IronBar, 10),
-                (ItemID.Bone, 4),
-                (ModContent.ItemType<Materials.Earlygame.RustedPowder>(), 18)
-                );
-
-            this.SetRecipe(
-                ChemistryClass.BeakerTileID,
-                1,
-                (ItemID.Wood, 4),
-                (ItemID.LeadBar, 10),
+                ("IronBar", 10),
                 (ItemID.Bone, 4),
                 (ModContent.ItemType<Materials.Earlygame.RustedPowder>(), 18)
                 );

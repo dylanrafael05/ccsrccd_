@@ -46,41 +46,8 @@ namespace ChemistryClass.Items.Placeable.Crafting {
                 1,
                 (ModContent.ItemType<Beaker>(), 1),
                 (ItemID.Torch, 10),
-                (ItemID.IronBar, 12),
-                (ItemID.GoldBar, 12)
-
-                );
-
-            this.SetRecipe(
-
-                TileID.Anvils,
-                1,
-                (ModContent.ItemType<Beaker>(), 1),
-                (ItemID.Torch, 10),
-                (ItemID.LeadBar, 12),
-                (ItemID.GoldBar, 12)
-
-                );
-
-            this.SetRecipe(
-
-                TileID.Anvils,
-                1,
-                (ModContent.ItemType<Beaker>(), 1),
-                (ItemID.Torch, 10),
-                (ItemID.IronBar, 12),
-                (ItemID.PlatinumBar, 12)
-
-                );
-
-            this.SetRecipe(
-
-                TileID.Anvils,
-                1,
-                (ModContent.ItemType<Beaker>(), 1),
-                (ItemID.Torch, 10),
-                (ItemID.LeadBar, 12),
-                (ItemID.PlatinumBar, 12)
+                ("IronBar", 12),
+                ("\0GoldBar", 12)
 
                 );
 

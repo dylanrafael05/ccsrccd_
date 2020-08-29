@@ -8,6 +8,8 @@ using Terraria.World.Generation;
 using Microsoft.Xna.Framework;
 using System.Linq;
 using ChemistryClass.ModUtils;
+using System.Collections;
+using System.Drawing.Drawing2D;
 
 namespace ChemistryClass {
     public class ChemistryClassWorld : ModWorld {
@@ -20,6 +22,22 @@ namespace ChemistryClass {
         public static int sulfurCount;
         public static int sulfurHeartCount;
 
+        //QUARTZ LIGHTNING MANAGEMENT
+        public const int quartzLightningTimer = 30;
+        public const int quartzLightningMax = 2;
+
+        private static int _qLC = 0;
+        public static int QuartzLightningCount {
+            get => _qLC;
+            set {
+                _qLC = value;
+                QuartzLightningValid &= _qLC < quartzLightningMax;
+            }
+        }
+
+        public static bool QuartzLightningValid { get; private set; } = false;
+
+        //BIOME INFORMATION
         public override void ResetNearbyTileEffects() {
 
             sulfurCount = 0;
@@ -48,8 +66,18 @@ namespace ChemistryClass {
 
             }
 
+            index = tasks.FindIndex(t => t.Name == "Gem Caves");
+
+            if (index > -1) {
+
+                PassLegacy pass = new PassLegacy("Quartz Caves", GenerateQuartzCaves);
+                tasks.Insert(++index, pass);
+
+            }
+
         }
 
+        //GENERATION OF SULFUR DEPOSITS
         private void GenerateSulphuricDeposit(GenerationProgress progress) {
 
             progress.Message = "Generating Sulfuric Deposits";
@@ -138,6 +166,131 @@ namespace ChemistryClass {
 
             }
              
+        }
+
+        private void GenerateQuartzCaves(GenerationProgress pogress) {
+
+            pogress.Message = "Zippy-zappy Caves";
+
+            int maxY = Main.maxTilesY - 300;
+            int minY = (int)WorldGen.rockLayerLow;
+            int maxX = Main.maxTilesX - 100;
+            int minX = 100;
+
+            int iCen, jCen;
+
+            Tile curTile;
+
+            TileRun caveStructure;
+
+            int amount = Main.rand.Next(8, 12);
+            int attempts = 0;
+            int sAttempts = 0;
+            const int maxAttempts = 7_500;
+
+            const float maxWeight = 40f;
+            const float weightPer = 7f;
+            const float weightPerAir = 21f;
+            const float randWeight = 7f;
+            const float randWeightAir = 2.1f;
+
+            bool cont;
+            bool smooth = false;
+
+            while (attempts++ < maxAttempts && sAttempts < amount) {
+
+                iCen = Main.rand.Next(minX, maxX);
+                jCen = Main.rand.Next(minY, maxY);
+
+                //ChemistryClass.Logging.Debug("A");
+
+                cont = true;
+                for (int i = -5; i <= 5; i++) {
+                    for (int j = -5; j <= 5; j++) {
+                        curTile = Framing.GetTileSafely(iCen + i, jCen + j);
+                        cont &= curTile.active() &&
+                            new[] { TileID.Stone, TileID.Dirt, TileID.Mud, TileID.Tin,
+                            TileID.Copper, TileID.Iron, TileID.Lead, TileID.Silver, TileID.Tungsten,
+                            TileID.Gold, TileID.Platinum, TileID.Amethyst, TileID.Topaz, TileID.Diamond,
+                            TileID.Ruby, TileID.Sapphire, TileID.Silt }.Contains(curTile.type);
+                        if (!cont) goto CONT;
+                    }
+                }
+                CONT:
+                if (!cont) continue;
+
+                //ChemistryClass.Logging.Debug("B");
+
+                caveStructure = new TileRun(TileRunItem.FromTile(iCen, jCen, 0));
+                if (!caveStructure.ExecuteFull(
+                     weightPer, maxWeight,
+                     obj => obj.Items.Count > 300,
+                     randWeight)) continue;
+
+                //ChemistryClass.Logging.Debug("C");
+
+                foreach (var item in caveStructure) {
+                    WorldGen.KillTile(item.I, item.J, false, false, true);
+                    WorldGen.PlaceWall(item.I, item.J, Main.rand.Next(WallID.CaveUnsafe, WallID.Cave2Unsafe + 1), true);
+                }
+
+                //ChemistryClass.Logging.Debug("D");
+
+                caveStructure = new TileRun(TileRunItem.FromTile(iCen, jCen, 0));
+                caveStructure.ExecuteFull(
+                     weightPerAir, maxWeight,
+                     obj => obj.Items.Count > 350,
+                     randWeightAir);
+
+                //ChemistryClass.Logging.Debug("E");
+
+                foreach (var item in caveStructure) {
+                    if (item.Tile) {
+                        WorldGen.PlaceTile(item.I, item.J, ModContent.TileType<Tiles.Blocks.QuartzStone>(), true, true);
+                    }
+                    if (item.Border && !item.RunBorder && Main.rand.NextFloat() < 0.8f) {
+                        //WorldGen.PlaceTile(item.I, item.J, ModContent.TileType<Tiles.Blocks.QuartzPlaced>(), false, true, -1, pStyle);
+                        WorldGen.PlaceTile(item.I, item.J, ModContent.TileType<Tiles.Blocks.QuartzPlaced>(), false, true, -1, Main.rand.Next(0, 3));
+                        continue;
+                    }
+                }
+
+                //ChemistryClass.Logging.Debug("F");
+
+                foreach (var item in caveStructure) {
+                    curTile = Framing.GetTileSafely(item.I, item.J);
+                    if(curTile.type == ModContent.TileType<Tiles.Blocks.QuartzStone>()) {
+                        smooth = true;
+                        curTile = Framing.GetTileSafely(item.I + 1, item.J);
+                        smooth &= curTile.type != ModContent.TileType<Tiles.Blocks.QuartzPlaced>();
+                        curTile = Framing.GetTileSafely(item.I - 1, item.J);
+                        smooth &= curTile.type != ModContent.TileType<Tiles.Blocks.QuartzPlaced>();
+                        curTile = Framing.GetTileSafely(item.I, item.J + 1);
+                        smooth &= curTile.type != ModContent.TileType<Tiles.Blocks.QuartzPlaced>();
+                        curTile = Framing.GetTileSafely(item.I, item.J - 1);
+                        smooth &= curTile.type != ModContent.TileType<Tiles.Blocks.QuartzPlaced>();
+                        if(smooth) {
+                            Tile.SmoothSlope(item.I, item.J, false);
+                        }
+                    }
+                }
+
+                //ChemistryClass.Logging.Debug("G");
+
+                sAttempts++;
+
+                pogress.Value = MathHelper.Lerp(1, (float)sAttempts / amount, 1f - (float)attempts / maxAttempts);
+
+            }
+
+        }
+
+        //QUARTZ MANAGEMENT
+        public override void PreUpdate() {
+
+            QuartzLightningValid = ChemistryClass.TimeIsMultOf(quartzLightningTimer);
+            QuartzLightningCount = 0;
+
         }
 
     }

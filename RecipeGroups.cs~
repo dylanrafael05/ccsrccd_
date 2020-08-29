@@ -1,0 +1,37 @@
+﻿using System;
+using Terraria;
+using Terraria.ID;
+using Terraria.Localization;
+
+namespace ChemistryClass {
+    public partial class ChemistryClass {
+
+        public override void AddRecipeGroups() {
+
+            RecipeGroup newGroup;
+
+            newGroup = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Copper Bar", new int[]
+            {
+                ItemID.CopperBar,
+                ItemID.TinBar
+            });
+            RecipeGroup.RegisterGroup("ChemistryClass:CopperBars", newGroup);
+
+            newGroup = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Silver Bar", new int[]
+            {
+                ItemID.SilverBar,
+                ItemID.TungstenBar
+            });
+            RecipeGroup.RegisterGroup("ChemistryClass:CopperBars", newGroup);
+
+            newGroup = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Gold Bar", new int[]
+            {
+                ItemID.GoldBar,
+                ItemID.PlatinumBar
+            });
+            RecipeGroup.RegisterGroup("ChemistryClass:GoldBars", newGroup);
+
+        }
+
+    }
+}

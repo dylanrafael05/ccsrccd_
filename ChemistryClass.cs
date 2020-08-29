@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using ChemistryClass.ModUtils;
 using ChemistryClass.UI;
+using log4net;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -9,17 +10,23 @@ using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace ChemistryClass {
-    public class ChemistryClass : Mod {
+    public partial class ChemistryClass : Mod {
 
         //VARIABLES
         public static ModHotKey InteractRefinementMenu;
 
-        static internal RefinementMenuState refinementMenu;
-        static internal DecayMeterState decayMeter;
-        static internal UserInterface _refinementMenu;
-        static internal UserInterface _decayMeter;
+        internal static RefinementMenuState refinementMenu;
+        internal static DecayMeterState decayMeter;
+        internal static UserInterface _refinementMenu;
+        internal static UserInterface _decayMeter;
 
-        static internal bool allowRefinementMenu;
+        internal static ILog Logging = LogManager.GetLogger("ChemistryClass");
+
+        private static bool? _allowRefinementMenu;
+        internal static bool AllowRefinementMenu {
+            get => _allowRefinementMenu.Value;
+            set => _allowRefinementMenu = value;
+        }
 
         //MEMBERS
         private static ulong? _unpausedUpdateCount;
@@ -41,7 +48,7 @@ namespace ChemistryClass {
         public override void Load() {
 
             InteractRefinementMenu = RegisterHotKey("Open/Close Chemical Refinement Menu", "L");
-            allowRefinementMenu = true;
+            AllowRefinementMenu = true;
 
             Configuration = ModContent.GetInstance<ChemistryClassConfig>();
 
@@ -92,6 +99,11 @@ namespace ChemistryClass {
 
             _unpausedUpdateCount = null;
 
+            InteractRefinementMenu = null;
+            _allowRefinementMenu = null;
+
+            Configuration = null;
+
         }
 
         //Add UI Layer
@@ -137,11 +149,13 @@ namespace ChemistryClass {
         //Update Input
         public override void PostUpdateInput() {
 
+            if (InteractRefinementMenu == null || InteractRefinementMenu.GetAssignedKeys().Count < 1) return;
+
             if (InteractRefinementMenu.JustPressed && Main.playerInventory) {
 
-                allowRefinementMenu.Invert();
+                AllowRefinementMenu = !AllowRefinementMenu;
 
-                if(allowRefinementMenu) {
+                if(AllowRefinementMenu) {
                     Main.PlaySound(SoundID.MenuOpen);
                 } else {
                     Main.PlaySound(SoundID.MenuClose);
@@ -156,7 +170,7 @@ namespace ChemistryClass {
 
             if (Main.dedServ) return;
 
-            bool menuActive = Main.playerInventory && allowRefinementMenu;
+            bool menuActive = Main.playerInventory && AllowRefinementMenu;
 
             if (menuActive && _refinementMenu.CurrentState == null) {
 

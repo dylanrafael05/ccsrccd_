@@ -22,6 +22,8 @@ namespace ChemistryClass.Projectiles.LatePHMFL {
             projectile.width = 6;
             projectile.height = 6;
 
+            projectile.ignoreWater = true;
+
         }
 
         public override void AI() {

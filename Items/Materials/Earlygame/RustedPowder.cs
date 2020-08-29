@@ -27,7 +27,7 @@ namespace ChemistryClass.Items.Materials.Earlygame {
 
                 ModContent.TileType<Tiles.Multitiles.MetallurgyStandTile>(),
                 2,
-                (ItemID.IronOre, 1)
+                ("\0IronOre", 1)
 
                 );
 
@@ -35,23 +35,7 @@ namespace ChemistryClass.Items.Materials.Earlygame {
 
                 ModContent.TileType<Tiles.Multitiles.MetallurgyStandTile>(),
                 6,
-                (ItemID.IronBar, 1)
-
-                );
-
-            this.SetRecipe(
-
-                ModContent.TileType<Tiles.Multitiles.MetallurgyStandTile>(),
-                2,
-                (ItemID.LeadOre, 1)
-
-                );
-
-            this.SetRecipe(
-
-                ModContent.TileType<Tiles.Multitiles.MetallurgyStandTile>(),
-                6,
-                (ItemID.LeadBar, 1)
+                ("IronBar", 1)
 
                 );
 

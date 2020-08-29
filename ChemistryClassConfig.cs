@@ -15,6 +15,7 @@ namespace ChemistryClass {
 
         public override ConfigScope Mode => ConfigScope.ClientSide;
 
+        [Header("Decay Display Options")]
         [Label("Decay Display Mode")]
         [Tooltip("Chooses which method of displaying weapon purity to the player will be used.")]
         [DrawTicks]
@@ -33,6 +34,13 @@ namespace ChemistryClass {
         [Range(-100f, 100f)]
         [Increment(1f)]
         public Vector2 DecayMeterOffset;
+
+        [Header("Features")]
+        [ReloadRequired]
+        [Label("Modify Vanilla Pickaxe Values")]
+        [Tooltip("De-randomizes vanilla pickaxe values and spaces out values to better fit in Quartz into tile progression.")]
+        [DefaultValue(true)]
+        public bool ChangePick;
 
         public override void OnChanged() {
             if (ChemistryClass.decayMeter != null) {

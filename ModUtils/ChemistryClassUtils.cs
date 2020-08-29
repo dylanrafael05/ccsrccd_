@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using IL.Terraria.Achievements;
 using IL.Terraria.World.Generation;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -100,9 +101,9 @@ namespace ChemistryClass.ModUtils {
             => eval(a) < eval(b) ? a : b;
         public static T Max<T>(T a, T b, Evaluator<T> eval)
             => eval(a) < eval(b) ? b : a;
-        public static T Min<T>(IEnumerable<T> ts, Evaluator<T> eval) {
+        public static T Min<T>(IEnumerable<T> ts, Evaluator<T> eval) where T : class {
 
-            T min;
+            T min = null;
             T[] arr = ts.ToArray();
 
             if (arr.Length <= 0) return default;
@@ -111,15 +112,16 @@ namespace ChemistryClass.ModUtils {
             min = arr[0];
 
             foreach(var t in arr) {
+                if (t == null) continue;
                 min = eval(min) < eval(t) ? min : t;
             }
 
             return min;
 
         }
-        public static T Max<T>(IEnumerable<T> ts, Evaluator<T> eval) {
+        public static T Max<T>(IEnumerable<T> ts, Evaluator<T> eval) where T : class {
 
-            T max;
+            T max = null;
             T[] arr = ts.ToArray();
 
             if (arr.Length <= 0) return default;
@@ -128,6 +130,7 @@ namespace ChemistryClass.ModUtils {
             max = arr[0];
 
             foreach (var t in arr) {
+                if (t == null) continue;
                 max = eval(max) < eval(t) ? t : max;
             }
 
@@ -198,23 +201,54 @@ namespace ChemistryClass.ModUtils {
         public static bool ContainsMouse<T>(this T uiEl) where T : UIElement
             => uiEl.ContainsPoint(Main.MouseScreen);
 
-        //RECIPE HELPER
-        public static void SetRecipe( this ModItem item, int requireTile = TileID.WorkBenches, int amount = 1, params (int, int)[] items ) {
+        //TILE SETUPS
+        public static void CreateMerge(int typeA, int typeB) {
+            Main.tileMerge[typeA][typeB] = true;
+            Main.tileMerge[typeB][typeA] = true;
+        }
+        public static void CreateMerge(this ModTile t, int typeB) {
+            Main.tileMerge[t.Type][typeB] = true;
+            Main.tileMerge[typeB][t.Type] = true;
+        }
 
-            ModRecipe recipe = new ModRecipe(item.mod);
+        public static bool HasUndergroundWall(this Tile curTile)
+            => curTile.wall == WallID.None || curTile.wall == WallID.Dirt
+                    || curTile.wall == WallID.DirtUnsafe
+                    || (curTile.wall >= WallID.DirtUnsafe1 && curTile.wall <= WallID.DirtUnsafe4)
+                    || curTile.wall == WallID.Stone
+                    || (curTile.wall >= WallID.RocksUnsafe1 && curTile.wall <= WallID.RocksUnsafe4)
+                    || (curTile.wall >= WallID.LavaUnsafe1 && curTile.wall <= WallID.LavaUnsafe4)
+                    || (curTile.wall >= WallID.CaveUnsafe && curTile.wall <= WallID.Cave6Unsafe)
+                    || curTile.wall == WallID.Cave7Unsafe || curTile.wall == WallID.Cave8Unsafe
+                    || curTile.wall == WallID.CaveWall || curTile.wall == WallID.CaveWall2;
 
-            recipe.AddTile(requireTile);
-            foreach( var ing in items ) {
+        public static bool solid(this Tile tile)
+            => Main.tileSolid[tile.type];
 
-                recipe.AddIngredient(ing.Item1, ing.Item2);
+        public static bool solidTop(this Tile tile)
+           => Main.tileSolidTop[tile.type];
 
-            }
+        public static bool axe(this Tile tile)
+           => Main.tileAxe[tile.type];
 
-            recipe.SetResult(item.item.type, amount);
+        public static bool hammer(this Tile tile)
+           => Main.tileHammer[tile.type];
 
-            recipe.AddRecipe();
+        //ROTATIONS
+        public static float ShortestRotTo(float from, float to) {
+
+            from %= TWO_PI_FLOAT;
+            to %= TWO_PI_FLOAT;
+
+            if (Math.Abs(from - to) > PI_FLOAT) {
+                return from - to + Math.Sign(to - from) * TWO_PI_FLOAT;
+            } else return from - to;
 
         }
+
+        //SHIT STUFFS
+        public static Rectangle ScreenRectangle
+            => new Rectangle((int)Main.screenPosition.X, (int)Main.screenPosition.Y, Main.screenWidth, Main.screenHeight);
 
         //CONSTS (BASICALLY)
         public const float PI_FLOAT = (float)Math.PI;

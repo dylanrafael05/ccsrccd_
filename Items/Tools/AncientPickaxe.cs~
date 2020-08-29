@@ -1,0 +1,57 @@
+﻿using System;
+using ChemistryClass.ModUtils;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace ChemistryClass.Items.Tools {
+    public class AncientPickaxe : ModItem {
+
+        public override void SetStaticDefaults() {
+
+            Tooltip.SetDefault(
+
+                "A sword made of the clearest of lenses\n" +
+                "Shoots pressure-cracked shards of glass"
+
+                );
+
+        }
+
+        public override void SetDefaults() {
+
+            item.damage = 9;
+            item.crit = 6;
+            item.knockBack = 3f;
+
+            item.width = 48;
+            item.height = 48;
+
+            item.useTime = 20;
+            item.useAnimation = 20;
+            item.UseSound = SoundID.Item1;
+            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.autoReuse = true;
+
+            item.pick = 60;
+
+            item.rare = 2;
+            item.value = Item.buyPrice(0, 0, 20, 0);
+
+        }
+
+        public override void AddRecipes() {
+
+            this.SetRecipe(
+
+                            TileID.Anvils,
+                            1,
+                            (ItemID.Bone, 8),
+                            ("Wood", 6)
+
+            );
+
+        }
+
+    }
+}

@@ -1,0 +1,43 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace ChemistryClass.ModUtils {
+    [Flags] public enum TileRunStatus : byte {
+        EMPTY,
+        BORDER,
+        FILLED,
+        REPLACE,
+        DELETE
+    }
+
+    public struct TileRunItem {
+        public int I;
+        public int J;
+        public TileRunStatus Status;
+        public float Weight;
+
+        public TileRunItem(int i, int j, float w, TileRunStatus s)
+        {
+            this.I = i;
+            this.J = j;
+            Weight = w;
+            Status = s;
+        }
+    }
+
+    public struct TileRun : IEnumerable<TileRunItem> {
+        public List<TileRunItem> Items;
+        public TileRunItem this[int i, int j]
+        {
+            get => Items.First(item => item.I == i && item.J == j);
+            set => Items[Items.FindIndex(item => item.I == i && item.J == j)] = value;
+        }
+
+        public TileRun(List<TileRunItem> items) => Items = items;
+        public TileRun(params TileRunItem[] items) => Items = items.ToList();
+        public TileRun(IEnumerable<TileRunItem> items) => Items = items.ToList();
+
+        public IEnumerator<TileRunItem> GetEnumerator() => Items.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => Items.GetEnumerator();
+    }
+}

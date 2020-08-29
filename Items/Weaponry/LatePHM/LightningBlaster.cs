@@ -1,0 +1,83 @@
+﻿using System;
+using ChemistryClass.ModUtils;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace ChemistryClass.Items.Weaponry.LatePHM {
+    public class LightningBlaster : ChemistryClassItem {
+
+        public override void SetStaticDefaults() {
+
+            Tooltip.SetDefault(
+
+                "Uses the piezoelectric powers of Quartz to\n" +
+                "devastate foes with lightning"
+
+                );
+
+        }
+
+        public override void SafeSetDefaults() {
+
+            item.damage = 80;
+            item.crit = 0;
+            item.knockBack = 5;
+
+            item.width = 54;
+            item.height = 18;
+
+            item.useTime = 69;
+            item.useAnimation = 69;
+            item.UseSound = SoundID.Item91;
+            item.useStyle = ItemUseStyleID.HoldingOut;
+            item.autoReuse = false;
+
+            item.noMelee = true;
+
+            item.rare = 2;
+            item.value = Item.buyPrice(0, 0, 40, 0);
+
+            item.shoot = ModContent.ProjectileType<Projectiles.LatePHMFL.LightningBlasterProj>();
+            item.shootSpeed = Main.rand.NextFloat(14, 20);
+
+            minutesToDecay = 8f;
+
+            minPurityMult = 1.05f;
+            maxPurityMult = 0.8f;
+
+            SetRefinementData(
+
+                (ModContent.ItemType<Materials.Earlygame.Quartz>(), 1f),
+                (ItemID.Wire, 1 / 5f)
+
+                );
+
+        }
+
+        public override void AddRecipes() {
+
+            this.SetRecipe(
+
+                            TileID.Anvils,
+                            1,
+                            (ModContent.ItemType<Materials.Earlygame.Quartz>(), 5),
+                            ("IronBar", 6),
+                            (ItemID.IllegalGunParts, 1)
+
+            );
+
+        }
+
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack) {
+
+            position.X += speedX * 4;
+            position.Y += speedY * 4;
+
+            return true;
+
+        }
+
+    }
+}

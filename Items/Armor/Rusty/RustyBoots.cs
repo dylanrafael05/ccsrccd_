@@ -35,16 +35,7 @@ namespace ChemistryClass.Items.Armor.Rusty {
 
                 ModContent.TileType<Tiles.Multitiles.BeakerTile>(),
                 1,
-                (ItemID.IronGreaves, 1),
-                (rustPowder, 16)
-
-                );
-
-            this.SetRecipe(
-
-                ModContent.TileType<Tiles.Multitiles.BeakerTile>(),
-                1,
-                (ItemID.LeadGreaves, 1),
+                ("\0IronGreaves", 1),
                 (rustPowder, 16)
 
                 );

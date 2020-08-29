@@ -61,16 +61,7 @@ namespace ChemistryClass.Items.Weaponry.LatePHM {
                             ModContent.TileType<Tiles.Multitiles.MetallurgyStandTile>(),
                             1,
                             (ModContent.ItemType<Placeable.Blocks.SulfurClump>(), 18),
-                            (ItemID.IronBar, 5)
-
-            );
-
-            this.SetRecipe(
-
-                            ModContent.TileType<Tiles.Multitiles.MetallurgyStandTile>(),
-                            1,
-                            (ModContent.ItemType<Placeable.Blocks.SulfurClump>(), 18),
-                            (ItemID.LeadBar, 5)
+                            ("IronBar", 5)
 
             );
 
@@ -78,8 +69,8 @@ namespace ChemistryClass.Items.Weaponry.LatePHM {
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack) {
 
-            position.X += speedX * 4;
-            position.Y += speedY * 4;
+            position.X += speedX * 3;
+            position.Y += speedY * 3;
 
             return true;
 

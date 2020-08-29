@@ -54,16 +54,7 @@ namespace ChemistryClass.Items.Weaponry.Earlygame {
                             ChemistryClass.BeakerTileID,
                             1,
                             (ModContent.ItemType<Materials.Earlygame.RustedPowder>(), 20),
-                            (ItemID.SilverBar, 6)
-
-            );
-
-            this.SetRecipe(
-
-                            ChemistryClass.BeakerTileID,
-                            1,
-                            (ModContent.ItemType<Materials.Earlygame.RustedPowder>(), 20),
-                            (ItemID.TungstenBar, 6)
+                            ("\0SilverBar", 6)
 
             );
 

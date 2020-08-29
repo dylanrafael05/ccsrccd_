@@ -1,0 +1,66 @@
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.ModLoader;
+
+namespace ChemistryClass.ModUtils {
+
+    public static class LineGraphicData {
+
+        public static Dictionary<string, Texture2D> loadedLineGraphics = new Dictionary<string, Texture2D> {
+
+            { "_BODY" , Main.magicPixel },
+            { "_END" ,  }
+
+        };
+
+    }
+
+    public class LineGraphic {
+
+        public Texture2D EndTexture { get; } = DefaultEndTexture;
+        public static Texture2D DefaultEndTexture => ModContent.GetTexture("ChemistryClass/ModUtils/LineEnd");
+
+        public Vector2 Start;
+        public Vector2 End;
+        public int Width;
+
+        public Vector2 Vector => End - Start;
+        public float Length => Vector2.Distance(Start, End);
+
+        public bool IsValid => Width > 0;
+
+        public Vector2 Scaling => new Vector2(Width, (int)Math.Ceiling(Length));
+
+        public float Rotation => Vector.ToRotation();// + CCUtils.HALF_PI_FLOAT;
+        public LinearFunction LinearFunc => LinearFunction.FromPoints(Start, End);
+
+        public float CapScaling => (float)Width / EndTexture.Width;
+        public float CapHeight => CapScaling * EndTexture.Height;
+        public float CapWidth => CapScaling * EndTexture.Width;
+
+        public Vector2 StartDP => Start - Main.screenPosition;
+        public Vector2 EndDP => End - Main.screenPosition;
+
+        public LineGraphic(Vector2 start, Vector2 end, int width) {
+            Start = start;
+            End = end;
+            Width = width;
+        }
+
+        public bool Colliding(Rectangle rect)
+            => Collision.CheckAABBvLineCollision(rect.TopLeft(), rect.Size(), Start, End);
+        public LineGraphic GetSubsection(float start, float end) {
+            start.Clamp(0, 1);
+            end.Clamp(start, 1);
+            return new LineGraphic(Start + Vector * start, Start + Vector * end, Width);
+        }
+
+        public static LineGraphic FromVector(Vector2 start, Vector2 vector, int width)
+            => new LineGraphic(start, Drawing.OffsetBy(start, vector.X, vector.Y), width);
+
+    }
+
+}

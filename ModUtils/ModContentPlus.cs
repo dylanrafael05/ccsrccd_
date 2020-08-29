@@ -45,7 +45,7 @@ namespace ChemistryClass.ModUtils {
 
         public virtual void FirstFrame() { }
         public virtual bool SafePreAI() => true;
-        public override bool PreAI() {
+        public sealed override bool PreAI() {
 
             if (ActiveCounter == -1) {
 
@@ -64,11 +64,11 @@ namespace ChemistryClass.ModUtils {
         public virtual void SafeSendExtraAI(BinaryWriter writer) { }
         public sealed override void SendExtraAI(BinaryWriter writer) {
 
+            SafeSendExtraAI(writer);
+
             writer.Write(CritChance);
             writer.Write(FrameCounter);
             writer.Write(ActiveCounter);
-
-            SafeSendExtraAI(writer);
 
         }
 
