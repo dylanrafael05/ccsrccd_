@@ -1,16 +1,12 @@
 ﻿using System;
-using ChemistryClass.ModUtils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Steamworks;
 using Terraria;
 using Terraria.GameInput;
 using Terraria.UI;
 
 namespace ChemistryClass.UI {
     public class UIItemSlot : UIElement {
-
-        public static readonly Color drawColor = new Color(200, 200, 200, 200);
 
         private Item _item;
         public Item Item {
@@ -35,7 +31,7 @@ namespace ChemistryClass.UI {
 
         }
 
-        internal Texture2D backTexture;
+        internal readonly Texture2D backTexture;
 
         private bool _visible = true;
         private readonly int _context;
@@ -53,8 +49,8 @@ namespace ChemistryClass.UI {
 
             this.backTexture = backTexture ?? Main.inventoryBack9Texture;
 
-            Width.Set(this.backTexture.Width * scale, 0f);
-            Height.Set(this.backTexture.Height * scale, 0f);
+            Width.Set(backTexture.Width * scale, 0f);
+            Height.Set(backTexture.Height * scale, 0f);
 
         }
 
@@ -92,7 +88,7 @@ namespace ChemistryClass.UI {
             float oldScale = Main.inventoryScale;
             Main.inventoryScale = _scale;
 
-            if ( ContainsPoint(Main.MouseScreen) && !PlayerInput.IgnoreMouseInterface ) {
+            if( ContainsPoint(Main.MouseScreen) && !PlayerInput.IgnoreMouseInterface ) {
 
                 Main.LocalPlayer.mouseInterface = true;
                 if (validItem(Main.mouseItem) || (Main.mouseItem.IsAir && allowAir))
@@ -100,7 +96,7 @@ namespace ChemistryClass.UI {
 
             }
 
-            spriteBatch.Draw(backTexture, GetDimensions().ToRectangle(), null, drawColor, 0f, Vector2.Zero, SpriteEffects.None, 1f);
+            spriteBatch.Draw(backTexture, GetDimensions().ToRectangle(), null, new Color(255, 255, 255, 150), 0f, Vector2.Zero, SpriteEffects.None, 1f);
             ItemSlot.Draw(spriteBatch, ref _item, ItemSlot.Context.MouseItem, GetDimensions().ToRectangle().TopLeft());
 
             Main.inventoryScale = oldScale;

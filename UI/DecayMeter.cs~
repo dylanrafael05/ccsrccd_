@@ -32,6 +32,7 @@ namespace ChemistryClass.UI {
     public class DecayMeter : UIElement {
 
         public int length = 3;
+        public Vector2 offset = new Vector2(0);
 
         public const float scale = 1f;
         public const int frameSize = 24;
@@ -77,26 +78,29 @@ namespace ChemistryClass.UI {
         public override void Draw(SpriteBatch spriteBatch) {
 
             if (toggled) return;
-            if (!Main.LocalPlayer.active) return;
+
+            Player plr = Main.LocalPlayer;
+
+            if (!plr.active) return;
 
             Vector2 drawStart =
-                CCUtils.ScreenRectangle.Size() / 2 +
-                new Vector2(scale * Main.UIScale * frameSize * -(length + 1.5f) / 2f, -Main.screenHeight / 9f);
-            Vector2 drawOff = Vector2.UnitX * scale * frameSize * Main.UIScale;
+                CCUtils.ScreenRectangle.Center() +
+                new Vector2(-scale * frameSize * (length / 2f + 1), -Main.screenHeight / 9f) + offset;
+            Vector2 drawOff = Vector2.UnitX * scale * frameSize;
 
             Rectangle mainBarRect = new Rectangle(
 
                 (int)(drawStart.X + drawOff.X),
-                (int)(drawStart.Y + barYOffset * scale * Main.UIScale),
-                (int)(scale * frameSize * Main.UIScale * length * DisplayPurity),
-                (int)(scale * barY * Main.UIScale)
+                (int)(drawStart.Y + barYOffset * scale),
+                (int)(scale * frameSize * length * DisplayPurity),
+                (int)(scale * barY)
 
                 );
 
             Rectangle otherBarRect = Drawing.RectFromCorners(
 
-                mainBarRect.TopRight().OffsetBy(isAdding ? 0 : 1, 0),
-                drawStart.OffsetBy(0, (barYOffset + barY) * Main.UIScale) + drawOff * (length * DisplayPurityReal + 1)
+                mainBarRect.Location.ToVector2().OffsetBy(mainBarRect.Width + (isAdding ? 0 : 1), 0),
+                drawStart.OffsetBy(0, barYOffset + barY) + drawOff * length * DisplayPurityReal + drawOff
 
                 );
 
@@ -109,7 +113,7 @@ namespace ChemistryClass.UI {
                 Color.White,
                 0f,
                 Vector2.Zero,
-                scale * Main.UIScale,
+                scale,
                 SpriteEffects.None,
                 1f
 
@@ -126,7 +130,7 @@ namespace ChemistryClass.UI {
                     Color.White,
                     0f,
                     Vector2.Zero,
-                    scale * Main.UIScale,
+                    scale,
                     SpriteEffects.None,
                     1f
 
@@ -143,7 +147,7 @@ namespace ChemistryClass.UI {
                 Color.White,
                 0f,
                 Vector2.Zero,
-                scale * Main.UIScale,
+                scale,
                 SpriteEffects.None,
                 1f
 

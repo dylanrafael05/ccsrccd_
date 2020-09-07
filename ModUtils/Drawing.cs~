@@ -16,11 +16,6 @@ using Terraria.ModLoader;
 namespace ChemistryClass.ModUtils {
     public static partial class Drawing {
 
-        public static float GetFixedScale(float orig, int width)
-            => (float)Math.Ceiling(orig * width) / width;
-        public static Vector2 GetFixedScale(Vector2 orig, Vector2 size)
-            => new Vector2(GetFixedScale(orig.X, CCUtils.RoundToInt(size.X)), GetFixedScale(orig.Y, CCUtils.RoundToInt(size.Y)));
-
         public static Vector2 OffsetBy(this Vector2 vec, float x, float y) {
             vec.X += x;
             vec.Y += y;
@@ -54,9 +49,9 @@ namespace ChemistryClass.ModUtils {
         public static void DrawFixed(this SpriteBatch spriteBatch, Texture2D texture, Vector2 position, Rectangle? sourceRectangle, Color color)
             => spriteBatch.Draw(texture, position.Floor(), sourceRectangle, color);
         public static void DrawFixed(this SpriteBatch spriteBatch, Texture2D texture, Vector2 position, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects spriteEffects, float layerDepth)
-            => spriteBatch.Draw(texture, position.Floor(), sourceRectangle, color, rotation, origin, GetFixedScale(scale, texture.Width), spriteEffects, layerDepth);
+            => spriteBatch.Draw(texture, position.Floor(), sourceRectangle, color, rotation, origin, scale, spriteEffects, layerDepth);
         public static void DrawFixed(this SpriteBatch spriteBatch, Texture2D texture, Vector2 position, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects spriteEffects, float layerDepth)
-            => spriteBatch.Draw(texture, position.Floor(), sourceRectangle, color, rotation, origin, GetFixedScale(scale, texture.Size()), spriteEffects, layerDepth);
+            => spriteBatch.Draw(texture, position.Floor(), sourceRectangle, color, rotation, origin, scale, spriteEffects, layerDepth);
 
         public static void DrawRect(this SpriteBatch spriteBatch, Vector2 position, Vector2 size, Color color)
             => spriteBatch.Draw(Main.magicPixel, new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y), color);
@@ -79,7 +74,7 @@ namespace ChemistryClass.ModUtils {
             => RectFromCorners(a.ToVector2(), b.ToVector2());
 
         public static Rectangle CenteredRescale(this Rectangle rect, float xFac, float yFac)
-            => new Rectangle(rect.X + (int)(rect.Width * (1 - xFac)) / 2, rect.Y + (int)(rect.Height * (1 - yFac)) / 2, (int)(rect.Width * xFac), (int)(rect.Height * yFac));
+            => new Rectangle(rect.X + (int)(rect.Width * xFac) / 2, rect.Y + (int)(rect.Height * yFac) / 2, (int)(rect.Width * xFac), (int)(rect.Height * yFac));
         public static Rectangle CenteredRescale(this Rectangle rect, Vector2 fac)
             => rect.CenteredRescale(fac.X, fac.Y);
         public static Rectangle CenteredRescale(this Rectangle rect, float fac)
@@ -524,9 +519,9 @@ namespace ChemistryClass.ModUtils {
         public static void Draw(this SpriteBatch spriteBatch, Texture2D texture, Rectangle destinationRectangle, TextureFramer framer, int frame, Color color, float rotation, Vector2 origin, SpriteEffects effects, float layerDepth)
             => spriteBatch.Draw(texture, destinationRectangle, framer.GetFrame(frame), color, rotation, origin, effects, layerDepth);
         public static void Draw(this SpriteBatch spriteBatch, Texture2D texture, Vector2 position, TextureFramer framer, int frame, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float layerDepth)
-            => spriteBatch.Draw(texture, position, framer.GetFrame(frame), color, rotation, origin, GetFixedScale(scale, texture.Width), effects, layerDepth);
+            => spriteBatch.Draw(texture, position, framer.GetFrame(frame), color, rotation, origin, scale, effects, layerDepth);
         public static void Draw(this SpriteBatch spriteBatch, Texture2D texture, Vector2 position, TextureFramer framer, int frame, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects effects, float layerDepth)
-            => spriteBatch.Draw(texture, position, framer.GetFrame(frame), color, rotation, origin, GetFixedScale(scale, texture.Size()), effects, layerDepth);
+            => spriteBatch.Draw(texture, position, framer.GetFrame(frame), color, rotation, origin, scale, effects, layerDepth);
 
         public static void DrawFixed(this SpriteBatch spriteBatch, Texture2D texture, Vector2 position, TextureFramer framer, int frame, Color color)
             => spriteBatch.Draw(texture, position.Floor(), framer, frame, color);

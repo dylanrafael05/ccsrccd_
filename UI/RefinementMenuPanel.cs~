@@ -7,13 +7,9 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using ChemistryClass.ModUtils;
 using System.Security.Cryptography.X509Certificates;
-using Terraria.ModLoader;
 
 namespace ChemistryClass.UI {
     public class RefinementMenuPanel : DragablePanel {
-
-        public static Texture2D chemItemBG = ModContent.GetTexture("ChemistryClass/UI/ChemItemSlot");
-        public static Texture2D matrItemBG = ModContent.GetTexture("ChemistryClass/UI/MatrItemSlot");
 
         public UIText title;
         public UIItemSlot chemHolder;
@@ -25,8 +21,8 @@ namespace ChemistryClass.UI {
 
         public override void OnInitialize() {
 
-            Width = new StyleDimension(Main.screenWidth / 7f * Main.UIScale, 0);
-            Height = new StyleDimension(Main.screenHeight / 7f * Main.UIScale, 0);
+            Width = new StyleDimension(Main.screenWidth / 7f, 0);
+            Height = new StyleDimension(Main.screenHeight / 7f, 0);
 
             title = new UIText("Chemical Refinement", 0.9f) {
 
@@ -48,11 +44,7 @@ namespace ChemistryClass.UI {
 
                 tossContentsOnClose = true,
                 VAlign = 0.75f,
-                HAlign = 0.5f,
-                validItem = i => {
-                    if (!chemHolder.Item.IsChemistry()) return false;
-                    return chemHolder.Item.Chemistry().refinementData.Exists(it => it.itemID == i.type);
-                }
+                HAlign = 0.5f
 
             };
 
@@ -76,7 +68,7 @@ namespace ChemistryClass.UI {
 
                 HAlign = 0.5f,
                 VAlign = 0.87f,
-                validItem = i => !i.IsChemistry()
+                validItem = i => true
 
             };
 
@@ -89,13 +81,9 @@ namespace ChemistryClass.UI {
             Append(autoRefineTitle);
             Append(autoRefineSlot);
 
-            exemptElements = new[] { 0, 4 };
-
         }
 
         public override void Update(GameTime gameTime) {
-
-            base.Update(gameTime);
 
             if (Main.dedServ) return;
 
@@ -104,20 +92,16 @@ namespace ChemistryClass.UI {
             autoRefineTitle.toggled = !cPlayer.autoRefine;
             autoRefineSlot.Visible = cPlayer.autoRefine;
 
-            Width = new StyleDimension(Main.screenWidth / 7f * Main.UIScale, 0);
+            Width = new StyleDimension(Main.screenWidth / 7f, 0);
             Height = cPlayer.autoRefine ?
-                        new StyleDimension(5 * Main.screenHeight / 21f * Main.UIScale, 0) :
-                        new StyleDimension(Main.screenHeight / 7f * Main.UIScale, 0);
+                        new StyleDimension(5 * Main.screenHeight / 21f, 0) :
+                        new StyleDimension(Main.screenHeight / 7f, 0);
 
             title.VAlign = cPlayer.autoRefine ? 0.05f * 0.4f : 0.05f;
             matrHolder.VAlign = chemHolder.VAlign = button.VAlign =
                 cPlayer.autoRefine ?
                     0.75f * 0.4f :
                     0.75f;
-
-            chemHolder.backTexture = chemHolder.Item.IsAir ? chemItemBG : Main.inventoryBack9Texture;
-            matrHolder.backTexture = matrHolder.Item.IsAir ? matrItemBG : Main.inventoryBack9Texture;
-            autoRefineSlot.backTexture = autoRefineSlot.Item.IsAir ? matrItemBG : Main.inventoryBack9Texture;
 
         }
 

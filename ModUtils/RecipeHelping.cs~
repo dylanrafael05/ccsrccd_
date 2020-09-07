@@ -49,11 +49,11 @@ namespace ChemistryClass.ModUtils {
             }
         }
 
-        public static void SetRecipe(this ModItem item, int? requireTile = TileID.WorkBenches, int amount = 1, params RecipeEntry[] items) {
+        public static void SetRecipe(this ModItem item, int requireTile = TileID.WorkBenches, int amount = 1, params RecipeEntry[] items) {
 
             ModRecipe recipe = new ModRecipe(item.mod);
 
-            if(requireTile.HasValue) recipe.AddTile(requireTile.Value);
+            recipe.AddTile(requireTile);
             foreach (var ing in items) recipe.AddEntry(ing);
 
             recipe.SetResult(item.item.type, amount);
@@ -62,11 +62,11 @@ namespace ChemistryClass.ModUtils {
 
         }
 
-        public static void BuildRecipe(Mod mod, int resultID, int? requireTile = TileID.WorkBenches, int amount = 1, params RecipeEntry[] items) {
+        public static void BuildRecipe(Mod mod, int resultID, int requireTile = TileID.WorkBenches, int amount = 1, params RecipeEntry[] items) {
 
             ModRecipe recipe = new ModRecipe(mod);
 
-            if (requireTile.HasValue) recipe.AddTile(requireTile.Value);
+            recipe.AddTile(requireTile);
             foreach (var ing in items) recipe.AddEntry(ing);
 
             recipe.SetResult(resultID, amount);

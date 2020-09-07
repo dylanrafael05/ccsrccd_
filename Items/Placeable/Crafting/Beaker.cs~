@@ -35,8 +35,7 @@ namespace ChemistryClass.Items.Placeable.Crafting {
         public override void AddRecipes() {
 
             this.SetRecipe(TileID.Furnaces, 2, (ItemID.Glass, 1));
-            this.SetRecipe(TileID.GlassKiln, 1, (ItemID.Bottle, 1));
-            RecipeHelping.BuildRecipe(mod, ItemID.Bottle, TileID.GlassKiln, 1, (item.type, 1));
+            this.SetRecipe()
 
         }
 

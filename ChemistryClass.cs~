@@ -209,7 +209,7 @@ namespace ChemistryClass {
         //Update unpaused count
         public override void PostUpdateEverything() {
 
-            if (!Main.gamePaused) unchecked { _unpausedUpdateCount++; }
+            if (!Main.gamePaused) _unpausedUpdateCount++;
 
             if (_unpausedUpdateCount == ulong.MaxValue)
                 _unpausedUpdateCount = 0;
@@ -222,7 +222,7 @@ namespace ChemistryClass {
             if (Main.gameMenu || Main.menuMultiplayer ||
                 Main.menuServer || Main.dedServ) return;
 
-            if (Main.LocalPlayer.Chemistry().zoneSulfur) {
+            if (Main.LocalPlayer.GetModPlayer<ChemistryClassPlayer>().zoneSulfur) {
 
                 music = MusicID.Eerie;
                 priority = MusicPriority.BiomeHigh;

@@ -476,7 +476,7 @@ namespace ChemistryClass {
             if (PurityCloseToLandmark && purity != previousCallout) {
 
                 Rectangle spawn = new Rectangle(0, 0, 20, 20);
-                Vector2 position = player.Center;
+                Vector2 position = player.position;
                 spawn.X = (int)position.X;
                 spawn.Y = (int)(position.Y - (ChemistryClass.Configuration.DecayDisplay == DecayDisplayMode.Both ? Main.screenHeight / 18f : 0));
 

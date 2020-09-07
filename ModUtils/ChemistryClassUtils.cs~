@@ -222,6 +222,18 @@ namespace ChemistryClass.ModUtils {
                     || curTile.wall == WallID.Cave7Unsafe || curTile.wall == WallID.Cave8Unsafe
                     || curTile.wall == WallID.CaveWall || curTile.wall == WallID.CaveWall2;
 
+        public static bool solid(this Tile tile)
+            => Main.tileSolid[tile.type];
+
+        public static bool solidTop(this Tile tile)
+           => Main.tileSolidTop[tile.type];
+
+        public static bool axe(this Tile tile)
+           => Main.tileAxe[tile.type];
+
+        public static bool hammer(this Tile tile)
+           => Main.tileHammer[tile.type];
+
         //ROTATIONS
         public static float ShortestRotTo(float from, float to) {
 

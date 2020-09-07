@@ -4,9 +4,7 @@ using ChemistryClass.ModUtils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using System.Linq;
 
 namespace ChemistryClass.Projectiles.LatePHMFL {
     public class CompressedEnergy : ModProjectilePlus {
@@ -23,7 +21,7 @@ namespace ChemistryClass.Projectiles.LatePHMFL {
 
         public override void SafeSetDefaults() {
 
-            projectile.tileCollide = false;
+            projectile.tileCollide = true;
 
             projectile.width =
             projectile.height = 32;
@@ -44,15 +42,14 @@ namespace ChemistryClass.Projectiles.LatePHMFL {
             }
 
             if (FadeState == 1) {
-                projectile.alpha += (CCUtils.PingPong((int)ChemistryClass.UnpausedUpdateCount, 24) - 12) / 3;
-                if(ActiveCounter % 17 == 0) {
+                projectile.alpha += (CCUtils.PingPong((int)ChemistryClass.UnpausedUpdateCount, 12) - 6) / 3;
+                if(ChemistryClass.TimeIsMultOf(17)) {
                     int dmg = OwningPlayer.HeldItem.type == ModContent.ItemType<EnergyCompressor>() ? OwningPlayer.HeldItem.Chemistry().currentDamage : 5;
                     Projectile.NewProjectile(
                         projectile.Center, Main.rand.NextVector2CircularEdge(Main.rand.NextFloat(6, 8), Main.rand.NextFloat(6, 8)),
                         ModContent.ProjectileType<SmallLightning>(), dmg, 0.5f, projectile.owner
                         );
                     Shots++;
-                    Main.PlaySound(SoundID.Item12.WithVolume(0.2f).WithPitchVariance(0.5f), projectile.Center);
                 }
                 if (Shots > 6) FadeState = 2;
             }
@@ -63,13 +60,18 @@ namespace ChemistryClass.Projectiles.LatePHMFL {
             }
 
             if (projectile.alpha < 150)
-                Lighting.AddLight(projectile.Center, LightningBase.LineColor.ToVector3());
+            Lighting.AddLight(projectile.Center, LightningBase.LineColor.ToVector3());
 
             projectile.velocity *= 0.98f;
-            projectile.rotation += projectile.velocity.X / 20f;
 
-            if( projectile.GetContainedTiles().Any(t => t.inpassable()) )
-                FadeState = 2;
+        }
+
+        public override bool OnTileCollide(Vector2 oldVelocity) {
+
+            projectile.velocity = oldVelocity;
+            FadeState = 2;
+
+            return false;
 
         }
 

@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ChemistryClass.Items.Weaponry.LatePHM {
-    public class EnergyCompressorStaff : ChemistryClassItem {
+    public class EnergyCompressor : ChemistryClassItem {
 
         public override void SetStaticDefaults() {
 
@@ -23,7 +23,7 @@ namespace ChemistryClass.Items.Weaponry.LatePHM {
 
         public override void SafeSetDefaults() {
 
-            item.damage = 18;
+            item.damage = 20;
             item.crit = 0;
             item.knockBack = 2;
 

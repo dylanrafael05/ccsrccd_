@@ -38,7 +38,7 @@ namespace ChemistryClass.Projectiles {
         public virtual bool UseDisco => false;
         public virtual float DiscoMult => 0.2f;
 
-        public virtual bool MakeShockSound => projectile.hostile;
+        public virtual bool MakeShockSound => projectile.friendly;
 
         public static Color LineColor { get; protected set; } = new Color(100, 255, 255, 180);
         public static Color MidColor { get; protected set; } = new Color(255, 255, 255, 200);
@@ -191,7 +191,7 @@ namespace ChemistryClass.Projectiles {
         public sealed override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
             if (LastHitTimer > 1) {
                 Collisions++;
-                if(MakeShockSound) Main.PlaySound(SoundID.Item93.WithVolume(0.8f));
+                Main.PlaySound(SoundID.Item93.WithVolume(0.8f));
             }
             LastHitTimer = 0;
         }
@@ -199,7 +199,7 @@ namespace ChemistryClass.Projectiles {
         public sealed override void OnHitPlayer(Player target, int damage, bool crit) {
             if (LastHitTimer > 1) {
                 Collisions++;
-                if (MakeShockSound) Main.PlaySound(SoundID.Item93.WithVolume(0.8f));
+                Main.PlaySound(SoundID.Item93.WithVolume(0.8f));
             }
             LastHitTimer = 0;
         }

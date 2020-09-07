@@ -9,53 +9,56 @@ using Terraria;
 namespace ChemistryClass.UI {
     public class DragablePanel : UIPanel {
 
-        private Vector2 offset;
-        public bool dragging;
+        private Vector2 offset = Vector2.Zero;
+        public bool dragging = false;
+        public int[] exemptElements = new int[0];
 
         public override void MouseDown(UIMouseEvent evt) {
 
-            if (Elements.Any(el => el.ContainsMouse())) return;
+            for (int i = 0; i < Elements.Count; i++) {
+                if (exemptElements.Contains(i)) continue;
+                if (Elements[i].ContainsMouse()) return;
+            }
+
+            dragging = true;
+            offset = new Vector2(evt.MousePosition.X - Left.Pixels, evt.MousePosition.Y - Top.Pixels);
 
             base.MouseDown(evt);
-            dragging = true;
-
-            offset = new Vector2(evt.MousePosition.X - Left.Pixels, evt.MousePosition.Y - Top.Pixels);
 
         }
 
         public override void MouseUp(UIMouseEvent evt) {
 
-            base.MouseUp(evt);
             dragging = false;
-
-        }
-
-        private void ClampAndRecalculate() {
-
-            Rectangle parentSpace = Parent.GetDimensions().ToRectangle();
-            if( !GetDimensions().ToRectangle().Intersects(parentSpace) ) {
-
-                CCUtils.Clamp(ref Left.Pixels, 0, parentSpace.Left - Width.Pixels);
-                CCUtils.Clamp(ref Top.Pixels, 0, parentSpace.Bottom - Height.Pixels);
-
-            }
-
-            Recalculate();
+            base.MouseUp(evt);
 
         }
 
         public override void Update(GameTime gameTime) {
 
-            if( this.ContainsMouse() ) {
+            if (this.ContainsMouse()) {
+
                 Main.LocalPlayer.mouseInterface = true;
+                Main.isMouseLeftConsumedByUI = true;
+
             }
 
             if (dragging) {
+
                 Left.Set(Main.mouseX - offset.X, 0);
                 Top.Set(Main.mouseY - offset.Y, 0);
-            }
 
-            ClampAndRecalculate();
+                Rectangle parentSpace = Parent.GetDimensions().ToRectangle();
+                if (!parentSpace.Contains(GetDimensions().ToRectangle())) {
+
+                    CCUtils.Clamp(ref Left.Pixels, 0, parentSpace.Left - Width.Pixels);
+                    CCUtils.Clamp(ref Top.Pixels, 0, parentSpace.Bottom - Height.Pixels);
+
+                }
+
+                Recalculate();
+
+            }
 
         }
 

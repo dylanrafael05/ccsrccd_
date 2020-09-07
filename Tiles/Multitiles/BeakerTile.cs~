@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
-using Microsoft.Xna.Framework;
-using Steamworks;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -25,10 +23,6 @@ namespace ChemistryClass.Tiles.Multitiles {
             TileObjectData.newTile.RandomStyleRange = 2;
 
             TileObjectData.addTile(Type);
-
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Beaker");
-            AddMapEntry(new Color(0x80, 0xFF, 0xDF), name);
 
             //this.drop = ModContent.ItemType<Items.Placeable.Beaker>();
 
