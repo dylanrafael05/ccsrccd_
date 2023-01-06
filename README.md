@@ -1,2 +1,2 @@
 # ChemistryClass
-a simple mod uwu
+A simple mod for Terraria
